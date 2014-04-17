@@ -3,23 +3,16 @@
 <!--[if IE 7]>    <html class="no-js ie7" lang="en"> <![endif]-->
 <!--[if IE 8]>    <html class="no-js ie8" lang="en"> <![endif]-->
 <!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
-<script>  
-if (/*@cc_on!@*/false && document.documentMode === 10) {
-    document.documentElement.className+=' ie10';
-}
-</script>
   <head>
     <meta charset="utf-8">
-    <!--[if lt IE 9]>
-      <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.6.2/html5shiv.js"></script>
-      <script src="//cdnjs.cloudflare.com/ajax/libs/respond.js/1.1.0/respond.min.js"></script>
-    <![endif]-->
-    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <script src="dependencies/jquery/dist/jquery.min.js"></script>
     <script src="https://maps.googleapis.com/maps/api/js?sensor=false" type="text/javascript"></script>
-    <script src="src/simplegmaps.js"></script>
+    <script src="dependencies/kitUtils/kitUtils.js"></script>
+    <script src="src/jquery.simplegmaps.js"></script>
     <script>
     jQuery(document).ready(function ($) {
-      simplegmaps.init();
+      $('#google-map-route').simplegmaps();
+
     });
     </script>
 
@@ -49,13 +42,13 @@ if (/*@cc_on!@*/false && document.documentMode === 10) {
         <div class="col-md-5 col-lg-5 col-xs-12 col-sm-12">
           <div class="form-group">
              <label for="GMRoute-Fromaddress">From address</label>
-             <input type="email" class="form-control GMRoute-Fromaddress" id="GMRoute-Fromaddress" placeholder="Enter address" value="Stortorget 9, Malmö, Sweden">
+             <input type="email" class="form-control" id="simplegmaps-fromaddress" placeholder="Enter address" value="Stortorget 9, Malmö, Sweden">
            </div>
         </div>
         <div class="col-md-2 col-lg-2 col-xs-12 col-sm-12">
           <div class="form-group">
-             <label for="GMRoute-TravelMode">Travel Mode</label>
-            <select class="form-control" id="GMRoute-TravelMode">
+             <label for="simplegmaps-travelmode">Travel Mode</label>
+            <select class="form-control" id="simplegmaps-travelmode">
               <option value="DRIVING">Driving</option>
               <option value="WALKING">Walking</option>
               <option value="BICYCLING">Bicycling</option>
@@ -65,7 +58,7 @@ if (/*@cc_on!@*/false && document.documentMode === 10) {
 
         <div class="col-md-2 col-lg-2 col-xs-12 col-sm-12">
           <div class="form-group">
-            <button type="submit" class="btn btn-primary GMRoute-Submit" data-target="google-map-route">Get route</button>
+            <button type="submit" id="simplegmaps-getroute" class="btn btn-primary">Get route</button>
           </div>
         </div>
 

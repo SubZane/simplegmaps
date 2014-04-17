@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]> <html class="no-js ie6" lang="en"> <![endif]-->
+<!--[if IE 7]>    <html class="no-js ie7" lang="en"> <![endif]-->
+<!--[if IE 8]>    <html class="no-js ie8" lang="en"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
+  <head>
+    <meta charset="utf-8">
+    <script src="dependencies/jquery/dist/jquery.min.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?sensor=false" type="text/javascript"></script>
+    <script src="dependencies/kitUtils/kitUtils.js"></script>
+    <script src="src/jquery.simplegmaps.js"></script>
+    <script>
+    jQuery(document).ready(function ($) {
+      $('.google-map').simplegmaps({
+        externalLink: '.maplink'
+      });
+    });
+    </script>
+
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="styles/style.css">
+    <title>Demo implementation of Google Maps</title>
+  </head>
+  <body>
+    <div class="container">
+      <div class="row">
+        <div class="col-md-9 col-lg-9 col-xs-12 col-sm-12">
+          <div id="simplemap-1" class="google-map">
+            <div class="map-marker" data-title="Lorem ipsum" data-latlng="55.5897407,13.012268899999981">
+              <div class="map-infowindow">
+                <h2>Lorem ipsum dolor</h2>
+                <p>Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
+              </div>
+            </div>
+            <div class="map-marker" data-title="Lorem ipsum" data-address="Sofielundsvägen 8, Malmö, Sweden"></div>
+            <div class="map-marker" data-title="Lorem ipsum" data-address="Stortorget 9, Malmö, Sweden"></div>
+            <div class="map-marker" data-title="Lorem ipsum" data-address="Djäkneagatan 4, Malmö, Sweden">
+              <div class="map-infowindow">
+                <h2>Djäknegatan</h2>
+                <p>Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
+              </div>
+            </div>
+            <div class="map-marker" data-title="Lorem ipsum" data-address="Lorensborgsvägen 3, Malmö, Sweden"></div>
+          </div>
+
+          <a class="btn btn-primary maplink" href="#">Open in new window/tab</a>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
