@@ -8,7 +8,7 @@
     <script src="dependencies/jquery/dist/jquery.min.js"></script>
     <script src="https://maps.googleapis.com/maps/api/js?sensor=false" type="text/javascript"></script>
     <script src="dependencies/kitUtils/kitUtils.js"></script>
-    <script src="src/jquery.simplegmaps.js"></script>
+    <script src="../src/jquery.simplegmaps.js"></script>
     <script>
     jQuery(document).ready(function ($) {
       $('#google-map-route').simplegmaps();
@@ -18,7 +18,7 @@
 
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="styles/style.css">
-    <title>Demo implementation of Google Maps</title>
+    <title>Demo implementation of simplegmaps</title>
   </head>
   <body>
 
@@ -26,7 +26,9 @@
 
     <div class="container">
       <div class="row">
-        <div class="col-md-9 col-lg-9 col-xs-12 col-sm-12">
+        <div class="col-md-8 col-xs-12 col-sm-12 col-md-push-2">
+          <h1>simple<span>g</span>maps using 1 marker and route</h1>
+
           <div id="google-map-route" class="google-map">
             <div class="map-marker" data-title="Lorem ipsum" data-address="Djäkneagatan 4, Malmö, Sweden">
               <div class="map-infowindow">
@@ -38,14 +40,14 @@
         </div>
       </div>
 
-      <div class="row">
-        <div class="col-md-5 col-lg-5 col-xs-12 col-sm-12">
+      <div class="row row-route">
+        <div class="col-md-4 col-xs-12 col-sm-12 col-md-push-2">
           <div class="form-group">
              <label for="GMRoute-Fromaddress">From address</label>
              <input type="email" class="form-control" id="simplegmaps-fromaddress" placeholder="Enter address" value="Stortorget 9, Malmö, Sweden">
            </div>
         </div>
-        <div class="col-md-2 col-lg-2 col-xs-12 col-sm-12">
+        <div class="col-md-2 col-xs-12 col-sm-12 col-md-push-2">
           <div class="form-group">
              <label for="simplegmaps-travelmode">Travel Mode</label>
             <select class="form-control" id="simplegmaps-travelmode">
@@ -56,7 +58,7 @@
           </div>
         </div>
 
-        <div class="col-md-2 col-lg-2 col-xs-12 col-sm-12">
+        <div class="col-md-2 col-xs-12 col-sm-12 col-md-push-2">
           <div class="form-group">
             <button type="submit" id="simplegmaps-getroute" class="btn btn-primary">Get route</button>
           </div>

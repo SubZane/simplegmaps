@@ -1,12 +1,39 @@
+body {
+	margin-top: 40px;
+	font-family: sans-serif;
+}
+
+.map-infowindow {
+	color: #000;
+}
+
+h1 {
+	font-size: 40px;
+	margin-bottom: 40px;
+}
+
+h1 span {
+	color:#D15419;
+}
+
+h1,h2,h3 {
+	font-weight: 700;
+}
+
 .google-map {
 	height: 500px;
-	margin-top: 100px;
+	border: 15px solid #efefef;
+	outline: 1px solid #000;
 }
 
 .google-map .infowindow {
 	min-width: 100px;
 	min-height: 70px;
 	padding-right: 10px;
+}
+
+.row-route {
+	margin-top: 20px;
 }
 
 .map-infowindow {
