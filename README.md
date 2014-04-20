@@ -129,7 +129,7 @@ jQuery(document).ready(function ($) {
 	  }
 	});
 });
-^^^
+```
 
 ###changelog
 ####0.2.0
