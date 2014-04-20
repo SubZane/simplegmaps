@@ -1,5 +1,6 @@
 /*
  *  Project: simplegmaps
+ *	Version: 0.2.0
  *  Description: Google Maps made simple
  *  Author: Andreas Norman <an@andreasnorman.se>
  *  License: MIT
@@ -16,6 +17,7 @@
 		TravelModes = ['DRIVING', 'WALKING', 'BICYCLING'],
 		// default options
 		defaults = {
+			debug: false,
 			MapOptions: {
 				draggable: false,
 				scrollwheel: false,
@@ -67,11 +69,10 @@
 	var bindMapLinkButton = function (instance) {
 		var markerPosition = instance.Map.markers[0].position.toString();
 		var query = '?q=' + markerPosition;
-		//console.log($.simplegmaps.Map.markers[0].position.toString());
 
-		if (kitUtils.isAndroid()) {
+		if (navigator.userAgent.toLowerCase().indexOf("android") > -1) {
 			$(instance.options.externalLink).attr('href', instance.options.AndroidMapLink + query);
-		} else if (kitUtils.isIOS()) {
+		} else if ((navigator.userAgent.match(/iPhone/i)) || (navigator.userAgent.match(/iPod/i))) {
 			$(instance.options.externalLink).attr('href', instance.options.AppleMapLink + query);
 		} else {
 			$(instance.options.externalLink).attr('href', instance.options.GenericMapLink + query);
@@ -138,7 +139,6 @@
 				map: map,
 				markers: markers
 			}
-			console.log(instance);
 			if (instance.options.mapbutton) {
 				bindMapLinkButton(instance);
 			}
@@ -216,6 +216,22 @@
 				setupRouting(this);
 			}
 		},
+
+		// TODO
+		getMarkers: function () {
+
+		},
+
+		// TODO
+		getMap: function () {
+
+		},
+
+		// TODO
+		getPosition: function () {
+
+		},
+
 
 		destroy: function () {
 			// unset Plugin data instance

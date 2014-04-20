@@ -1,9 +1,9 @@
 {
 	"name": "SimpleGMaps",
-	"version": "0.1.0-beta",
+	"version": "0.2.0",
 	"homepage": "https://github.com/SubZane/simplegmaps",
 	"authors": [
-		"Andreas Norman <andreas.norman@knowit.se>"
+		"Andreas Norman <an@andreasnorman.se>"
 	],
 	"description": "Google Maps made easy",
 	"main": "src/jquery.simplegmaps.js",
@@ -16,13 +16,9 @@
 	"license": "MIT",
 	"ignore": [
 		"**/.*",
-		"node_modules",
-		"dependencies",
-		"test",
-		"tests"
+		"node_modules"
 	],
 	"dependencies": {
-		"jquery": "1.x",
-		"kitUtils": "*"
+		"jquery": "1.x"
 	}
 }
