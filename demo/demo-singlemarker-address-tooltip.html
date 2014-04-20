@@ -6,12 +6,12 @@
   <head>
     <meta charset="utf-8">
     <script src="dependencies/jquery/dist/jquery.min.js"></script>
+
     <script src="https://maps.googleapis.com/maps/api/js?sensor=false" type="text/javascript"></script>
     <script src="../src/jquery.simplegmaps.js"></script>
     <script>
     jQuery(document).ready(function ($) {
-      $('.google-map').simplegmaps({
-        externalLink: '.maplink'
+      $('#simplemap-1').simplegmaps({
       });
     });
     </script>
@@ -25,26 +25,16 @@
       <div class="row">
         <div class="col-md-8 col-xs-12 col-sm-12 col-md-push-2">
           <h1>simple<span>g</span>maps</h1>
-          <h3>Adding multiple markers mixing latitude, longitude and addresses and infowindows on some markers</h3>
-
+          <h3>Adding 1 marker using an address and displaying an infowindow on click</h3>
           <div id="simplemap-1" class="google-map">
-            <div class="map-marker" data-title="Lorem ipsum" data-latlng="55.5897407,13.012268899999981">
+            <div class="map-marker" data-title="Remi" data-address="Remi 145 W 53rd St, New York, NY, United States">
               <div class="map-infowindow">
-                <h2>This one</h2>
-                <p>Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor. Etiam porta sem malesuada magna mollis euismod.</p>
+                <h2>Remi</h2>
+                <p>Remi 145 W 53rd St, New York, NY, United States</p>
               </div>
             </div>
-            <div class="map-marker" data-title="Lorem ipsum" data-address="Sofielundsvägen 8, Malmö, Sweden"></div>
-            <div class="map-marker" data-title="Lorem ipsum" data-address="Stortorget 9, Malmö, Sweden"></div>
-            <div class="map-marker" data-title="Lorem ipsum" data-address="Djäkneagatan 4, Malmö, Sweden">
-              <div class="map-infowindow">
-                <h2>This one</h2>
-                <p>Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor. Etiam porta sem malesuada magna mollis euismod.</p>
-              </div>
-
-            </div>
-            <div class="map-marker" data-title="Lorem ipsum" data-address="Lorensborgsvägen 3, Malmö, Sweden"></div>
           </div>
+
         </div>
       </div>
     </div>

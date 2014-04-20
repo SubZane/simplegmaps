@@ -1,5 +1,6 @@
 /*
  *  Project: simplegmaps
+ *	Version: 0.2.0
  *  Description: Google Maps made simple
  *  Author: Andreas Norman <an@andreasnorman.se>
  *  License: MIT
