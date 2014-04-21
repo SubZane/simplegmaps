@@ -8,11 +8,19 @@ I found that other scripts was too complicated to deal with and needed much scri
 
 Meet simplegmaps!
 
-###How to use it
+##Features
+* Display one or multiple markers on your map
+* Add info windows to markers with custom html markup
+* Display routes on your map
+* No scripting necessary
 
-####Usage
+##Browser Support
+* Google Chrome
+* Internet Explorer 8+
+* Firefox
+* Safari 6
 
-######Include the neccessary scripts
+##Installation
 ```html
 <!-- You'll need jquery -->
 <script src="dependencies/jquery/dist/jquery.min.js"></script>
@@ -21,6 +29,37 @@ Meet simplegmaps!
 <!-- and you'll need to include simplemaps of course! -->
 <script src="../src/jquery.simplegmaps.js"></script>
 ```
+
+##Usage
+```javascript
+$('#id_of_your_div').simplegmaps();
+```
+
+##Settings and Defaults
+```javascript
+defaults = {
+	debug: false,
+	MapOptions: {
+		draggable: false,
+		scrollwheel: false,
+		streetViewControl: false,
+		panControl: true,
+		zoomControl: true,
+		zoomControlOptions: {
+			style: 'DEFAULT'
+		}
+	},
+	getRouteButton: '#simplegmaps-getroute',
+	getTravelMode: '#simplegmaps-travelmode',
+	getFromAddress: '#simplegmaps-fromaddress'
+};
+
+```
+* `debug`: Debug mode. Not implemented yet
+* `MapOptions`: (Google Maps MapOptions)[https://developers.google.com/maps/documentation/javascript/reference?csw=1#MapOptions]
+* `getRouteButton`: ID of the button used to submit the route to the map
+* `getRouteButton`: ID of the select element to hold the travelmode data
+* `getFromAddress`: ID of the input element to hold the address to set the route start point
 
 ######Add an empty div for the map
 ```html
@@ -111,25 +150,6 @@ jQuery(document).ready(function ($) {
 });
 ```
 
-######Map Options
-You can also feed it with any map options that the Google API provieds.
-Here's an example with the default options.
-```javascript
-jQuery(document).ready(function ($) {
-  $('#simplemap').simplegmaps({
-	  MapOptions: {
-	  	draggable: false,
-	  	scrollwheel: false,
-	  	streetViewControl: false,
-	  	panControl: true,
-	  	zoomControl: true,
-	  	zoomControlOptions: {
-	  		style: 'DEFAULT'
-	  	}
-	  }
-	});
-});
-```
 
 ###changelog
 ####0.2.0
