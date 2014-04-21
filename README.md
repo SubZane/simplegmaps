@@ -107,12 +107,10 @@ You can add any html markup you wish to an info window but you need to add the c
 
 If you change any default element ID's you'll need to set some options when you initiate the map
 ```javascript
-jQuery(document).ready(function ($) {
-  $('#simplemap').simplegmaps({
-	  getRouteButton: '#simplegmaps-getroute',
-	  getTravelMode: '#simplegmaps-travelmode',
-	  getFromAddress: '#simplegmaps-fromaddress'
-	});
+$('#simplemap').simplegmaps({
+  getRouteButton: '#simplegmaps-getroute',
+  getTravelMode: '#simplegmaps-travelmode',
+  getFromAddress: '#simplegmaps-fromaddress'
 });
 ```
 
