@@ -8,11 +8,19 @@ I found that other scripts was too complicated to deal with and needed much scri
 
 Meet simplegmaps!
 
-###How to use it
+##Features
+* Display one or multiple markers on your map
+* Add info windows to markers with custom html markup
+* Display routes on your map
+* No scripting necessary
 
-####Usage
+##Browser Support
+* Google Chrome
+* Internet Explorer 8+
+* Firefox
+* Safari 6
 
-######Include the neccessary scripts
+##Installation
 ```html
 <!-- You'll need jquery -->
 <script src="dependencies/jquery/dist/jquery.min.js"></script>
@@ -22,29 +30,47 @@ Meet simplegmaps!
 <script src="../src/jquery.simplegmaps.js"></script>
 ```
 
-######Add an empty div for the map
-```html
-<div id="simplemap"></div>
-```
-
-######Initiate simplemaps
+##Usage
 ```javascript
-jQuery(document).ready(function ($) {
-  $('#simplemap').simplegmaps();
-});
+$('#id_of_your_div').simplegmaps();
 ```
 
-######Extend the map with a marker positioning it using latitude and longitude
+##Settings and Defaults
+```javascript
+defaults = {
+	MapOptions: {
+		draggable: false,
+		scrollwheel: false,
+		streetViewControl: false,
+		panControl: true,
+		zoomControl: true,
+		zoomControlOptions: {
+			style: 'DEFAULT'
+		}
+	},
+	getRouteButton: '#simplegmaps-getroute',
+	getTravelMode: '#simplegmaps-travelmode',
+	getFromAddress: '#simplegmaps-fromaddress'
+};
+
+```
+* `MapOptions`: [Google Maps MapOptions](https://developers.google.com/maps/documentation/javascript/reference?csw=1#MapOptions)
+* `getRouteButton`: ID of the button used to submit the route to the map
+* `getRouteButton`: ID of the select element to hold the travelmode data
+* `getFromAddress`: ID of the input element to hold the address to set the route start point
+
+
+##Adding markers to a map
+You can use an address or latitude and longitude to position a marker on a map using the `data` attribute.
 ```html
-<div class="map-marker" data-title="Lorem ipsum" data-latlng="55.5897407,13.012268899999981"></div>
+<div id="simplemap">
+	<div class="map-marker" data-title="Lorem ipsum" data-latlng="55.5897407,13.012268899999981"></div>
+	<div class="map-marker" data-title="Remi" data-address="Remi 145 W 53rd St, New York, NY, United States"></div>
+</div>
 ```
 
-######Position your marker using an address instead
-```html
-<div class="map-marker" data-title="Remi" data-address="Remi 145 W 53rd St, New York, NY, United States"></div>
-```
-
-######Add an infowindow to that marker
+##Adding a info window to a maker
+You can add any html markup you wish to an info window but you need to add the class `map-infowindow` to the outer element.
 ```html
 <div class="map-marker" data-title="Remi" data-address="Remi 145 W 53rd St, New York, NY, United States">
 	<div class="map-infowindow">
@@ -54,27 +80,7 @@ jQuery(document).ready(function ($) {
 </div>
 ```
 
-######Add 5 more markers to that baby!
-```html
-<div class="map-marker" data-title="Applejack Diner" data-address="Applejack Diner 1725 Broadway New York, NY 10019"></div>
-<div class="map-marker" data-title="McDonald's" data-address="McDonald's 1651 Broadway New York, NY 10019"></div>
-<div class="map-marker" data-title="Hilton Club New York" data-address="Hilton Club New York 1335 Avenue of the Americas New York, NY 10019"></div>
-<div class="map-marker" data-title="Viceroy" data-address="Viceroy New York 120 W 57th St New York, NY 10019"></div>
-<div class="map-marker" data-title="Estiatorio Milos" data-address="Estiatorio Milos 125 W 55th St New York, NY 10019"></div>
-```
-
-######Why not throw in another map as well?
-```html
-<div id="simplemap-2"></div>
-```
-You'll need to initiate the new map as well.
-```javascript
-jQuery(document).ready(function ($) {
-  $('#simplemap-2').simplegmaps();
-});
-```
-
-######You want a map that can draw a traveling route as well? Sure! No problem!
+##Adding a map with route funtionality
 ```html
 <div id="simplemap">
 	<div class="map-marker" data-title="Applejack Diner" data-address="Applejack Diner 1725 Broadway New York, NY 10019"></div>
@@ -101,35 +107,13 @@ jQuery(document).ready(function ($) {
 
 If you change any default element ID's you'll need to set some options when you initiate the map
 ```javascript
-jQuery(document).ready(function ($) {
-  $('#simplemap').simplegmaps({
-	  getRouteButton: '#simplegmaps-getroute',
-	  getTravelMode: '#simplegmaps-travelmode',
-	  externalLink: '#simplegmaps-external',
-	  getFromAddress: '#simplegmaps-fromaddress'
-	});
+$('#simplemap').simplegmaps({
+  getRouteButton: '#simplegmaps-getroute',
+  getTravelMode: '#simplegmaps-travelmode',
+  getFromAddress: '#simplegmaps-fromaddress'
 });
 ```
 
-######Map Options
-You can also feed it with any map options that the Google API provieds.
-Here's an example with the default options.
-```javascript
-jQuery(document).ready(function ($) {
-  $('#simplemap').simplegmaps({
-	  MapOptions: {
-	  	draggable: false,
-	  	scrollwheel: false,
-	  	streetViewControl: false,
-	  	panControl: true,
-	  	zoomControl: true,
-	  	zoomControlOptions: {
-	  		style: 'DEFAULT'
-	  	}
-	  }
-	});
-});
-```
 
 ###changelog
 ####0.2.0
