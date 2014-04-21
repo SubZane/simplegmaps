@@ -38,7 +38,6 @@ $('#id_of_your_div').simplegmaps();
 ##Settings and Defaults
 ```javascript
 defaults = {
-	debug: false,
 	MapOptions: {
 		draggable: false,
 		scrollwheel: false,
@@ -55,8 +54,7 @@ defaults = {
 };
 
 ```
-* `debug`: Debug mode. Not implemented yet
-* `MapOptions`: (Google Maps MapOptions)[https://developers.google.com/maps/documentation/javascript/reference?csw=1#MapOptions]
+* `MapOptions`: [Google Maps MapOptions](https://developers.google.com/maps/documentation/javascript/reference?csw=1#MapOptions)
 * `getRouteButton`: ID of the button used to submit the route to the map
 * `getRouteButton`: ID of the select element to hold the travelmode data
 * `getFromAddress`: ID of the input element to hold the address to set the route start point
