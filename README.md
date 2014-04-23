@@ -1,7 +1,7 @@
 simplegmaps v0.2.0
 ===========
 
-SimpleGMaps - Add google maps to your web without knowing squat about JavaScript
+simplegmaps - Add google maps to your web without knowing squat about JavaScript
 
 ##Background
 I found that other scripts was too complicated to deal with and needed much scripting just to set a marker on a map. I want to separate HTML markup from JavaScript as much as possible and I want the user of the script to be able to add markers to a map without writing a single line JavaScript.
