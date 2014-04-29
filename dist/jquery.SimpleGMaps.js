@@ -1,10 +1,6 @@
-/*
- *  Project: simplegmaps
- *	Version: 0.3.0
- *  Description: Google Maps made simple
- *  Author: Andreas Norman <an@andreasnorman.se>
- *  License: MIT
- */
+/*! simplegmaps - v0.2.0 - 2014-04-29
+* https://github.com/SubZane/simplegmaps
+* Copyright (c) 2014 Andreas Norman; Licensed MIT */
 (function ($, window, document, undefined) {
 
 	var pluginName = 'simplegmaps',

@@ -11,6 +11,9 @@
     <script>
     jQuery(document).ready(function ($) {
       $('#simplemap-1').simplegmaps({
+        MapOptions: {
+          styles: [{"featureType":"water","stylers":[{"visibility":"on"},{"color":"#acbcc9"}]},{"featureType":"landscape","stylers":[{"color":"#f2e5d4"}]},{"featureType":"road.highway","elementType":"geometry","stylers":[{"color":"#c5c6c6"}]},{"featureType":"road.arterial","elementType":"geometry","stylers":[{"color":"#e4d7c6"}]},{"featureType":"road.local","elementType":"geometry","stylers":[{"color":"#fbfaf7"}]},{"featureType":"poi.park","elementType":"geometry","stylers":[{"color":"#c5dac6"}]},{"featureType":"administrative","stylers":[{"visibility":"on"},{"lightness":33}]},{"featureType":"road"},{"featureType":"poi.park","elementType":"labels","stylers":[{"visibility":"on"},{"lightness":20}]},{},{"featureType":"road","stylers":[{"lightness":20}]}]
+        }
       });
     });
     </script>
@@ -24,7 +27,7 @@
       <div class="row">
         <div class="col-md-8 col-xs-12 col-sm-12 col-md-push-2">
           <h1>simple<span>g</span>maps</h1>
-          <h3>Adding 1 marker using an address</h3>
+          <h3>Adding 1 marker using an address and color scheme from <a href="http://snazzymaps.com">snazzymaps.com</a></h3>
           <div id="simplemap-1" class="google-map">
             <div class="map-marker" data-title="Remi" data-address="Remi 145 W 53rd St, New York, NY, United States"></div>
           </div>

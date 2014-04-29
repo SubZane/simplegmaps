@@ -10,7 +10,11 @@
     <script src="../dist/jquery.simplegmaps.min.js"></script>
     <script>
     jQuery(document).ready(function ($) {
-      $('#simplemap-1').simplegmaps({
+      $('#simplemap-1').simplegmaps();
+
+      $('#geoLocationButton').on('click', function(event) {
+        event.preventDefault();
+        $('#simplemap-1').simplegmaps('setGeoLocation');
       });
     });
     </script>
@@ -24,11 +28,9 @@
       <div class="row">
         <div class="col-md-8 col-xs-12 col-sm-12 col-md-push-2">
           <h1>simple<span>g</span>maps</h1>
-          <h3>Adding 1 marker using an address</h3>
-          <div id="simplemap-1" class="google-map">
-            <div class="map-marker" data-title="Remi" data-address="Remi 145 W 53rd St, New York, NY, United States"></div>
-          </div>
-
+          <h3>Geolocation by binding a button.</h3>
+          <div id="simplemap-1" class="google-map"></div>
+          <a href="#" id="geoLocationButton" class="btn btn-primary btn-large">Geolocate me dawg!</a>
         </div>
       </div>
     </div>
