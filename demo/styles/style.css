@@ -52,20 +52,23 @@ h1,h2,h3 {
 	margin-top: 25px;
 }
 
-#google-map-route-directions ul,
-#google-map-route-directions li {
-	padding: 0;
-	margin: 0;
+#simplegmaps-directions {
+	margin-bottom: 50px;
 }
 
-#google-map-route-directions li {
-	margin-bottom: 15px;
+.adp-placemark {
+ 	background: #fff;
+ 	border: none;
+	color: #000;
+	cursor: pointer;
+	margin: 10px 0;
+	vertical-align: middle;
 }
 
-#google-map-route-directions .instruction {
-
+.adp-marker {
+	margin-right: 15px;
 }
 
-#google-map-route-directions .distdur {
-
+.adp-directions {
+	width: 100%;
 }

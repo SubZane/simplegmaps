@@ -1,4 +1,4 @@
-simplegmaps v0.2.0
+simplegmaps v0.3
 ===========
 
 simplegmaps - Add google maps to your web without knowing squat about JavaScript
@@ -13,12 +13,16 @@ Meet simplegmaps!
 * Add info windows to markers with custom html markup
 * Display routes on your map
 * No scripting necessary
+* Support for traffic layers (new!)
+* Support for weather layers (new!)
+* Support for automatic geo location (new!)
+* Support for geo location on demand, by clicking a button for example (new!)
 
 ##Browser Support
 * Google Chrome
 * Internet Explorer 8+
 * Firefox
-* Safari 6
+* Safari 6+
 
 ##Installation
 ```html
@@ -38,8 +42,9 @@ $('#id_of_your_div').simplegmaps();
 ##Settings and Defaults
 ```javascript
 defaults = {
+	GeoLocation: false,
 	MapOptions: {
-		draggable: false,
+		draggable: true,
 		scrollwheel: false,
 		streetViewControl: false,
 		panControl: true,
@@ -50,14 +55,20 @@ defaults = {
 	},
 	getRouteButton: '#simplegmaps-getroute',
 	getTravelMode: '#simplegmaps-travelmode',
-	getFromAddress: '#simplegmaps-fromaddress'
+	routeDirections: '#simplegmaps-directions',
+	externalLink: '#simplegmaps-external',
+	getFromAddress: '#simplegmaps-fromaddress',
+	defaultTravelMode: 'DRIVING'
 };
 
 ```
+* `GeoLocation`: Active or deactive automatic geolocation. Default false (inactive)
 * `MapOptions`: [Google Maps MapOptions](https://developers.google.com/maps/documentation/javascript/reference?csw=1#MapOptions)
 * `getRouteButton`: ID of the button used to submit the route to the map
-* `getRouteButton`: ID of the select element to hold the travelmode data
+* `getTravelMode`: ID of the select element to hold the travelmode data
 * `getFromAddress`: ID of the input element to hold the address to set the route start point
+* `externalLink`: ID of the link element to be used when targeting a button to open up the map in a new tab. On mobile devices either Apple Maps or Google Maps app is opened instead.
+* `defaultTravelMode`: The default travel mode is nothing else specified. Choose between DRIVING, WALKING or BICYCLING
 
 
 ##Adding markers to a map
@@ -114,7 +125,78 @@ $('#simplemap').simplegmaps({
 });
 ```
 
+##Adding a map with automatic geolocation
+```html
+<div id="simplemap" class="google-map"></div>
+```
+
+```javascript
+$('#simplemap').simplegmaps({
+  GeoLocation: true
+});
+```
+
+##Adding a map with geolocation by user click
+```html
+<div id="simplemap" class="google-map"></div>
+<a href="#" id="geoLocationButton">Geolocate me dawg!</a>
+```
+
+```javascript
+$('#simplemap').simplegmaps();
+$('#geoLocationButton').on('click', function(event) {
+  event.preventDefault();
+  $('#simplemap-1').simplegmaps('setGeoLocation');
+});
+```
+
+##Adding a map with traffic and weather layer
+```html
+<div id="simplemap" class="google-map">
+  <div class="map-marker" data-title="Remi" data-address="Remi 145 W 53rd St, New York, NY, United States"></div>
+</div>
+<a href="#" id="toggleTraffic" class="btn btn-primary">Toggle Traffic Layer</a>
+<a href="#" id="toggleWeather" class="btn btn-primary">Toggle Weather Layer</a>
+```
+
+```javascript
+$('#simplemap').simplegmaps();
+
+$('#toggleTraffic').on('click', function(e) {
+  e.preventDefault();
+  $('#simplemap').simplegmaps('toggleTrafficLayer');
+});
+$('#toggleWeather').on('click', function(e) {
+  e.preventDefault();
+  $('#simplemap').simplegmaps('toggleWeatherLayer');
+});
+```
+
+##Example using snazzy maps to spice up the map style a bit
+[Snazzy Maps](http://snazzymaps.com) is a nice resource to find color and style themes for Google Maps. Snazzy Maps themes are 100% compatible with simplegmaps (as it simply works out of the box with Google Maps API).
+
+```html
+<div id="simplemap" class="google-map">
+  <div class="map-marker" data-title="Remi" data-address="Remi 145 W 53rd St, New York, NY, United States"></div>
+</div>
+```
+
+```javascript
+$('#simplemap').simplegmaps({
+  MapOptions: {
+    styles: [{"featureType":"water","stylers":[{"visibility":"on"},{"color":"#acbcc9"}]},{"featureType":"landscape","stylers":[{"color":"#f2e5d4"}]},{"featureType":"road.highway","elementType":"geometry","stylers":[{"color":"#c5c6c6"}]},{"featureType":"road.arterial","elementType":"geometry","stylers":[{"color":"#e4d7c6"}]},{"featureType":"road.local","elementType":"geometry","stylers":[{"color":"#fbfaf7"}]},{"featureType":"poi.park","elementType":"geometry","stylers":[{"color":"#c5dac6"}]},{"featureType":"administrative","stylers":[{"visibility":"on"},{"lightness":33}]},{"featureType":"road"},{"featureType":"poi.park","elementType":"labels","stylers":[{"visibility":"on"},{"lightness":20}]},{},{"featureType":"road","stylers":[{"lightness":20}]}]
+  }
+});
+```
+
 
 ###changelog
 ####0.2.0
 First public release.
+
+####0.3.0
+* Added support for traffic layer
+* Added support for weather layer
+* Added support for automatic geo location
+* Added support for geo location on demand (by clicking a button for example)
+* Added example with snazzy maps

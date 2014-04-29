@@ -1,6 +1,6 @@
 /*
  *  Project: simplegmaps
- *	Version: 0.2.0
+ *	Version: 0.3.0
  *  Description: Google Maps made simple
  *  Author: Andreas Norman <an@andreasnorman.se>
  *  License: MIT
@@ -30,6 +30,7 @@
 			GenericMapLink: 'http://www.google.com/maps',
 			getRouteButton: '#simplegmaps-getroute',
 			getTravelMode: '#simplegmaps-travelmode',
+			routeDirections: '#simplegmaps-directions',
 			externalLink: '#simplegmaps-external',
 			getFromAddress: '#simplegmaps-fromaddress',
 			defaultTravelMode: 'DRIVING'
@@ -64,15 +65,17 @@
 	};
 
 	var bindMapLinkButton = function (instance) {
-		var markerPosition = instance.Map.markers[0].position.toString();
-		var query = '?q=' + markerPosition;
+		if ($(instance.options.externalLink).length > 0) {
+			var markerPosition = instance.Map.markers[0].position.toString();
+			var query = '?q=' + markerPosition;
 
-		if (navigator.userAgent.toLowerCase().indexOf('android') > -1) {
-			$(instance.options.externalLink).attr('href', instance.options.AndroidMapLink + query);
-		} else if ((navigator.userAgent.match(/iPhone/i)) || (navigator.userAgent.match(/iPod/i))) {
-			$(instance.options.externalLink).attr('href', instance.options.AppleMapLink + query);
-		} else {
-			$(instance.options.externalLink).attr('href', instance.options.GenericMapLink + query);
+			if (navigator.userAgent.toLowerCase().indexOf('android') > -1) {
+				$(instance.options.externalLink).attr('href', instance.options.AndroidMapLink + query);
+			} else if ((navigator.userAgent.match(/iPhone/i)) || (navigator.userAgent.match(/iPod/i))) {
+				$(instance.options.externalLink).attr('href', instance.options.AppleMapLink + query);
+			} else {
+				$(instance.options.externalLink).attr('href', instance.options.GenericMapLink + query);
+			}
 		}
 	};
 
@@ -136,9 +139,7 @@
 				map: map,
 				markers: markers
 			};
-			if (instance.options.mapbutton) {
-				bindMapLinkButton(instance);
-			}
+			bindMapLinkButton(instance);
 			if (instance.options.GeoLocation) {
 				geoLocation(instance.Map.map);
 			}
@@ -150,7 +151,8 @@
 		var markers = instance.Map.markers;
 
 		instance.directionsDisplay.setMap(instance.Map.map);
-		//instance.directionsDisplay.setPanel(document.getElementById("google-map-route-directions"));
+		console.log(instance.options.routeDirections);
+		instance.directionsDisplay.setPanel($(instance.options.routeDirections)[0]);
 
 		var request = {
 			origin: from,
@@ -209,6 +211,30 @@
 		}
 	};
 
+	var toggleTrafficLayer = function (instance) {
+		if ((instance.trafficLayer) && (instance.trafficLayer.map !== null)) {
+			instance.trafficLayer.setMap(null);
+		} else {
+			instance.trafficLayer = new google.maps.TrafficLayer();
+			instance.trafficLayer.setMap(instance.Map.map);
+		}
+	};
+
+	var toggleWeatherLayer = function (instance) {
+		if (((instance.weatherLayer) && (instance.weatherLayer.map !== null)) || ((instance.instancecloudLayer) && (instance.instancecloudLayer.map !== null))) {
+			instance.cloudLayer.setMap(null);
+			instance.weatherLayer.setMap(null);
+		} else {
+			instance.weatherLayer = new google.maps.weather.WeatherLayer({
+				temperatureUnits: google.maps.weather.TemperatureUnit.FAHRENHEIT
+			});
+			instance.weatherLayer.setMap(instance.Map.map);
+
+			instance.cloudLayer = new google.maps.weather.CloudLayer();
+			instance.cloudLayer.setMap(instance.Map.map);
+		}
+	};
+
 	var handleNoGeolocation = function (map, errorFlag) {
 		var content;
 		if (errorFlag) {
@@ -259,12 +285,20 @@
 
 		// TODO
 		getMarkers: function () {
-
+			return this.Map.map;
 		},
 
 		// TODO
 		getMap: function () {
+			return this.Map.map;
+		},
 
+		toggleWeatherLayer: function () {
+			toggleWeatherLayer(this);
+		},
+
+		toggleTrafficLayer: function () {
+			toggleTrafficLayer(this);
 		},
 
 		// TODO
