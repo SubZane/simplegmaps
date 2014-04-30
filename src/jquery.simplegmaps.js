@@ -1,6 +1,6 @@
 /*
  *  Project: simplegmaps
- *	Version: 0.3.0
+ *	Version: 0.3.1
  *  Description: Google Maps made simple
  *  Author: Andreas Norman <an@andreasnorman.se>
  *  License: MIT
@@ -132,7 +132,9 @@
 
 		// We need to wait for Google to locate and place all markers
 		google.maps.event.addListenerOnce(map, 'idle', function () {
-			zoomToFitBounds(map, markers);
+			if (markers.length > 0) {
+				zoomToFitBounds(map, markers);
+			}
 
 			//Register map and its markers to class variable
 			instance.Map = {

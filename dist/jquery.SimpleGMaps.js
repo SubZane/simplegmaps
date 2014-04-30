@@ -1,4 +1,4 @@
-/*! simplegmaps - v0.2.0 - 2014-04-29
+/*! simplegmaps - v0.2.0 - 2014-04-30
 * https://github.com/SubZane/simplegmaps
 * Copyright (c) 2014 Andreas Norman; Licensed MIT */
 (function ($, window, document, undefined) {
@@ -128,7 +128,9 @@
 
 		// We need to wait for Google to locate and place all markers
 		google.maps.event.addListenerOnce(map, 'idle', function () {
-			zoomToFitBounds(map, markers);
+			if (markers.length > 0) {
+				zoomToFitBounds(map, markers);
+			}
 
 			//Register map and its markers to class variable
 			instance.Map = {
