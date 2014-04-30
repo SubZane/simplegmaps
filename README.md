@@ -200,3 +200,6 @@ First public release.
 * Added support for automatic geo location
 * Added support for geo location on demand (by clicking a button for example)
 * Added example with snazzy maps
+
+####0.3.1
+* FIX: Will no longer autofit when no markers has been added.
