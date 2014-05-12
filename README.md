@@ -203,3 +203,8 @@ First public release.
 
 ####0.3.1
 * FIX: Will no longer autofit when no markers has been added.
+
+####0.3.2
+* FIX: Error occured when no markers was placed.
+* FIX: MapOptions.Center did work as expected.
+* FIX: Noticed that the zoom property of MapOptions was mandatory. Added fallback to default zoom setting.
