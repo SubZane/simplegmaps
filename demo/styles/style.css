@@ -26,6 +26,11 @@ h1,h2,h3 {
 	outline: 1px solid #000;
 }
 
+.google-map.fs {
+	height: 800px;
+	width: 1800px;
+}
+
 .google-map .infowindow {
 	min-width: 100px;
 	min-height: 70px;

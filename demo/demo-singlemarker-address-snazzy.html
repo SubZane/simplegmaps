@@ -12,12 +12,85 @@
     jQuery(document).ready(function ($) {
       $('#simplemap-1').simplegmaps({
         MapOptions: {
-          styles: [{"featureType":"water","stylers":[{"visibility":"on"},{"color":"#acbcc9"}]},{"featureType":"landscape","stylers":[{"color":"#f2e5d4"}]},{"featureType":"road.highway","elementType":"geometry","stylers":[{"color":"#c5c6c6"}]},{"featureType":"road.arterial","elementType":"geometry","stylers":[{"color":"#e4d7c6"}]},{"featureType":"road.local","elementType":"geometry","stylers":[{"color":"#fbfaf7"}]},{"featureType":"poi.park","elementType":"geometry","stylers":[{"color":"#c5dac6"}]},{"featureType":"administrative","stylers":[{"visibility":"on"},{"lightness":33}]},{"featureType":"road"},{"featureType":"poi.park","elementType":"labels","stylers":[{"visibility":"on"},{"lightness":20}]},{},{"featureType":"road","stylers":[{"lightness":20}]}]
+          styles: [{
+        "stylers": [{
+            "visibility": "off"
+        }]
+    }, {
+        "featureType": "road",
+            "stylers": [{
+            "visibility": "on"
+        }, {
+            "color": "#ffffff"
+        }]
+    }, {
+        "featureType": "road.arterial",
+            "stylers": [{
+            "visibility": "on"
+        }, {
+            "color": "#fee379"
+        }]
+    }, {
+        "featureType": "road.highway",
+            "stylers": [{
+            "visibility": "on"
+        }, {
+            "color": "#fee379"
+        }]
+    }, {
+        "featureType": "landscape",
+            "stylers": [{
+            "visibility": "on"
+        }, {
+            "color": "#f3f4f4"
+        }]
+    }, {
+        "featureType": "water",
+            "stylers": [{
+            "visibility": "on"
+        }, {
+            "color": "#7fc8ed"
+        }]
+    }, {}, {
+        "featureType": "road",
+            "elementType": "labels.text.fill",
+            "stylers": [{
+            "color": "#000000",
+            "visibility": "off"
+        }]
+    }, {
+        "featureType": "poi.park",
+            "elementType": "geometry.fill",
+            "stylers": [{
+            "visibility": "on"
+        }, {
+            "color": "#83cead"
+        }]
+    }, {
+        "elementType": "labels.text.fill",
+            "stylers": [{
+                "color": "#000000",
+            "visibility": "on"
+        }]
+    }, {
+        "elementType": "labels.text.stroke",
+            "stylers": [{
+                "color": "transparent",
+            "visibility": "on"
+        }]
+    }, {
+        "featureType": "landscape.man_made",
+            "elementType": "geometry",
+            "stylers": [{
+            "weight": 0.9
+        }, {
+            "visibility": "off"
+        }]
+    }]
         }
       });
     });
     </script>
-
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="styles/style.css">
     <title>Demo implementation of simplegmaps</title>

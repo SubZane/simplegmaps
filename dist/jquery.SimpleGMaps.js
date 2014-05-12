@@ -1,4 +1,4 @@
-/*! simplegmaps - v0.2.0 - 2014-04-30
+/*! simplegmaps - v0.2.0 - 2014-05-12
 * https://github.com/SubZane/simplegmaps
 * Copyright (c) 2014 Andreas Norman; Licensed MIT */
 (function ($, window, document, undefined) {
@@ -13,6 +13,7 @@
 			GeoLocation: false,
 			MapOptions: {
 				draggable: true,
+				zoom: 8,
 				scrollwheel: false,
 				streetViewControl: false,
 				panControl: true,
@@ -80,7 +81,13 @@
 		var geocoder = new google.maps.Geocoder();
 		var markers = [];
 		var mapInData = mapEl.clone();
-		var map = new google.maps.Map(mapEl[0], instance.options.MapOptions); // We need [0] to get the html element instead of jQery object 
+
+		var mapOptions = {
+			zoom: 8,
+			center: new google.maps.LatLng(-34.397, 150.644)
+		};
+
+		var map = new google.maps.Map(mapEl[0], instance.options.MapOptions); // We need [0] to get the html element instead of jQery object
 
 		mapInData.find('div.map-marker').each(function (i) {
 			if ($(this).attr('data-latlng')) {
@@ -130,6 +137,10 @@
 		google.maps.event.addListenerOnce(map, 'idle', function () {
 			if (markers.length > 0) {
 				zoomToFitBounds(map, markers);
+			} else if (!instance.options.MapOptions.center) {
+				var bounds = new google.maps.LatLngBounds();
+				map.fitBounds(bounds);
+				map.setCenter(bounds.getCenter());
 			}
 
 			//Register map and its markers to class variable
@@ -264,6 +275,16 @@
 		init: function (options) {
 			// extend options ( http://api.jquery.com/jQuery.extend/ )
 			$.extend(this.options, options);
+
+			// Need to parse the latlng position
+			if (this.options.MapOptions.center) {
+				this.options.MapOptions.center = parseLatLng(this.options.MapOptions.center);
+			}
+
+			// If zoom property missing, add it, or else MapOptions will fail.
+			if (!this.options.MapOptions.zoom) {
+				this.options.MapOptions.zoom = 8;
+			}
 
 			// Draw map and set markers
 			drawMap(this, this.element);
