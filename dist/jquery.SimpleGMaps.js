@@ -94,7 +94,8 @@
 				var marker = new google.maps.Marker({
 					map: map,
 					title: $(this).data('title'),
-					position: parseLatLng($(this).data('latlng'))
+					position: parseLatLng($(this).data('latlng')),
+					icon: $(this).data('icon')
 				});
 				if ($(this).has('div.map-infowindow').length > 0) {
 					var infowindow = new google.maps.InfoWindow({
@@ -115,7 +116,8 @@
 						var marker = new google.maps.Marker({
 							map: map,
 							title: currentMarkerData.data('title'),
-							position: results[0].geometry.location
+							position: results[0].geometry.location,
+							icon: currentMarkerData.data('icon')
 						});
 						if (currentMarkerData.has('div.map-infowindow').length > 0) {
 							var infowindow = new google.maps.InfoWindow({
@@ -127,6 +129,7 @@
 						}
 
 						markers.push(marker);
+						console.log(marker);
 					}
 				});
 			}
