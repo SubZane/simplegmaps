@@ -236,6 +236,15 @@
 		}
 	};
 
+	var toggleBicycleLayer = function (instance) {
+		if ((instance.bicycleLayer) && (instance.bicycleLayer.map !== null)) {
+			instance.bicycleLayer.setMap(null);
+		} else {
+			instance.bicycleLayer = new google.maps.BicyclingLayer();
+			instance.bicycleLayer.setMap(instance.Map.map);
+		}
+	};
+
 	var toggleWeatherLayer = function (instance) {
 		if (((instance.weatherLayer) && (instance.weatherLayer.map !== null)) || ((instance.instancecloudLayer) && (instance.instancecloudLayer.map !== null))) {
 			instance.cloudLayer.setMap(null);
@@ -325,6 +334,10 @@
 
 		toggleTrafficLayer: function () {
 			toggleTrafficLayer(this);
+		},
+
+		toggleBicycleLayer: function () {
+			toggleBicycleLayer(this);
 		},
 
 		// TODO

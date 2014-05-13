@@ -39,7 +39,7 @@ Meet simplegmaps!
 $('#id_of_your_div').simplegmaps();
 ```
 
-##Settings and Defaults
+###Settings and Defaults
 ```javascript
 defaults = {
 	GeoLocation: false,
@@ -71,7 +71,7 @@ defaults = {
 * `defaultTravelMode`: The default travel mode is nothing else specified. Choose between DRIVING, WALKING or BICYCLING
 
 
-##Adding markers to a map
+###Adding markers to a map
 You can use an address or latitude and longitude to position a marker on a map using the `data` attribute.
 ```html
 <div id="simplemap">
@@ -80,7 +80,7 @@ You can use an address or latitude and longitude to position a marker on a map u
 </div>
 ```
 
-##Adding a info window to a maker
+###Adding a info window to a maker
 You can add any html markup you wish to an info window but you need to add the class `map-infowindow` to the outer element.
 ```html
 <div class="map-marker" data-title="Remi" data-address="Remi 145 W 53rd St, New York, NY, United States">
@@ -91,7 +91,7 @@ You can add any html markup you wish to an info window but you need to add the c
 </div>
 ```
 
-##Adding a map with route funtionality
+###Adding a map with route funtionality
 ```html
 <div id="simplemap">
 	<div class="map-marker" data-title="Applejack Diner" data-address="Applejack Diner 1725 Broadway New York, NY 10019"></div>
@@ -125,7 +125,7 @@ $('#simplemap').simplegmaps({
 });
 ```
 
-##Adding a map with automatic geolocation
+###Adding a map with automatic geolocation
 ```html
 <div id="simplemap" class="google-map"></div>
 ```
@@ -136,7 +136,7 @@ $('#simplemap').simplegmaps({
 });
 ```
 
-##Adding a map with geolocation by user click
+###Adding a map with geolocation by user click
 ```html
 <div id="simplemap" class="google-map"></div>
 <a href="#" id="geoLocationButton">Geolocate me dawg!</a>
@@ -150,13 +150,22 @@ $('#geoLocationButton').on('click', function(event) {
 });
 ```
 
-##Adding a map with traffic and weather layer
+###Adding a map with different layers
+Currently this plugin supports weather, traffic and bicycle layers. 
+
+In order to make weather layer work you need to include the Google Maps weather library by appending `&libraries=weather` to the path
+```html
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&libraries=weather"></script>
+```
+
 ```html
 <div id="simplemap" class="google-map">
   <div class="map-marker" data-title="Remi" data-address="Remi 145 W 53rd St, New York, NY, United States"></div>
 </div>
 <a href="#" id="toggleTraffic" class="btn btn-primary">Toggle Traffic Layer</a>
 <a href="#" id="toggleWeather" class="btn btn-primary">Toggle Weather Layer</a>
+<a href="#" id="toggleBicycle" class="btn btn-primary">Toggle Bicycle Layer</a>
+
 ```
 
 ```javascript
@@ -170,9 +179,13 @@ $('#toggleWeather').on('click', function(e) {
   e.preventDefault();
   $('#simplemap').simplegmaps('toggleWeatherLayer');
 });
+$('#toggleBicycle').on('click', function(e) {
+  e.preventDefault();
+  $('#simplemap').simplegmaps('toggleBicycleLayer');
+});
 ```
 
-##Example using snazzy maps to spice up the map style a bit
+###Example using snazzy maps to spice up the map style a bit
 [Snazzy Maps](http://snazzymaps.com) is a nice resource to find color and style themes for Google Maps. Snazzy Maps themes are 100% compatible with simplegmaps (as it simply works out of the box with Google Maps API).
 
 ```html
@@ -189,10 +202,19 @@ $('#simplemap').simplegmaps({
 });
 ```
 
+###Adding custom marker icons
+Use the data attribute `data-icon` to specify the path to an image you wish to use as icon.
+```html
+<div id="simplemap-1" class="google-map">
+  <div class="map-marker" data-title="Remi" data-icon="img/mmazure.png" data-address="Remi 145 W 53rd St, New York, NY, United States"></div>
+</div>
+```
+
 
 ###changelog
 ####0.4
 * Added support for custom marker icons.
+* Added toggle function for bicycle layer
 
 ####0.3.2
 * FIX: Error occured when no markers was placed.
