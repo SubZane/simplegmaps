@@ -1,4 +1,4 @@
-/*! simplegmaps - v0.2.0 - 2014-05-12
+/*! simplegmaps - v0.4.0 - 2014-05-13
 * https://github.com/SubZane/simplegmaps
 * Copyright (c) 2014 Andreas Norman; Licensed MIT */
 (function ($, window, document, undefined) {
@@ -94,7 +94,8 @@
 				var marker = new google.maps.Marker({
 					map: map,
 					title: $(this).data('title'),
-					position: parseLatLng($(this).data('latlng'))
+					position: parseLatLng($(this).data('latlng')),
+					icon: $(this).data('icon')
 				});
 				if ($(this).has('div.map-infowindow').length > 0) {
 					var infowindow = new google.maps.InfoWindow({
@@ -115,7 +116,8 @@
 						var marker = new google.maps.Marker({
 							map: map,
 							title: currentMarkerData.data('title'),
-							position: results[0].geometry.location
+							position: results[0].geometry.location,
+							icon: currentMarkerData.data('icon')
 						});
 						if (currentMarkerData.has('div.map-infowindow').length > 0) {
 							var infowindow = new google.maps.InfoWindow({
@@ -127,6 +129,7 @@
 						}
 
 						markers.push(marker);
+						console.log(marker);
 					}
 				});
 			}
@@ -229,6 +232,15 @@
 		}
 	};
 
+	var toggleBicycleLayer = function (instance) {
+		if ((instance.bicycleLayer) && (instance.bicycleLayer.map !== null)) {
+			instance.bicycleLayer.setMap(null);
+		} else {
+			instance.bicycleLayer = new google.maps.BicyclingLayer();
+			instance.bicycleLayer.setMap(instance.Map.map);
+		}
+	};
+
 	var toggleWeatherLayer = function (instance) {
 		if (((instance.weatherLayer) && (instance.weatherLayer.map !== null)) || ((instance.instancecloudLayer) && (instance.instancecloudLayer.map !== null))) {
 			instance.cloudLayer.setMap(null);
@@ -318,6 +330,10 @@
 
 		toggleTrafficLayer: function () {
 			toggleTrafficLayer(this);
+		},
+
+		toggleBicycleLayer: function () {
+			toggleBicycleLayer(this);
 		},
 
 		// TODO

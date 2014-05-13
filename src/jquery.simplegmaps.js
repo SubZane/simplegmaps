@@ -1,6 +1,6 @@
 /*
  *  Project: simplegmaps
- *	Version: 0.3.2
+ *	Version: 0.4
  *  Description: Google Maps made simple
  *  Author: Andreas Norman <an@andreasnorman.se>
  *  License: MIT
@@ -98,7 +98,8 @@
 				var marker = new google.maps.Marker({
 					map: map,
 					title: $(this).data('title'),
-					position: parseLatLng($(this).data('latlng'))
+					position: parseLatLng($(this).data('latlng')),
+					icon: $(this).data('icon')
 				});
 				if ($(this).has('div.map-infowindow').length > 0) {
 					var infowindow = new google.maps.InfoWindow({
@@ -119,7 +120,8 @@
 						var marker = new google.maps.Marker({
 							map: map,
 							title: currentMarkerData.data('title'),
-							position: results[0].geometry.location
+							position: results[0].geometry.location,
+							icon: currentMarkerData.data('icon')
 						});
 						if (currentMarkerData.has('div.map-infowindow').length > 0) {
 							var infowindow = new google.maps.InfoWindow({
@@ -131,6 +133,7 @@
 						}
 
 						markers.push(marker);
+						console.log(marker);
 					}
 				});
 			}
@@ -233,6 +236,15 @@
 		}
 	};
 
+	var toggleBicycleLayer = function (instance) {
+		if ((instance.bicycleLayer) && (instance.bicycleLayer.map !== null)) {
+			instance.bicycleLayer.setMap(null);
+		} else {
+			instance.bicycleLayer = new google.maps.BicyclingLayer();
+			instance.bicycleLayer.setMap(instance.Map.map);
+		}
+	};
+
 	var toggleWeatherLayer = function (instance) {
 		if (((instance.weatherLayer) && (instance.weatherLayer.map !== null)) || ((instance.instancecloudLayer) && (instance.instancecloudLayer.map !== null))) {
 			instance.cloudLayer.setMap(null);
@@ -322,6 +334,10 @@
 
 		toggleTrafficLayer: function () {
 			toggleTrafficLayer(this);
+		},
+
+		toggleBicycleLayer: function () {
+			toggleBicycleLayer(this);
 		},
 
 		// TODO

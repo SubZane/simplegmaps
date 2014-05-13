@@ -16,10 +16,17 @@
         e.preventDefault();
         $('#simplemap-1').simplegmaps('toggleTrafficLayer');
       });
+
       $('#toggleWeather').on('click', function(e) {
         e.preventDefault();
         $('#simplemap-1').simplegmaps('toggleWeatherLayer');
       });
+
+      $('#toggleBicycle').on('click', function(e) {
+        e.preventDefault();
+        $('#simplemap-1').simplegmaps('toggleBicycleLayer');
+      });
+
     });
     </script>
 
@@ -38,6 +45,7 @@
           </div>
           <a href="#" id="toggleTraffic" class="btn btn-primary">Toggle Traffic Layer</a>
           <a href="#" id="toggleWeather" class="btn btn-primary">Toggle Weather Layer</a>
+          <a href="#" id="toggleBicycle" class="btn btn-primary">Toggle Bicycle Layer</a>
 
         </div>
       </div>
