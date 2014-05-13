@@ -1,4 +1,4 @@
-simplegmaps v0.3
+simplegmaps v0.4.0
 ===========
 
 simplegmaps - Add google maps to your web without knowing squat about JavaScript
@@ -43,16 +43,17 @@ $('#id_of_your_div').simplegmaps();
 ```javascript
 defaults = {
 	GeoLocation: false,
-	MapOptions: {
-		draggable: true,
-		scrollwheel: false,
-		streetViewControl: false,
-		panControl: true,
-		zoomControl: true,
-		zoomControlOptions: {
-			style: 'DEFAULT'
-		}
-	},
+  MapOptions: {
+    draggable: true,
+    zoom: 8,
+    scrollwheel: false,
+    streetViewControl: false,
+    panControl: true,
+    zoomControl: true,
+    zoomControlOptions: {
+      style: 'DEFAULT'
+    }
+  },
 	getRouteButton: '#simplegmaps-getroute',
 	getTravelMode: '#simplegmaps-travelmode',
 	routeDirections: '#simplegmaps-directions',
@@ -211,7 +212,7 @@ Use the data attribute `data-icon` to specify the path to an image you wish to u
 ```
 
 
-###changelog
+##changelog
 ####0.4
 * Added support for custom marker icons.
 * Added toggle function for bicycle layer
