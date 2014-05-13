@@ -16,6 +16,8 @@ Meet simplegmaps!
 * Support for traffic layers (new!)
 * Support for weather layers (new!)
 * Support for automatic geo location (new!)
+* Support for bicycle route layer (new!)
+* Support for custom marker icons (new!)
 * Support for geo location on demand, by clicking a button for example (new!)
 
 ##Browser Support
