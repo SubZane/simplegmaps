@@ -1,4 +1,4 @@
-/*! simplegmaps - v0.4.0 - 2014-05-13
+/*! simplegmaps - v0.5.0 - 2014-05-30
 * https://github.com/SubZane/simplegmaps
 * Copyright (c) 2014 Andreas Norman; Licensed MIT */
 (function ($, window, document, undefined) {
@@ -104,6 +104,17 @@
 					google.maps.event.addListener(marker, 'click', function () {
 						infowindow.open(map, marker);
 					});
+				} else if ($(this).has('div.map-custom-infowindow').length > 0) {
+					var customInfowindow = $(this).find('div.map-custom-infowindow').parent().html();
+					google.maps.event.addListener(marker, 'click', function () {
+						$('#simplegmaps-c-iw').remove();
+						$('<div id="simplegmaps-c-iw"></div>').insertAfter(instance.element.selector);
+						$('#simplegmaps-c-iw').html(customInfowindow);
+						$('#simplegmaps-c-iw .close').on('click', function(event) {
+							event.preventDefault();
+							$('#simplegmaps-c-iw').remove();
+						});
+					});
 				}
 
 				markers.push(marker);
@@ -126,10 +137,21 @@
 							google.maps.event.addListener(marker, 'click', function () {
 								infowindow.open(map, marker);
 							});
+						} else if (currentMarkerData.has('div.map-custom-infowindow').length > 0) {
+							var customInfowindow = currentMarkerData.find('div.map-custom-infowindow').parent().html();
+							google.maps.event.addListener(marker, 'click', function () {
+								$('#simplegmaps-c-iw').remove();
+								$('<div id="simplegmaps-c-iw"></div>').insertAfter(instance.element.selector);
+								$('#simplegmaps-c-iw').html(customInfowindow);
+								$('#simplegmaps-c-iw .close').on('click', function(event) {
+									event.preventDefault();
+									$('#simplegmaps-c-iw').remove();
+								});
+							});
 						}
 
+
 						markers.push(marker);
-						console.log(marker);
 					}
 				});
 			}
@@ -159,11 +181,18 @@
 		});
 	};
 
+	var guid = function() {
+		var strguid = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+				var r = Math.random()*16|0, v = c === 'x' ? r : (r&0x3|0x8);
+				return v.toString(16);
+		});
+		return strguid;
+	};
+
 	var drawRoute = function (instance, from) {
 		var markers = instance.Map.markers;
 
 		instance.directionsDisplay.setMap(instance.Map.map);
-		console.log(instance.options.routeDirections);
 		instance.directionsDisplay.setPanel($(instance.options.routeDirections)[0]);
 
 		var request = {

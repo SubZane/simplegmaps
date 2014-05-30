@@ -1,4 +1,4 @@
-simplegmaps v0.4.0
+simplegmaps v0.5.0
 ===========
 
 simplegmaps - Add google maps to your web without knowing squat about JavaScript
@@ -19,6 +19,7 @@ Meet simplegmaps!
 * Support for bicycle route layer (new!)
 * Support for custom marker icons (new!)
 * Support for geo location on demand, by clicking a button for example (new!)
+* Custom InfowWindow - Position and style your own custom infowindow.
 
 ##Browser Support
 * Google Chrome
@@ -32,7 +33,7 @@ Meet simplegmaps!
 <script src="dependencies/jquery/dist/jquery.min.js"></script>
 <!-- You'll also need access to google maps api -->
 <script src="https://maps.googleapis.com/maps/api/js?sensor=false" type="text/javascript"></script>
-<!-- and you'll need to include simplemaps of course! -->
+<!-- and you'll need to include simplegmaps of course! -->
 <script src="../src/jquery.simplegmaps.js"></script>
 ```
 
@@ -77,7 +78,7 @@ defaults = {
 ###Adding markers to a map
 You can use an address or latitude and longitude to position a marker on a map using the `data` attribute.
 ```html
-<div id="simplemap">
+<div id="simplegmap">
 	<div class="map-marker" data-title="Lorem ipsum" data-latlng="55.5897407,13.012268899999981"></div>
 	<div class="map-marker" data-title="Remi" data-address="Remi 145 W 53rd St, New York, NY, United States"></div>
 </div>
@@ -96,7 +97,7 @@ You can add any html markup you wish to an info window but you need to add the c
 
 ###Adding a map with route funtionality
 ```html
-<div id="simplemap">
+<div id="simplegmap">
 	<div class="map-marker" data-title="Applejack Diner" data-address="Applejack Diner 1725 Broadway New York, NY 10019"></div>
 </div>
 
@@ -121,7 +122,7 @@ You can add any html markup you wish to an info window but you need to add the c
 
 If you change any default element ID's you'll need to set some options when you initiate the map
 ```javascript
-$('#simplemap').simplegmaps({
+$('#simplegmap').simplegmaps({
   getRouteButton: '#simplegmaps-getroute',
   getTravelMode: '#simplegmaps-travelmode',
   getFromAddress: '#simplegmaps-fromaddress'
@@ -130,26 +131,26 @@ $('#simplemap').simplegmaps({
 
 ###Adding a map with automatic geolocation
 ```html
-<div id="simplemap" class="google-map"></div>
+<div id="simplegmap" class="google-map"></div>
 ```
 
 ```javascript
-$('#simplemap').simplegmaps({
+$('#simplegmap').simplegmaps({
   GeoLocation: true
 });
 ```
 
 ###Adding a map with geolocation by user click
 ```html
-<div id="simplemap" class="google-map"></div>
+<div id="simplegmap" class="google-map"></div>
 <a href="#" id="geoLocationButton">Geolocate me dawg!</a>
 ```
 
 ```javascript
-$('#simplemap').simplegmaps();
+$('#simplegmap').simplegmaps();
 $('#geoLocationButton').on('click', function(event) {
   event.preventDefault();
-  $('#simplemap-1').simplegmaps('setGeoLocation');
+  $('#simplegmap-1').simplegmaps('setGeoLocation');
 });
 ```
 
@@ -162,7 +163,7 @@ In order to make weather layer work you need to include the Google Maps weather 
 ```
 
 ```html
-<div id="simplemap" class="google-map">
+<div id="simplegmap" class="google-map">
   <div class="map-marker" data-title="Remi" data-address="Remi 145 W 53rd St, New York, NY, United States"></div>
 </div>
 <a href="#" id="toggleTraffic" class="btn btn-primary">Toggle Traffic Layer</a>
@@ -172,19 +173,19 @@ In order to make weather layer work you need to include the Google Maps weather 
 ```
 
 ```javascript
-$('#simplemap').simplegmaps();
+$('#simplegmap').simplegmaps();
 
 $('#toggleTraffic').on('click', function(e) {
   e.preventDefault();
-  $('#simplemap').simplegmaps('toggleTrafficLayer');
+  $('#simplegmap').simplegmaps('toggleTrafficLayer');
 });
 $('#toggleWeather').on('click', function(e) {
   e.preventDefault();
-  $('#simplemap').simplegmaps('toggleWeatherLayer');
+  $('#simplegmap').simplegmaps('toggleWeatherLayer');
 });
 $('#toggleBicycle').on('click', function(e) {
   e.preventDefault();
-  $('#simplemap').simplegmaps('toggleBicycleLayer');
+  $('#simplegmap').simplegmaps('toggleBicycleLayer');
 });
 ```
 
@@ -192,13 +193,13 @@ $('#toggleBicycle').on('click', function(e) {
 [Snazzy Maps](http://snazzymaps.com) is a nice resource to find color and style themes for Google Maps. Snazzy Maps themes are 100% compatible with simplegmaps (as it simply works out of the box with Google Maps API).
 
 ```html
-<div id="simplemap" class="google-map">
+<div id="simplegmap" class="google-map">
   <div class="map-marker" data-title="Remi" data-address="Remi 145 W 53rd St, New York, NY, United States"></div>
 </div>
 ```
 
 ```javascript
-$('#simplemap').simplegmaps({
+$('#simplegmap').simplegmaps({
   MapOptions: {
     styles: [{"featureType":"water","stylers":[{"visibility":"on"},{"color":"#acbcc9"}]},{"featureType":"landscape","stylers":[{"color":"#f2e5d4"}]},{"featureType":"road.highway","elementType":"geometry","stylers":[{"color":"#c5c6c6"}]},{"featureType":"road.arterial","elementType":"geometry","stylers":[{"color":"#e4d7c6"}]},{"featureType":"road.local","elementType":"geometry","stylers":[{"color":"#fbfaf7"}]},{"featureType":"poi.park","elementType":"geometry","stylers":[{"color":"#c5dac6"}]},{"featureType":"administrative","stylers":[{"visibility":"on"},{"lightness":33}]},{"featureType":"road"},{"featureType":"poi.park","elementType":"labels","stylers":[{"visibility":"on"},{"lightness":20}]},{},{"featureType":"road","stylers":[{"lightness":20}]}]
   }
@@ -208,13 +209,59 @@ $('#simplemap').simplegmaps({
 ###Adding custom marker icons
 Use the data attribute `data-icon` to specify the path to an image you wish to use as icon.
 ```html
-<div id="simplemap-1" class="google-map">
+<div id="simplegmap" class="google-map">
   <div class="map-marker" data-title="Remi" data-icon="img/mmazure.png" data-address="Remi 145 W 53rd St, New York, NY, United States"></div>
 </div>
 ```
 
+###Creating custom info windows
+If you want to totally customize the position, layout and design of the info window you'll need to first wrap your map with div that has the following CSS
+```css
+overflow: hidden;
+position: relative;
+```
+
+You can then create your info window as usual, but instead use the class name `map-custom-infowindow`
+
+```html
+<div class="simplegmap-content">
+  <div id="simplegmap" class="google-map">
+    <div class="map-marker" data-title="Remi" data-address="Remi 145 W 53rd St, New York, NY, United States">
+      <div class="map-custom-infowindow">
+        <button type="button" class="close" aria-hidden="true">&times;</button>
+        <img src="img/photo.png" alt="a house" class="img-responsive">
+        <h2>Remi</h2>
+        <p>Remi 145 W 53rd St, New York, NY, United States</p>
+      </div>
+    </div>
+  </div>
+</div>
+```
+
+And to make it shine, add some style to your custom info window
+```css
+.map-custom-infowindow {
+  position: absolute;
+  display: block;
+  bottom: 30px;
+  left: 0;
+  margin-left: 15%;
+  margin-right: 15%;
+  width: 70%;
+  min-height: 120px;
+  border: 1px solid #bcb8ac;
+  background-color: #fff;
+  color: #333;
+  z-index: 10;
+  padding: 10px;
+  border-radius: 10px;
+}
+``` 
 
 ##changelog
+####0.5
+* Added custom info windows
+
 ####0.4
 * Added support for custom marker icons.
 * Added toggle function for bicycle layer
