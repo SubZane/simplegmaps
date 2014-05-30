@@ -61,6 +61,43 @@ h1,h2,h3 {
 	margin-bottom: 50px;
 }
 
+.simplegmap-content {
+	overflow: hidden;
+	position: relative;
+}
+
+.map-custom-infowindow {
+	position: absolute;
+	display: block;
+	bottom: 30px;
+	left: 0;
+	margin-left: 15%;
+	margin-right: 15%;
+	width: 70%;
+	min-height: 120px;
+	border: 1px solid #bcb8ac;
+	background-color: #fff;
+	color: #333;
+	z-index: 10;
+	padding: 10px;
+	border-radius: 10px;
+}
+
+.map-custom-infowindow h2 {
+	margin: 0;
+	padding: 0;
+}
+
+.map-custom-infowindow .close {
+	margin-top: -5px;
+}
+
+.map-custom-infowindow img {
+	width: 200px;
+	float: left;
+	margin-right: 20px;
+}
+
 .adp-placemark {
  	background: #fff;
  	border: none;
