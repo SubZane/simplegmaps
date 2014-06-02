@@ -1,4 +1,4 @@
-/*! simplegmaps - v0.5.0 - 2014-05-30
+/*! simplegmaps - v0.5.0 - 2014-06-01
 * https://github.com/SubZane/simplegmaps
 * Copyright (c) 2014 Andreas Norman; Licensed MIT */
 (function ($, window, document, undefined) {
