@@ -1,4 +1,4 @@
-/*! simplegmaps - v0.5.0 - 2014-06-01
+/*! simplegmaps - v0.5.0 - 2014-10-18
 * https://github.com/SubZane/simplegmaps
 * Copyright (c) 2014 Andreas Norman; Licensed MIT */
 (function ($, window, document, undefined) {
@@ -9,7 +9,6 @@
 		TravelModes = ['DRIVING', 'WALKING', 'BICYCLING'],
 		// default options
 		defaults = {
-			debug: false,
 			GeoLocation: false,
 			MapOptions: {
 				draggable: true,
@@ -35,7 +34,7 @@
 		};
 
 	// Zooms map enough to fit all markers. But not too much. Just enough to be perfect!
-	// 
+	//
 	// Array: markers
 	var zoomToFitBounds = function (map, markers) {
 		var bounds = new google.maps.LatLngBounds();
@@ -375,7 +374,7 @@
 		},
 
 		addMethod: function (newMethod) {
-			//$.tooltip.methods = $.extend($.tooltip.methods, newMethods); 
+			//$.tooltip.methods = $.extend($.tooltip.methods, newMethods);
 			this.extensions = $.extend(this.extensions, newMethod);
 		},
 
