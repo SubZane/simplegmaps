@@ -5,7 +5,7 @@ module.exports = function (grunt) {
 	// Project configuration.
 	grunt.initConfig({
 		// Metadata.
-		pkg: grunt.file.readJSON('simplegmaps.jquery.json'),
+		pkg: grunt.file.readJSON('jquery.simplegmaps.json'),
 		banner: '/*! <%= pkg.title || pkg.name %> - v<%= pkg.version %> - ' +
 			'<%= grunt.template.today("yyyy-mm-dd") %>\n' +
 			'<%= pkg.homepage ? "* " + pkg.homepage + "\\n" : "" %>' +
