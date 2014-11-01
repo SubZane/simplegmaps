@@ -1,4 +1,3 @@
-##changelog
 ####0.5
 * Added custom info windows
 
