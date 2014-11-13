@@ -27,6 +27,13 @@ jQuery(document).ready(function ($) {
     codeHtml = escapeHTML(codeHtml);
     $(this).html(codeHtml);
   });
+
+  $('.language-html').each(function() {
+    $(this).parent().addClass('language-markup');
+    $(this).removeClass('language-html');
+    $(this).addClass('language-markup');
+  });
+
 });
 </script>
 </body>

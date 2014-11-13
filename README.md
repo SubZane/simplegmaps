@@ -155,7 +155,7 @@ $('#geoLocationButton').on('click', function(event) {
 ```
 
 ###Adding a map with different layers
-Currently this plugin supports weather, traffic and bicycle layers. 
+Currently this plugin supports weather, traffic and bicycle layers.
 
 In order to make weather layer work you need to include the Google Maps weather library by appending `&libraries=weather` to the path
 ```html
@@ -256,7 +256,7 @@ And to make it shine, add some style to your custom info window
   padding: 10px;
   border-radius: 10px;
 }
-``` 
+```
 
 ##changelog
 ####0.5
@@ -283,4 +283,3 @@ And to make it shine, add some style to your custom info window
 
 ####0.2.0
 First public release.
-

@@ -7,8 +7,8 @@
     <meta charset="utf-8">
     <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,800,700,600' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
-    <link rel="stylesheet" href="styles/style.css">
     <link rel="stylesheet" href="prism/prism.css">
+    <link rel="stylesheet" href="styles/style.css">
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
     <title>Demo implementation of simplegmaps</title>
   </head>
@@ -20,7 +20,6 @@
         <div class="col-xs-12">
           <ul class="nav navbar-nav">
             <li><a href="index.php">simplegmaps</a></li>
-            <li><a href="started.php">getting started</a></li>
             <li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown">Markers <span class="caret"></span></a>
               <ul class="dropdown-menu" role="menu">
