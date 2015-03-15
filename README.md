@@ -1,4 +1,4 @@
-simplegmaps v0.5.0
+simplegmaps v0.6.0
 ===========
 
 simplegmaps - Add google maps to your web without knowing squat about JavaScript
@@ -27,7 +27,14 @@ Meet simplegmaps!
 * Firefox
 * Safari 6+
 
+###[View demo](http://www.andreasnorman.com/simplegmaps)
+
 ##Installation
+```
+bower install simplegmaps --save
+```
+
+##Setup
 ```html
 <!-- You'll need jquery -->
 <script src="dependencies/jquery/dist/jquery.min.js"></script>
@@ -259,10 +266,13 @@ And to make it shine, add some style to your custom info window
 ```
 
 ##changelog
-####0.5
+####0.6.0
+* Removed weather layer because of [Google Maps deprication](https://developers.google.com/maps/documentation/javascript/examples/layer-weather)
+
+####0.5.0
 * Added custom info windows
 
-####0.4
+####0.4.0
 * Added support for custom marker icons.
 * Added toggle function for bicycle layer
 

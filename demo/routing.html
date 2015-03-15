@@ -1,0 +1,110 @@
+<div class="row">
+  <div class="col-xs-12">
+    <h2>Routing</h2>
+  </div>
+</div>
+<div class="row">
+  <div class="col-xs-12">
+    <div id="simplemap-1" class="google-map">
+      <div class="map-marker" data-title="Remi" data-address="Remi 145 W 53rd St, New York, NY, United States"></div>
+    </div>
+  </div>
+</div>
+<div class="row row-route">
+  <div class="col-md-4 col-xs-12 col-sm-12 col-md-push-2">
+    <div class="form-group">
+       <label for="GMRoute-Fromaddress">From address</label>
+       <input type="text" class="form-control" id="simplegmaps-fromaddress" placeholder="Enter address" value="New York Inn, 765 8th Ave, New York, NY 10036, USA">
+     </div>
+  </div>
+  <div class="col-md-2 col-xs-12 col-sm-12 col-md-push-2">
+    <div class="form-group">
+       <label for="simplegmaps-travelmode">Travel Mode</label>
+      <select class="form-control" id="simplegmaps-travelmode">
+        <option value="DRIVING">Driving</option>
+        <option value="WALKING">Walking</option>
+        <option value="BICYCLING">Bicycling</option>
+      </select>
+    </div>
+  </div>
+  <div class="col-md-2 col-xs-12 col-sm-12 col-md-push-2">
+    <div class="form-group">
+      <button type="submit" id="simplegmaps-getroute" class="btn btn-primary">Get route</button>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-xs-12">
+    <h3 class="code">javascript</h3>
+<!-- JS code -->
+
+<pre>
+<code class="javascript">
+jQuery(document).ready(function ($) {
+  $('#simplemap').simplegmaps({
+    getRouteButton: '#simplegmaps-getroute',
+    getTravelMode: '#simplegmaps-travelmode',
+    routeDirections: '#simplegmaps-directions',
+    externalLink: '#simplegmaps-external',
+    getFromAddress: '#simplegmaps-fromaddress',
+    defaultTravelMode: 'DRIVING'
+  });
+});
+</code>
+</pre>
+
+<!-- JS markup END -->
+  </div>
+</div>
+<div class="row">
+  <div class="col-xs-12">
+    <h3 class="code">html</h3>
+<!-- HTML markup -->
+
+<pre>
+<code class="html">
+<div id="simplemap-1" class="google-map">
+  <div class="map-marker" data-title="Remi" data-address="Remi 145 W 53rd St, New York, NY, United States"></div>
+</div>
+<div class="row row-route">
+  <div class="col-md-4 col-xs-12 col-sm-12 col-md-push-2">
+    <div class="form-group">
+       <label for="GMRoute-Fromaddress">From address</label>
+       <input type="text" class="form-control" id="simplegmaps-fromaddress" placeholder="Enter address" value="New York Inn, 765 8th Ave, New York, NY 10036, USA">
+     </div>
+  </div>
+  <div class="col-md-2 col-xs-12 col-sm-12 col-md-push-2">
+    <div class="form-group">
+       <label for="simplegmaps-travelmode">Travel Mode</label>
+      <select class="form-control" id="simplegmaps-travelmode">
+        <option value="DRIVING">Driving</option>
+        <option value="WALKING">Walking</option>
+        <option value="BICYCLING">Bicycling</option>
+      </select>
+    </div>
+  </div>
+  <div class="col-md-2 col-xs-12 col-sm-12 col-md-push-2">
+    <div class="form-group">
+      <button type="submit" id="simplegmaps-getroute" class="btn btn-primary">Get route</button>
+    </div>
+  </div>
+</div>
+</code>
+</pre>
+
+<!-- HTML markup END -->
+  </div>
+</div>
+<script>
+jQuery(document).ready(function ($) {
+  $('#simplemap-1').simplegmaps({
+    getRouteButton: '#simplegmaps-getroute',
+    getTravelMode: '#simplegmaps-travelmode',
+    routeDirections: '#simplegmaps-directions',
+    externalLink: '#simplegmaps-external',
+    getFromAddress: '#simplegmaps-fromaddress',
+    defaultTravelMode: 'DRIVING'
+  });
+});
+</script>

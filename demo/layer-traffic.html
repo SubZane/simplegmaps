@@ -1,0 +1,66 @@
+<div class="row">
+  <div class="col-xs-12">
+    <h2>Traffic Layer</h2>
+  </div>
+</div>
+<div class="row">
+  <div class="col-xs-12">
+    <div id="simplemap-1" class="google-map">
+      <div class="map-marker" data-title="Remi" data-address="Remi 145 W 53rd St, New York, NY, United States"></div>
+    </div>
+  </div>
+</div>
+<div class="row button">
+  <div class="col-xs-12">
+    <a href="#" id="toggleTraffic" class="btn btn-primary btn-large">Toggle traffic layer</a>
+  </div>
+</div>
+
+
+<div class="row">
+  <div class="col-xs-12">
+    <h3 class="code">javascript</h3>
+<!-- JS code -->
+
+<pre>
+<code class="javascript">
+jQuery(document).ready(function ($) {
+  $('#simplemap').simplegmaps();
+
+  $('#toggleTraffic').on('click', function(e) {
+    e.preventDefault();
+    $('#simplemap').simplegmaps('toggleTrafficLayer');
+  });
+});
+</code>
+</pre>
+
+<!-- JS markup END -->
+  </div>
+</div>
+<div class="row">
+  <div class="col-xs-12">
+    <h3 class="code">html</h3>
+<!-- HTML markup -->
+
+<pre>
+<code class="html">
+<div id="simplemap" class="google-map">
+  <div class="map-marker" data-title="Remi" data-address="Remi 145 W 53rd St, New York, NY, United States"></div>
+</div>
+</code>
+</pre>
+
+<!-- HTML markup END -->
+  </div>
+</div>
+<script>
+jQuery(document).ready(function ($) {
+  $('#simplemap-1').simplegmaps();
+
+  $('#toggleTraffic').on('click', function(e) {
+    e.preventDefault();
+    $('#simplemap-1').simplegmaps('toggleTrafficLayer');
+  });
+});
+</script>

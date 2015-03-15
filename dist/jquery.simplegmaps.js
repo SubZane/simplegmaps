@@ -1,6 +1,6 @@
-/*! simplegmaps - v0.5.0 - 2014-10-20
+/*! simplegmaps - v0.6.0 - 2015-03-15
 * https://github.com/SubZane/simplegmaps
-* Copyright (c) 2014 Andreas Norman; Licensed MIT */
+* Copyright (c) 2015 Andreas Norman; Licensed MIT */
 (function ($, window, document, undefined) {
 
 	var pluginName = 'simplegmaps',
@@ -269,21 +269,6 @@
 		}
 	};
 
-	var toggleWeatherLayer = function (instance) {
-		if (((instance.weatherLayer) && (instance.weatherLayer.map !== null)) || ((instance.instancecloudLayer) && (instance.instancecloudLayer.map !== null))) {
-			instance.cloudLayer.setMap(null);
-			instance.weatherLayer.setMap(null);
-		} else {
-			instance.weatherLayer = new google.maps.weather.WeatherLayer({
-				temperatureUnits: google.maps.weather.TemperatureUnit.FAHRENHEIT
-			});
-			instance.weatherLayer.setMap(instance.Map.map);
-
-			instance.cloudLayer = new google.maps.weather.CloudLayer();
-			instance.cloudLayer.setMap(instance.Map.map);
-		}
-	};
-
 	var handleNoGeolocation = function (map, errorFlag) {
 		var content;
 		if (errorFlag) {
@@ -350,10 +335,6 @@
 		// TODO
 		getMap: function () {
 			return this.Map.map;
-		},
-
-		toggleWeatherLayer: function () {
-			toggleWeatherLayer(this);
 		},
 
 		toggleTrafficLayer: function () {

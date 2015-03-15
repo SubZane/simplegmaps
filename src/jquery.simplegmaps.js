@@ -1,6 +1,6 @@
 /*
  *  Project: simplegmaps
- *	Version: 0.4
+ *	Version: 0.6.0
  *  Description: Google Maps made simple
  *  Author: Andreas Norman <an@andreasnorman.se>
  *  License: MIT
@@ -273,21 +273,6 @@
 		}
 	};
 
-	var toggleWeatherLayer = function (instance) {
-		if (((instance.weatherLayer) && (instance.weatherLayer.map !== null)) || ((instance.instancecloudLayer) && (instance.instancecloudLayer.map !== null))) {
-			instance.cloudLayer.setMap(null);
-			instance.weatherLayer.setMap(null);
-		} else {
-			instance.weatherLayer = new google.maps.weather.WeatherLayer({
-				temperatureUnits: google.maps.weather.TemperatureUnit.FAHRENHEIT
-			});
-			instance.weatherLayer.setMap(instance.Map.map);
-
-			instance.cloudLayer = new google.maps.weather.CloudLayer();
-			instance.cloudLayer.setMap(instance.Map.map);
-		}
-	};
-
 	var handleNoGeolocation = function (map, errorFlag) {
 		var content;
 		if (errorFlag) {
@@ -354,10 +339,6 @@
 		// TODO
 		getMap: function () {
 			return this.Map.map;
-		},
-
-		toggleWeatherLayer: function () {
-			toggleWeatherLayer(this);
 		},
 
 		toggleTrafficLayer: function () {

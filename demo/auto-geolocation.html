@@ -1,0 +1,49 @@
+<div class="row">
+  <div class="col-xs-12">
+    <h2>Automatic Geolocation</h2>
+  </div>
+</div>
+<div class="row">
+  <div class="col-xs-12">
+    <div id="simplemap-1" class="google-map"></div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-xs-12">
+    <h3 class="code">javascript</h3>
+<!-- JS code -->
+
+<pre>
+<code class="javascript">
+jQuery(document).ready(function ($) {
+  $('#simplemap').simplegmaps({
+    GeoLocation: true
+  });
+});
+</code>
+</pre>
+
+<!-- JS markup END -->
+  </div>
+</div>
+<div class="row">
+  <div class="col-xs-12">
+    <h3 class="code">html</h3>
+<!-- HTML markup -->
+
+<pre>
+<code class="html">
+<div id="simplemap" class="google-map"></div>
+</code>
+</pre>
+
+<!-- HTML markup END -->
+  </div>
+</div>
+<script>
+jQuery(document).ready(function ($) {
+  $('#simplemap-1').simplegmaps({
+    GeoLocation: true
+  });
+});
+</script>

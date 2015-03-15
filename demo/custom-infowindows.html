@@ -1,0 +1,113 @@
+<div class="row">
+  <div class="col-xs-12">
+    <h2>Custom info window</h2>
+  </div>
+</div>
+<div class="row">
+  <div class="col-xs-12">
+    <div id="simplemap-1" class="google-map">
+      <div class="map-marker" data-title="Remi" data-address="Bobby Van's Grill & Steakhouse - 50th Street, 135 W 50th St, New York, NY 10020, USA">
+        <div class="map-custom-infowindow">
+          <button type="button" class="close" aria-hidden="true">&times;</button>
+          <img src="img/photo.png" alt="a house" class="img-responsive">
+          <h2>Bobby Van's Grill</h2>
+          <p>Bobby Van's Grill &amp; Steakhouse - 50th Street, 135 W 50th St, New York, NY 10020, USA</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-xs-12">
+    <h3 class="code">javascript</h3>
+<!-- JS code -->
+
+<pre>
+<code class="javascript">
+jQuery(document).ready(function ($) {
+  $('#simplemap').simplegmaps();
+});
+</code>
+</pre>
+
+<!-- JS markup END -->
+  </div>
+</div>
+<div class="row">
+  <div class="col-xs-12">
+    <h3 class="code">html</h3>
+<!-- HTML markup -->
+
+<pre>
+<code class="html">
+<div id="simplemap" class="google-map">
+  <div class="map-marker" data-title="Remi" data-address="Remi 145 W 53rd St, New York, NY, United States">
+    <div class="map-marker" data-title="Remi" data-address="Bobby Van's Grill & Steakhouse - 50th Street, 135 W 50th St, New York, NY 10020, USA">
+      <div class="map-custom-infowindow">
+        <button type="button" class="close" aria-hidden="true">&times;</button>
+        <img src="img/photo.png" alt="a house" class="img-responsive">
+        <h2>Bobby Van's Grill</h2>
+        <p>Bobby Van's Grill &amp; Steakhouse - 50th Street, 135 W 50th St, New York, NY 10020, USA</p>
+      </div>
+    </div>
+  </div>
+</div>
+</code>
+</pre>
+
+<!-- HTML markup END -->
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-xs-12">
+    <h3 class="code">css</h3>
+<!-- CSS markup -->
+
+<pre>
+<code class="css">
+.map-custom-infowindow {
+  position: absolute;
+  background-color: #fff;
+  display: block;
+  bottom: 30px;
+  left: 0;
+  margin-left: 15%;
+  margin-right: 15%;
+  width: 70%;
+  min-height: 120px;
+  border: 1px solid #bcb8ac;
+  color: #fff;
+  color: #333;
+  z-index: 10;
+  padding: 10px;
+  border-radius: 10px;
+}
+
+.map-custom-infowindow h2 {
+  margin: 0;
+  padding: 0;
+}
+
+.map-custom-infowindow .close {
+  margin-top: -5px;
+}
+
+.map-custom-infowindow img {
+  width: 200px;
+  float: left;
+  margin-right: 20px;
+}
+</code>
+</pre>
+
+<!-- CSS markup END -->
+  </div>
+</div>
+
+
+<script>
+jQuery(document).ready(function ($) {
+  $('#simplemap-1').simplegmaps();
+});
+</script>

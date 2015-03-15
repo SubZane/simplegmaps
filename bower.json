@@ -1,24 +1,27 @@
 {
-	"name": "simplegmaps",
-	"version": "0.5.1",
-	"homepage": "https://github.com/SubZane/simplegmaps",
-	"authors": [
-		"Andreas Norman <an@andreasnorman.se>"
-	],
-	"description": "Google Maps made easy",
-	"main": "src/jquery.simplegmaps.js",
-	"keywords": [
-		"map",
-		"jquery",
-		"google",
-		"maps"
-	],
-	"license": "MIT",
-	"ignore": [
-		"**/.*",
-		"node_modules"
-	],
-	"dependencies": {
-		"jquery": "1.x"
-	}
+  "name": "simplegmaps",
+  "version": "0.6.0",
+  "homepage": "https://github.com/SubZane/simplegmaps",
+  "authors": [
+    "Andreas Norman <an@andreasnorman.se>"
+  ],
+  "description": "Google Maps made easy",
+  "main": "src/jquery.simplegmaps.js",
+  "keywords": [
+    "map",
+    "jquery",
+    "google",
+    "maps"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules"
+  ],
+  "dependencies": {
+    "jquery": "2.x"
+  },
+  "resolutions": {
+    "jquery": "2.x"
+  }
 }
