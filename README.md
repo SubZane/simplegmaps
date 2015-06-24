@@ -1,4 +1,4 @@
-simplegmaps v0.6.0
+simplegmaps v0.7.0
 ===========
 
 simplegmaps - Add google maps to your web without knowing squat about JavaScript
@@ -266,6 +266,9 @@ And to make it shine, add some style to your custom info window
 ```
 
 ##changelog
+####0.7.0
+* Extends routing functionality to provide [DirectionsRequest Options](https://developers.google.com/maps/documentation/javascript/3.19/reference#DirectionsService)
+
 ####0.6.0
 * Removed weather layer because of [Google Maps deprication](https://developers.google.com/maps/documentation/javascript/examples/layer-weather)
 
