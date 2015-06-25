@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html class="no-js" lang="sv">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2, user-scalable=yes" />
+
+  <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+	<link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css" rel="stylesheet">
+	<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.4/styles/github.min.css">
+  <link rel="stylesheet" href="styles/demo.css">
+  <link rel="stylesheet" href="styles/navbar.css">
+
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+  <title>simplegmaps - google maps jquery plugin</title>
+</head>
+
+<body>
+<container>
+<div class="row">
+  <div class="col-xs-12">
+    <h2>Routing</h2>
+  </div>
+</div>
+<div class="row">
+  <div class="col-xs-12">
+    <div id="simplemap-1" class="google-map">
+      <div class="map-marker" data-title="Remi" data-address="Remi 145 W 53rd St, New York, NY, United States"></div>
+      <div class="map-marker" data-title="Remi" data-address="135 W 53rd St, New York, NY, United States"></div>
+      <div class="map-marker" data-title="Remi" data-address="110 W 53rd St, New York, NY, United States"></div>
+      <div class="map-marker" data-title="Remi" data-address="110 W 50rd St, New York, NY, United States"></div>
+      <div class="map-marker" data-title="Remi" data-address="95 W 50rd St, New York, NY, United States"></div>
+    </div>
+  </div>
+</div>
+<div class="row row-route">
+  <div class="col-md-4 col-xs-12 col-sm-12 col-md-push-2">
+    <div class="form-group">
+       <label for="GMRoute-Fromaddress">From address</label>
+       <input type="text" class="form-control" id="simplegmaps-fromaddress" placeholder="Enter address" value="New York Inn, 765 8th Ave, New York, NY 10036, USA">
+     </div>
+  </div>
+  <div class="col-md-2 col-xs-12 col-sm-12 col-md-push-2">
+    <div class="form-group">
+      <button type="submit" id="simplegmaps-getroute" class="btn btn-primary findClosestMarker">Find closest</button>
+    </div>
+  </div>
+</div>
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js" type="text/javascript"></script>
+<script src="https://maps.googleapis.com/maps/api/js?sensor=false&libraries=geometry" type="text/javascript"></script>
+<script src="../dist/jquery.simplegmaps.js"></script>
+<script>
+jQuery(document).ready(function ($) {
+  $('#simplemap-1').simplegmaps();
+  $('.findClosestMarker').on('click', function(e) {
+    e.preventDefault();
+    $('#simplemap-1').simplegmaps('findClosestMarker');
+  });
+
+});
+</script>
+</container>
+</body>
+</html>

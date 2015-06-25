@@ -72,6 +72,37 @@
 			} catch (e) {} // Let's catch this possible error and do nothing about it. Noone will ever know.
 		}
 
+		function findClosestMarker() {
+			var myMarker = addMarker();
+			console.log(myMarker);
+			Map.markers.forEach(function (marker, index) {
+				//console.log(index);
+			//	console.log(Map.markers[index].position);
+				//console.log(myMarker);
+				//console.log(google.maps.geometry.spherical.computeDistanceBetween(myMarker.position, Map.markers[index].position));
+			});
+		}
+
+		// Adds a marker to existing map and returns the marker item.
+		function addMarker() {
+			var geocoder = new google.maps.Geocoder();
+			var address = '100 W 51rd St, New York, NY, United States';
+			var marker = false;
+
+			geocoder.geocode({
+				'address': address
+			}, function (results, status) {
+				if (status === google.maps.GeocoderStatus.OK) {
+					var marker = new google.maps.Marker({
+						map: Map.map,
+						position: results[0].geometry.location
+					});
+				}
+			});
+			console.log(marker);
+			return marker;
+		}
+
 		// Takes a string with latlng in this format "55.5897407,13.012268899999981" and makes it into a latlng object
 		function parseLatLng(latlngString) {
 			var bits = latlngString.split(/,\s*/);
@@ -95,8 +126,6 @@
 		}
 
 		function drawMap() {
-			console.log(el);
-			console.log($el);
 			var infoWindow = new google.maps.InfoWindow();
 			var geocoder = new google.maps.Geocoder();
 			var markers = [];
@@ -128,7 +157,7 @@
 						var customInfowindow = $(this).find('div.map-custom-infowindow').parent().html();
 						google.maps.event.addListener(marker, 'click', function () {
 							$('#simplegmaps-c-iw').remove();
-							$('<div id="simplegmaps-c-iw"></div>').insertAfter($el.selector);
+							$('<div id="simplegmaps-c-iw"></div>').insertAfter($el);
 							$('#simplegmaps-c-iw').html(customInfowindow);
 							$('#simplegmaps-c-iw .close').on('click', function (event) {
 								event.preventDefault();
@@ -161,7 +190,6 @@
 
 								var customInfowindow = currentMarkerData.find('div.map-custom-infowindow').parent().html();
 								google.maps.event.addListener(marker, 'click', function () {
-									console.log('custom click');
 									$('#simplegmaps-c-iw').remove();
 									$('<div id="simplegmaps-c-iw"></div>').insertAfter($el);
 									$('#simplegmaps-c-iw').html(customInfowindow);
@@ -198,6 +226,7 @@
 					geoLocation(Map.map);
 				}
 
+				hook('onMapDrawn');
 			});
 		}
 
@@ -223,6 +252,7 @@
 			directionsService.route(routeOptions, function (response, status) {
 				if (status === google.maps.DirectionsStatus.OK) {
 					directionsDisplay.setDirections(response);
+					hook('onRouteDrawn');
 				}
 			});
 		}
@@ -242,19 +272,15 @@
 			directionsDisplay = new google.maps.DirectionsRenderer({
 				draggable: true
 			});
-
 			$(options.getRouteButton).on('click', function (e) {
 				e.preventDefault();
 
 				// Only accept DRIVING, WALKING or BICYCLING
 				var travelmode = $(options.getTravelMode).val();
-
 				setTravelMode(travelmode);
-
 				if ($(options.getFromAddress).val().length > 0) {
 					drawRoute($(options.getFromAddress).val());
 				}
-
 			});
 		}
 
@@ -308,7 +334,7 @@
 			Map.setCenter(options.position);
 		}
 
-    function setGeoLocation () {
+		function setGeoLocation() {
 			geoLocation(Map.map);
 		}
 
@@ -367,8 +393,9 @@
 			option: option,
 			destroy: destroy,
 			toggleTrafficLayer: toggleTrafficLayer,
-			toggleBicycleLayer: toggleBicycleLayer
-
+			toggleBicycleLayer: toggleBicycleLayer,
+			addMarker: addMarker,
+			findClosestMarker: findClosestMarker
 		};
 	}
 
@@ -442,7 +469,9 @@
 		defaultTravelMode: 'DRIVING',
 		onInit: function () {},
 		onLoad: function () {},
-		onDestroy: function () {}
+		onDestroy: function () {},
+		onRouteDrawn: function () {},
+		onMapDrawn: function () {}
 	};
 
 })(jQuery);

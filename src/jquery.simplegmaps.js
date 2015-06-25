@@ -69,6 +69,57 @@
 			} catch (e) {} // Let's catch this possible error and do nothing about it. Noone will ever know.
 		}
 
+		function findClosestMarker() {
+			var myMarker = addMarker();
+			console.log(myMarker);
+			Map.markers.forEach(function (marker, index) {
+				//console.log(index);
+			//	console.log(Map.markers[index].position);
+				//console.log(myMarker);
+				//console.log(google.maps.geometry.spherical.computeDistanceBetween(myMarker.position, Map.markers[index].position));
+			});
+		}
+
+		// Adds a marker to existing map and returns the marker item.
+		function addMarker() {
+			var geocoder = new google.maps.Geocoder();
+			var address = '100 W 51rd St, New York, NY, United States';
+			var markers = [];
+
+			geocoder.geocode({
+				'address': address
+			}, function (results, status) {
+				if (status === google.maps.GeocoderStatus.OK) {
+					var marker = new google.maps.Marker({
+						map: Map.map,
+						position: results[0].geometry.location
+					});
+					markers.push(marker);
+				}
+			});
+
+			google.maps.event.addListenerOnce(map, 'idle', function () {
+				if (markers.length > 0) {
+					zoomToFitBounds(map, markers);
+				} else if (!options.MapOptions.center) {
+					var bounds = new google.maps.LatLngBounds();
+					map.fitBounds(bounds);
+					map.setCenter(bounds.getCenter());
+				}
+
+				//Register map and its markers to class variable
+				Map = {
+					map: map,
+					markers: markers
+				};
+				bindMapLinkButton();
+				if (options.GeoLocation) {
+					geoLocation(Map.map);
+				}
+			});
+
+		}
+
 		// Takes a string with latlng in this format "55.5897407,13.012268899999981" and makes it into a latlng object
 		function parseLatLng(latlngString) {
 			var bits = latlngString.split(/,\s*/);
@@ -300,7 +351,7 @@
 			Map.setCenter(options.position);
 		}
 
-    function setGeoLocation () {
+		function setGeoLocation() {
 			geoLocation(Map.map);
 		}
 
@@ -359,8 +410,9 @@
 			option: option,
 			destroy: destroy,
 			toggleTrafficLayer: toggleTrafficLayer,
-			toggleBicycleLayer: toggleBicycleLayer
-
+			toggleBicycleLayer: toggleBicycleLayer,
+			addMarker: addMarker,
+			findClosestMarker: findClosestMarker
 		};
 	}
 
