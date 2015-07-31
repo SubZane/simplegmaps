@@ -1,3 +1,9 @@
+####0.7.1
+* Removed console.log from the source file.
+
+####0.7.0
+* Rewrote the plugin using a different pattern
+
 ####0.5
 * Added custom info windows
 

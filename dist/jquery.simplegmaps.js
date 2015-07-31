@@ -1,4 +1,4 @@
-/*! simplegmaps - v0.7.0 - 2015-06-24
+/*! simplegmaps - v0.7.0 - 2015-07-31
 * https://github.com/SubZane/simplegmaps
 * Copyright (c) 2015 Andreas Norman; Licensed MIT */
 (function ($) {
@@ -95,8 +95,6 @@
 		}
 
 		function drawMap() {
-			console.log(el);
-			console.log($el);
 			var infoWindow = new google.maps.InfoWindow();
 			var geocoder = new google.maps.Geocoder();
 			var markers = [];
@@ -128,7 +126,7 @@
 						var customInfowindow = $(this).find('div.map-custom-infowindow').parent().html();
 						google.maps.event.addListener(marker, 'click', function () {
 							$('#simplegmaps-c-iw').remove();
-							$('<div id="simplegmaps-c-iw"></div>').insertAfter($el.selector);
+							$('<div id="simplegmaps-c-iw"></div>').insertAfter($el);
 							$('#simplegmaps-c-iw').html(customInfowindow);
 							$('#simplegmaps-c-iw .close').on('click', function (event) {
 								event.preventDefault();
@@ -161,7 +159,6 @@
 
 								var customInfowindow = currentMarkerData.find('div.map-custom-infowindow').parent().html();
 								google.maps.event.addListener(marker, 'click', function () {
-									console.log('custom click');
 									$('#simplegmaps-c-iw').remove();
 									$('<div id="simplegmaps-c-iw"></div>').insertAfter($el);
 									$('#simplegmaps-c-iw').html(customInfowindow);
@@ -198,6 +195,7 @@
 					geoLocation(Map.map);
 				}
 
+				hook('onMapDrawn');
 			});
 		}
 
@@ -223,6 +221,7 @@
 			directionsService.route(routeOptions, function (response, status) {
 				if (status === google.maps.DirectionsStatus.OK) {
 					directionsDisplay.setDirections(response);
+					hook('onRouteDrawn');
 				}
 			});
 		}
@@ -242,19 +241,15 @@
 			directionsDisplay = new google.maps.DirectionsRenderer({
 				draggable: true
 			});
-
 			$(options.getRouteButton).on('click', function (e) {
 				e.preventDefault();
 
 				// Only accept DRIVING, WALKING or BICYCLING
 				var travelmode = $(options.getTravelMode).val();
-
 				setTravelMode(travelmode);
-
 				if ($(options.getFromAddress).val().length > 0) {
 					drawRoute($(options.getFromAddress).val());
 				}
-
 			});
 		}
 
@@ -442,7 +437,9 @@
 		defaultTravelMode: 'DRIVING',
 		onInit: function () {},
 		onLoad: function () {},
-		onDestroy: function () {}
+		onDestroy: function () {},
+		onRouteDrawn: function () {},
+		onMapDrawn: function () {}
 	};
 
 })(jQuery);
