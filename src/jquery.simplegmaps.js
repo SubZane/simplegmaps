@@ -71,10 +71,10 @@
 
 		function findClosestMarker() {
 			var myMarker = addMarker();
-			console.log(myMarker);
+			//console.log(myMarker);
 			Map.markers.forEach(function (marker, index) {
 				//console.log(index);
-			//	console.log(Map.markers[index].position);
+				//console.log(Map.markers[index].position);
 				//console.log(myMarker);
 				//console.log(google.maps.geometry.spherical.computeDistanceBetween(myMarker.position, Map.markers[index].position));
 			});
