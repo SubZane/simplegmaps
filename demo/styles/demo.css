@@ -76,6 +76,35 @@ p {
   font-weight: 600;
 }
 
+ul.listbuttons {
+  margin-top: 20px;
+  margin-bottom: 20px;
+	padding: 0;
+	list-style: none;
+}
+
+ul.listbuttons li {
+  margin-bottom: 10px;
+}
+
+ul.listbuttons a {
+	background-color: transparent;
+  border: solid 2px #E67D20;
+	padding: 5px;
+	padding-left: 10px;
+	padding-right: 10px;
+	font-size: 12px;
+	display: inline-block;
+  border-radius: 3px;
+  color: #E67D20;
+}
+
+ul.listbuttons a:hover {
+	background-color: #E67D20;
+  color: #fff;
+  text-decoration: none;
+}
+
 a.btn-primary {
   background-color: transparent;
   border: solid 2px #E67D20;

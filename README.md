@@ -1,4 +1,4 @@
-simplegmaps v0.7.0
+simplegmaps v0.8.0
 ===========
 
 simplegmaps - Add google maps to your web without knowing squat about JavaScript
@@ -265,7 +265,38 @@ And to make it shine, add some style to your custom info window
 }
 ```
 
+###Creating native map links
+You can create native links to open up a specific address in the users native map application. You can also force the use of the Google Maps app if needed.
+
+Create a link that will open an address in Google Maps app. (Works on iOS and on Android)
+```javascript
+var link = $('#simplemap').simplegmaps('getGoogleMapLink', 'Remi 145 W 53rd St, New York, NY, United States')
+```
+
+Create a link that will open an address in Apple Maps app. (Works on iOS and OSX)
+```javascript
+var link = $('#simplemap').simplegmaps('getAppleMapsLink', 'Remi 145 W 53rd St, New York, NY, United States')
+```
+
+Create a link that will open an address in Windows 7 Maps app. (Works on Windows Phone 7)
+```javascript
+var link = $('#simplemap').simplegmaps('getWindowsPhone7MapLink', 'Remi 145 W 53rd St, New York, NY, United States')
+```
+
+Create a link that will open an address in Google Maps in the current browser.
+```javascript
+var link = $('#simplemap').simplegmaps('getDesktopMapLink', 'Remi 145 W 53rd St, New York, NY, United States')
+```
+
+Create a link that will open an address in the native maps app on the current device. On smartphones and tablets it will open the native maps app. On desktop it will simply open the normal google maps in the browser.
+```javascript
+var link = $('#simplemap').simplegmaps('getNativeMapLink', 'Remi 145 W 53rd St, New York, NY, United States')
+```
+
 ##changelog
+####0.8.0
+* Added functions for creating native map links for iPhone, Android, Windows Phone and Desktop.
+
 ####0.7.0
 * Extends routing functionality to provide [DirectionsRequest Options](https://developers.google.com/maps/documentation/javascript/3.19/reference#DirectionsService)
 

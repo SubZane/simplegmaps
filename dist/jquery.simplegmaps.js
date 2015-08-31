@@ -1,4 +1,4 @@
-/*! simplegmaps - v0.7.0 - 2015-07-31
+/*! simplegmaps - v0.8.0 - 2015-08-28
 * https://github.com/SubZane/simplegmaps
 * Copyright (c) 2015 Andreas Norman; Licensed MIT */
 (function ($) {
@@ -303,10 +303,75 @@
 			Map.setCenter(options.position);
 		}
 
-    function setGeoLocation () {
+		function setGeoLocation() {
 			geoLocation(Map.map);
 		}
 
+		function getGoogleMapLink(address) {
+			var url = options.AndroidMapLink + address;
+			return url;
+		}
+
+		function getAppleMapsLink(address) {
+			var url = options.iOSAppleMapLink + '?q=' + address;
+			return url;
+		}
+
+		function getWindowsPhone7MapLink(address) {
+			var url = options.WP7MapLink + address;
+			return url;
+		}
+
+		function getDesktopMapLink(address) {
+			var url = options.DesktopMapLink + '?q=' + address;
+			return url;
+		}
+
+		function getNativeMapLink(address) {
+			var url = '';
+			if (isAndroid()) {
+				url = getGoogleMapLink(address);
+			} else if (isIOS()) {
+				url = getAppleMapsLink(address);
+			} else if (isWindowsPhone()) {
+				url = getWindowsPhone7MapLink(address);
+			} else {
+				url = getDesktopMapLink(address);
+			}
+			return url;
+		}
+
+		function isAndroid () {
+			if (navigator.userAgent.toLowerCase().indexOf('android') > -1) {
+				return true;
+			} else {
+				return false;
+			}
+		}
+
+		function isIOS () {
+			if ((navigator.userAgent.match(/iPhone/i)) || (navigator.userAgent.match(/iPad/i)) || (navigator.userAgent.match(/iPod/i))) {
+				return true;
+			} else {
+				return false;
+			}
+		}
+
+		function isBlackBerry () {
+			if (navigator.userAgent.match(/BlackBerry/i)) {
+				return true;
+			} else {
+				return false;
+			}
+		}
+
+		function isWindowsPhone () {
+			if (navigator.userAgent.match(/Windows Phone/i)) {
+				return true;
+			} else {
+				return false;
+			}
+		}
 
 		/**
 		 * Get/set a plugin option.
@@ -361,9 +426,13 @@
 		return {
 			option: option,
 			destroy: destroy,
+			getNativeMapLink: getNativeMapLink,
 			toggleTrafficLayer: toggleTrafficLayer,
-			toggleBicycleLayer: toggleBicycleLayer
-
+			toggleBicycleLayer: toggleBicycleLayer,
+			getGoogleMapLink: getGoogleMapLink,
+			getAppleMapsLink: getAppleMapsLink,
+			getWindowsPhone7MapLink: getWindowsPhone7MapLink,
+			getDesktopMapLink: getDesktopMapLink
 		};
 	}
 
@@ -426,9 +495,11 @@
 				style: 'DEFAULT'
 			}
 		},
-		AppleMapLink: 'http://maps.apple.com/',
-		AndroidMapLink: 'http://maps.google.com/maps',
-		GenericMapLink: 'http://www.google.com/maps',
+		iOSAppleMapLink: 'http://maps.apple.com/',
+		iOSGoogleMapLink: 'comgooglemaps://',
+		AndroidMapLink: 'comgooglemaps://',
+		WP7MapLink: 'maps:',
+		DesktopMapLink: 'http://www.google.com/maps',
 		getRouteButton: '#simplegmaps-getroute',
 		getTravelMode: '#simplegmaps-travelmode',
 		routeDirections: '#simplegmaps-directions',
