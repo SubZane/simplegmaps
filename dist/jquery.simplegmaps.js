@@ -1,4 +1,4 @@
-/*! simplegmaps - v0.8.0 - 2015-08-28
+/*! simplegmaps - v0.8.0 - 2015-09-01
 * https://github.com/SubZane/simplegmaps
 * Copyright (c) 2015 Andreas Norman; Licensed MIT */
 (function ($) {
@@ -94,9 +94,14 @@
 			}
 		}
 
+		function addMarkers () {
+
+		}
+
 		function drawMap() {
 			var infoWindow = new google.maps.InfoWindow();
 			var geocoder = new google.maps.Geocoder();
+			var currentMarkerData = '';
 			var markers = [];
 			var mapInData = $el.clone();
 
@@ -109,66 +114,73 @@
 
 			mapInData.find('div.map-marker').each(function (i) {
 				if ($(this).attr('data-latlng')) {
-					var marker = new google.maps.Marker({
-						map: map,
-						title: $(this).data('title'),
-						position: parseLatLng($(this).data('latlng')),
-						icon: $(this).data('icon')
-					});
-					if ($(this).has('div.map-infowindow').length > 0) {
-						var infowindow = new google.maps.InfoWindow({
-							content: $(this).find('div.map-infowindow').parent().html()
+					currentMarkerData = $(this);
+					getMarkerIcon(currentMarkerData.data('icon'), currentMarkerData.data('icon2x'), function(iconMarker) {
+						var marker = new google.maps.Marker({
+							map: map,
+							title: currentMarkerData.data('title'),
+							position: parseLatLng(currentMarkerData.data('latlng')),
+							icon: iconMarker
 						});
-						google.maps.event.addListener(marker, 'click', function () {
-							infowindow.open(map, marker);
-						});
-					} else if ($(this).has('div.map-custom-infowindow').length > 0) {
-						var customInfowindow = $(this).find('div.map-custom-infowindow').parent().html();
-						google.maps.event.addListener(marker, 'click', function () {
-							$('#simplegmaps-c-iw').remove();
-							$('<div id="simplegmaps-c-iw"></div>').insertAfter($el);
-							$('#simplegmaps-c-iw').html(customInfowindow);
-							$('#simplegmaps-c-iw .close').on('click', function (event) {
-								event.preventDefault();
-								$('#simplegmaps-c-iw').remove();
+						if (currentMarkerData.has('div.map-infowindow').length > 0) {
+							var infowindow = new google.maps.InfoWindow({
+								content: currentMarkerData.find('div.map-infowindow').parent().html()
 							});
-						});
-					}
+							google.maps.event.addListener(marker, 'click', function () {
+								infowindow.open(map, marker);
+							});
+						} else if (currentMarkerData.has('div.map-custom-infowindow').length > 0) {
+							var customInfowindow = currentMarkerData.find('div.map-custom-infowindow').parent().html();
+							google.maps.event.addListener(marker, 'click', function () {
+								$('#simplegmaps-c-iw').remove();
+								$('<div id="simplegmaps-c-iw"></div>').insertAfter($el);
+								$('#simplegmaps-c-iw').html(customInfowindow);
+								$('#simplegmaps-c-iw .close').on('click', function (event) {
+									event.preventDefault();
+									$('#simplegmaps-c-iw').remove();
+								});
+							});
+						}
 
-					markers.push(marker);
+						markers.push(marker);
+					});
 				} else if ($(this).attr('data-address')) {
-					var currentMarkerData = $(this);
+					currentMarkerData = $(this);
 					geocoder.geocode({
 						'address': $(this).data('address')
 					}, function (results, status) {
 						if (status === google.maps.GeocoderStatus.OK) {
-							var marker = new google.maps.Marker({
-								map: map,
-								title: currentMarkerData.data('title'),
-								position: results[0].geometry.location,
-								icon: currentMarkerData.data('icon')
-							});
-							if (currentMarkerData.has('div.map-infowindow').length > 0) {
-								var infowindow = new google.maps.InfoWindow({
-									content: currentMarkerData.find('div.map-infowindow').parent().html()
-								});
-								google.maps.event.addListener(marker, 'click', function () {
-									infowindow.open(map, marker);
-								});
-							} else if (currentMarkerData.has('div.map-custom-infowindow').length > 0) {
 
-								var customInfowindow = currentMarkerData.find('div.map-custom-infowindow').parent().html();
-								google.maps.event.addListener(marker, 'click', function () {
-									$('#simplegmaps-c-iw').remove();
-									$('<div id="simplegmaps-c-iw"></div>').insertAfter($el);
-									$('#simplegmaps-c-iw').html(customInfowindow);
-									$('#simplegmaps-c-iw .close').on('click', function (event) {
-										event.preventDefault();
-										$('#simplegmaps-c-iw').remove();
-									});
+							getMarkerIcon(currentMarkerData.data('icon'), currentMarkerData.data('icon2x'), function(iconMarker) {
+								var marker = new google.maps.Marker({
+									map: map,
+									title: currentMarkerData.data('title'),
+									position: results[0].geometry.location,
+									icon: iconMarker
 								});
-							}
-							markers.push(marker);
+								if (currentMarkerData.has('div.map-infowindow').length > 0) {
+									var infowindow = new google.maps.InfoWindow({
+										content: currentMarkerData.find('div.map-infowindow').parent().html()
+									});
+									google.maps.event.addListener(marker, 'click', function () {
+										infowindow.open(map, marker);
+									});
+								} else if (currentMarkerData.has('div.map-custom-infowindow').length > 0) {
+
+									var customInfowindow = currentMarkerData.find('div.map-custom-infowindow').parent().html();
+									google.maps.event.addListener(marker, 'click', function () {
+										$('#simplegmaps-c-iw').remove();
+										$('<div id="simplegmaps-c-iw"></div>').insertAfter($el);
+										$('#simplegmaps-c-iw').html(customInfowindow);
+										$('#simplegmaps-c-iw .close').on('click', function (event) {
+											event.preventDefault();
+											$('#simplegmaps-c-iw').remove();
+										});
+									});
+								}
+								markers.push(marker);
+							});
+
 						}
 					});
 				}
@@ -197,6 +209,50 @@
 
 				hook('onMapDrawn');
 			});
+		}
+
+		function getMarkerIcon (imagepath, x2imagepath, callback) {
+			var markerIcon = '';
+			var imageElement = new Image();
+			if (window.devicePixelRatio > 1.5) {
+				if (x2imagepath) {
+					imageElement.onload = function() {
+						var markerIcon = {
+							url: x2imagepath,
+							size: new google.maps.Size(imageElement.naturalWidth / 2, imageElement.naturalHeight / 2),
+							scaledSize: new google.maps.Size((imageElement.naturalWidth / 2), (imageElement.naturalHeight / 2)),
+							origin: new google.maps.Point(0,0),
+						};
+						callback(markerIcon);
+					};
+					imageElement.src = x2imagepath;
+				} else if (imagepath) {
+					imageElement.onload = function() {
+						var markerIcon = {
+							url: imagepath,
+							size: new google.maps.Size(imageElement.naturalWidth, imageElement.naturalHeight),
+						};
+						callback(markerIcon);
+					};
+					imageElement.src = imagepath;
+				} else {
+					callback(markerIcon);
+				}
+			} else {
+				if (imagepath) {
+					imageElement.onload = function() {
+						var markerIcon = {
+							url: imagepath,
+							size: new google.maps.Size(imageElement.naturalWidth, imageElement.naturalHeight),
+						};
+						callback(markerIcon);
+					};
+					imageElement.src = imagepath;
+				} else {
+					callback(markerIcon);
+				}
+			}
+
 		}
 
 		function guid() {

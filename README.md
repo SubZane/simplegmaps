@@ -1,4 +1,4 @@
-simplegmaps v0.8.0
+simplegmaps v0.9.0
 ===========
 
 simplegmaps - Add google maps to your web without knowing squat about JavaScript
@@ -294,6 +294,9 @@ var link = $('#simplemap').simplegmaps('getNativeMapLink', 'Remi 145 W 53rd St, 
 ```
 
 ##changelog
+####0.9.0
+* Added support for retina custom markers. Check out the demo 'Single marker with custom icon' for an example.
+
 ####0.8.0
 * Added functions for creating native map links for iPhone, Android, Windows Phone and Desktop.
 
