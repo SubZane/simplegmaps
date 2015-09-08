@@ -1,6 +1,6 @@
 <div class="row">
   <div class="col-xs-12">
-    <h2>Routing</h2>
+    <h2>Routing (autocomplete)</h2>
   </div>
 </div>
 <div class="row">
@@ -54,7 +54,15 @@ jQuery(document).ready(function ($) {
     routeDirections: '#simplegmaps-directions',
     externalLink: '#simplegmaps-external',
     getFromAddress: '#simplegmaps-fromaddress',
-    defaultTravelMode: 'DRIVING'
+    defaultTravelMode: 'DRIVING',
+    SearchBox: '#simplegmaps-fromaddress',
+    AutoComplete: true,
+    AutoCompleteOptions: {
+      types: ['geocode'],
+      componentRestrictions: {'country': 'us'},
+      moveMap: true,
+      setMarker: true
+    },
   });
 });
 </code>
@@ -114,7 +122,15 @@ jQuery(document).ready(function ($) {
     routeDirections: '#simplegmaps-directions',
     externalLink: '#simplegmaps-external',
     getFromAddress: '#simplegmaps-fromaddress',
-    defaultTravelMode: 'DRIVING'
+    defaultTravelMode: 'DRIVING',
+    SearchBox: '#simplegmaps-fromaddress',
+    AutoComplete: true,
+    AutoCompleteOptions: {
+      types: ['geocode'],
+      componentRestrictions: {'country': 'us'},
+      moveMap: true,
+      setMarker: true
+    },
   });
 });
 </script>
