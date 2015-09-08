@@ -1,4 +1,4 @@
-simplegmaps v0.9.0
+simplegmaps v1.0.0
 ===========
 
 simplegmaps - Add google maps to your web without knowing squat about JavaScript
@@ -294,6 +294,10 @@ var link = $('#simplemap').simplegmaps('getNativeMapLink', 'Remi 145 W 53rd St, 
 ```
 
 ##changelog
+####1.0.0
+* Added support for autocomplete for routing address. By @jhnsndstrm
+* Added search for address with and without autocomplete. By @jhnsndstrm
+
 ####0.9.0
 * Added support for retina custom markers. Check out the demo 'Single marker with custom icon' for an example.
 
