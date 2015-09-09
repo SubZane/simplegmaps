@@ -1,4 +1,4 @@
-simplegmaps v1.0.0
+simplegmaps v1.0.1
 ===========
 
 simplegmaps - Add google maps to your web without knowing squat about JavaScript

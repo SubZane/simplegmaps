@@ -1,4 +1,4 @@
-/*! simplegmaps - v0.9.0 - 2015-09-08
+/*! simplegmaps - v1.0.1 - 2015-09-09
 * https://github.com/SubZane/simplegmaps
 * Copyright (c) 2015 Andreas Norman; Licensed MIT */
 (function ($) {
@@ -466,7 +466,7 @@
       var autoCompleteOptions = options.AutoCompleteOptions;
       // Assign autocomplete to variable to add event listener
       autoComplete = new google.maps.places.Autocomplete(input, autoCompleteOptions);
-      
+
       // When event fires run callback function
 
       // If routing is desired trigger click event on ordinary Get route button
@@ -645,9 +645,11 @@
       moveMap: false,
       setMarker: false
     },
-    AppleMapLink: 'http://maps.apple.com/',
-    AndroidMapLink: 'http://maps.google.com/maps',
-    GenericMapLink: 'http://www.google.com/maps',
+    iOSAppleMapLink: 'http://maps.apple.com/',
+		iOSGoogleMapLink: 'comgooglemaps://',
+		AndroidMapLink: 'comgooglemaps://',
+		WP7MapLink: 'maps:',
+		DesktopMapLink: 'http://www.google.com/maps',
     getRouteButton: '#simplegmaps-getroute',
     getTravelMode: '#simplegmaps-travelmode input:checked',
     routeDirections: '#simplegmaps-directions',

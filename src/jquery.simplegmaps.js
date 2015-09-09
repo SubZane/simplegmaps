@@ -463,7 +463,7 @@
       var autoCompleteOptions = options.AutoCompleteOptions;
       // Assign autocomplete to variable to add event listener
       autoComplete = new google.maps.places.Autocomplete(input, autoCompleteOptions);
-      
+
       // When event fires run callback function
 
       // If routing is desired trigger click event on ordinary Get route button
@@ -642,9 +642,11 @@
       moveMap: false,
       setMarker: false
     },
-    AppleMapLink: 'http://maps.apple.com/',
-    AndroidMapLink: 'http://maps.google.com/maps',
-    GenericMapLink: 'http://www.google.com/maps',
+    iOSAppleMapLink: 'http://maps.apple.com/',
+		iOSGoogleMapLink: 'comgooglemaps://',
+		AndroidMapLink: 'comgooglemaps://',
+		WP7MapLink: 'maps:',
+		DesktopMapLink: 'http://www.google.com/maps',
     getRouteButton: '#simplegmaps-getroute',
     getTravelMode: '#simplegmaps-travelmode input:checked',
     routeDirections: '#simplegmaps-directions',
