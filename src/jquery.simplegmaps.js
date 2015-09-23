@@ -392,7 +392,7 @@
     }
 
     function getGoogleMapLink(address) {
-      var url = options.AndroidMapLink + address;
+      var url = options.AndroidMapLink + '?q=' + address;
       return url;
     }
 
@@ -644,7 +644,7 @@
     },
     iOSAppleMapLink: 'http://maps.apple.com/',
 		iOSGoogleMapLink: 'comgooglemaps://',
-		AndroidMapLink: 'comgooglemaps://',
+		AndroidMapLink: 'https://maps.google.se/maps',
 		WP7MapLink: 'maps:',
 		DesktopMapLink: 'http://www.google.com/maps',
     getRouteButton: '#simplegmaps-getroute',

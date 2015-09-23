@@ -1,4 +1,4 @@
-/*! simplegmaps - v1.0.1 - 2015-09-09
+/*! simplegmaps - v1.0.2 - 2015-09-23
 * https://github.com/SubZane/simplegmaps
 * Copyright (c) 2015 Andreas Norman; Licensed MIT */
 (function ($) {
@@ -395,7 +395,7 @@
     }
 
     function getGoogleMapLink(address) {
-      var url = options.AndroidMapLink + address;
+      var url = options.AndroidMapLink + '?q=' + address;
       return url;
     }
 
@@ -647,7 +647,7 @@
     },
     iOSAppleMapLink: 'http://maps.apple.com/',
 		iOSGoogleMapLink: 'comgooglemaps://',
-		AndroidMapLink: 'comgooglemaps://',
+		AndroidMapLink: 'https://maps.google.se/maps',
 		WP7MapLink: 'maps:',
 		DesktopMapLink: 'http://www.google.com/maps',
     getRouteButton: '#simplegmaps-getroute',

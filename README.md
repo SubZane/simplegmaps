@@ -1,4 +1,4 @@
-simplegmaps v1.0.1
+simplegmaps v1.0.2
 ===========
 
 simplegmaps - Add google maps to your web without knowing squat about JavaScript
@@ -294,6 +294,12 @@ var link = $('#simplemap').simplegmaps('getNativeMapLink', 'Remi 145 W 53rd St, 
 ```
 
 ##changelog
+####1.0.2
+* Fixed bug with map links on Android.
+
+####1.0.1
+* Fixed bug with map links
+
 ####1.0.0
 * Added support for autocomplete for routing address. By @jhnsndstrm
 * Added search for address with and without autocomplete. By @jhnsndstrm
