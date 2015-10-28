@@ -53,6 +53,7 @@ $('#id_of_your_div').simplegmaps();
 ```javascript
 defaults = {
 	GeoLocation: false,
+	ZoomToFitBounds: true,
   MapOptions: {
     draggable: true,
     zoom: 8,
@@ -74,6 +75,7 @@ defaults = {
 
 ```
 * `GeoLocation`: Active or deactive automatic geolocation. Default false (inactive)
+* `ZoomToFitBounds`: Will auto zoom the map to fit all markers within bounds. Setting this to true will disable the user of "zoom" in MapOptions, disable this to set your own zoom level. Default true (active)
 * `MapOptions`: [Google Maps MapOptions](https://developers.google.com/maps/documentation/javascript/reference?csw=1#MapOptions)
 * `getRouteButton`: ID of the button used to submit the route to the map
 * `getTravelMode`: ID of the select element to hold the travelmode data
@@ -87,6 +89,15 @@ You can use an address or latitude and longitude to position a marker on a map u
 ```html
 <div id="simplegmap">
 	<div class="map-marker" data-title="Lorem ipsum" data-latlng="55.5897407,13.012268899999981"></div>
+	<div class="map-marker" data-title="Remi" data-address="Remi 145 W 53rd St, New York, NY, United States"></div>
+</div>
+```
+
+###Adding markers to a map and set which to center the map on
+If you disable `ZoomToFitBounds` you must set where to center the map. You can do that by adding a `data` attribute to the marker you wish the map to center on.
+```html
+<div id="simplegmap">
+	<div class="map-marker" data-title="Lorem ipsum" data-center="true" data-latlng="55.5897407,13.012268899999981"></div>
 	<div class="map-marker" data-title="Remi" data-address="Remi 145 W 53rd St, New York, NY, United States"></div>
 </div>
 ```
@@ -162,19 +173,13 @@ $('#geoLocationButton').on('click', function(event) {
 ```
 
 ###Adding a map with different layers
-Currently this plugin supports weather, traffic and bicycle layers.
-
-In order to make weather layer work you need to include the Google Maps weather library by appending `&libraries=weather` to the path
-```html
-    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&libraries=weather"></script>
-```
+Currently this plugin supports traffic and bicycle layers.
 
 ```html
 <div id="simplegmap" class="google-map">
   <div class="map-marker" data-title="Remi" data-address="Remi 145 W 53rd St, New York, NY, United States"></div>
 </div>
 <a href="#" id="toggleTraffic" class="btn btn-primary">Toggle Traffic Layer</a>
-<a href="#" id="toggleWeather" class="btn btn-primary">Toggle Weather Layer</a>
 <a href="#" id="toggleBicycle" class="btn btn-primary">Toggle Bicycle Layer</a>
 
 ```
@@ -185,10 +190,6 @@ $('#simplegmap').simplegmaps();
 $('#toggleTraffic').on('click', function(e) {
   e.preventDefault();
   $('#simplegmap').simplegmaps('toggleTrafficLayer');
-});
-$('#toggleWeather').on('click', function(e) {
-  e.preventDefault();
-  $('#simplegmap').simplegmaps('toggleWeatherLayer');
 });
 $('#toggleBicycle').on('click', function(e) {
   e.preventDefault();
@@ -294,6 +295,10 @@ var link = $('#simplemap').simplegmaps('getNativeMapLink', 'Remi 145 W 53rd St, 
 ```
 
 ##changelog
+####1.1.0
+* NEW: Added option `ZoomToFitBounds`: Will auto zoom the map to fit all markers within bounds. Setting this to true will disable the user of "zoom" in MapOptions, disable this to set your own zoom level. Default true (active)
+* NEW: Added `data` attribute to control where the map center will be. Use `data-center="true"` on the marker you wish the map to center on. Can only be used if `ZoomToFitBounds` is set to false.
+
 ####1.0.2
 * Fixed bug with map links on Android.
 

@@ -1,4 +1,4 @@
-/*! simplegmaps - v1.0.2 - 2015-09-23
+/*! simplegmaps - v1.1.0 - 2015-10-28
 * https://github.com/SubZane/simplegmaps
 * Copyright (c) 2015 Andreas Norman; Licensed MIT */
 (function ($) {
@@ -107,11 +107,6 @@
       var mapInData = $el.clone();
       var runAutoComplete = options.AutoComplete;
 
-      var mapOptions = {
-        zoom: 8,
-        center: new google.maps.LatLng(-34.397, 150.644)
-      };
-
       // First bind autocomplete event, if autocomplete is set to true
       if(runAutoComplete){
         bindAutoComplete();
@@ -151,7 +146,8 @@
               map: map,
               title: currentMarkerData.data('title'),
               position: parseLatLng(currentMarkerData.data('latlng')),
-              icon: iconMarker
+              icon: iconMarker,
+              center: currentMarkerData.data('center')
             });
             if (currentMarkerData.has('div.map-infowindow').length > 0) {
               var infowindow = new google.maps.InfoWindow({
@@ -176,29 +172,26 @@
             markers.push(marker);
           });
         } else if ($(this).attr('data-address')) {
-          currentMarkerData = $(this);
-          geocoder.geocode({
-            'address': $(this).data('address')
-          }, function (results, status) {
+          var currentAddressMarkerData = $(this);
+          geocoder.geocode({'address': currentAddressMarkerData.data('address')}, function (results, status) {
             if (status === google.maps.GeocoderStatus.OK) {
-
-              getMarkerIcon(currentMarkerData.data('icon'), currentMarkerData.data('icon2x'), function(iconMarker) {
+              getMarkerIcon(currentAddressMarkerData.data('icon'), currentAddressMarkerData.data('icon2x'), function(iconMarker) {
                 var marker = new google.maps.Marker({
                   map: map,
-                  title: currentMarkerData.data('title'),
+                  title: currentAddressMarkerData.data('title'),
                   position: results[0].geometry.location,
-                  icon: iconMarker
+                  icon: iconMarker,
+                  center: currentAddressMarkerData.data('center')
                 });
-                if (currentMarkerData.has('div.map-infowindow').length > 0) {
+                if (currentAddressMarkerData.has('div.map-infowindow').length > 0) {
                   var infowindow = new google.maps.InfoWindow({
-                    content: currentMarkerData.find('div.map-infowindow').parent().html()
+                    content: currentAddressMarkerData.find('div.map-infowindow').parent().html()
                   });
                   google.maps.event.addListener(marker, 'click', function () {
                     infowindow.open(map, marker);
                   });
-                } else if (currentMarkerData.has('div.map-custom-infowindow').length > 0) {
-
-                  var customInfowindow = currentMarkerData.find('div.map-custom-infowindow').parent().html();
+                } else if (currentAddressMarkerData.has('div.map-custom-infowindow').length > 0) {
+                  var customInfowindow = currentAddressMarkerData.find('div.map-custom-infowindow').parent().html();
                   google.maps.event.addListener(marker, 'click', function () {
                     $('#simplegmaps-c-iw').remove();
                     $('<div id="simplegmaps-c-iw"></div>').insertAfter($el);
@@ -211,19 +204,35 @@
                 }
                 markers.push(marker);
               });
-
             }
           });
+
         }
 
       });
 
       // We need to wait for Google to locate and place all markers
       google.maps.event.addListenerOnce(map, 'idle', function () {
+        var bounds = new google.maps.LatLngBounds();
+        var position = {};
         if (markers.length > 0) {
-          zoomToFitBounds(map, markers);
+          if (options.ZoomToFitBounds) {
+            zoomToFitBounds(map, markers);
+          } else {
+            // Find all markers that has the value center==true
+            var centeredmarker = markers.filter(function( obj ) {
+              return obj.center === true;
+            });
+            map.fitBounds(bounds);
+            if (typeof centeredmarker[0].position.lat === 'function') {
+              position.lat = markers[0].position.lat();
+              position.lng = markers[0].position.lng();
+            } else {
+              position = centeredmarker[0].position;
+            }
+            map.setCenter(position); // Use the first marker to center the map.
+          }
         } else if (!options.MapOptions.center) {
-          var bounds = new google.maps.LatLngBounds();
           map.fitBounds(bounds);
           map.setCenter(bounds.getCenter());
         }
@@ -242,48 +251,61 @@
       });
     }
 
+    function getLatitudeFromLocation (location, callback) {
+      var lat = location.lat();
+      callback(lat);
+    }
+
+    function getLongitudeFromLocation (location, callback) {
+      var lng = location.lng();
+      callback(lng);
+    }
+
     function getMarkerIcon (imagepath, x2imagepath, callback) {
       var markerIcon = '';
       var imageElement = new Image();
-      if (window.devicePixelRatio > 1.5) {
-        if (x2imagepath) {
-          imageElement.onload = function() {
-            var markerIcon = {
-              url: x2imagepath,
-              size: new google.maps.Size(imageElement.naturalWidth / 2, imageElement.naturalHeight / 2),
-              scaledSize: new google.maps.Size((imageElement.naturalWidth / 2), (imageElement.naturalHeight / 2)),
-              origin: new google.maps.Point(0,0),
-            };
-            callback(markerIcon);
-          };
-          imageElement.src = x2imagepath;
-        } else if (imagepath) {
-          imageElement.onload = function() {
-            var markerIcon = {
-              url: imagepath,
-              size: new google.maps.Size(imageElement.naturalWidth, imageElement.naturalHeight),
-            };
-            callback(markerIcon);
-          };
-          imageElement.src = imagepath;
-        } else {
-          callback(markerIcon);
-        }
+      if (typeof imagepath === 'undefined' || typeof x2imagepath === 'undefined') {
+        callback(null);
       } else {
-        if (imagepath) {
-          imageElement.onload = function() {
-            var markerIcon = {
-              url: imagepath,
-              size: new google.maps.Size(imageElement.naturalWidth, imageElement.naturalHeight),
+        if (window.devicePixelRatio > 1.5) {
+          if (x2imagepath) {
+            imageElement.onload = function() {
+              var markerIcon = {
+                url: x2imagepath,
+                size: new google.maps.Size(imageElement.naturalWidth / 2, imageElement.naturalHeight / 2),
+                scaledSize: new google.maps.Size((imageElement.naturalWidth / 2), (imageElement.naturalHeight / 2)),
+                origin: new google.maps.Point(0,0),
+              };
+              callback(markerIcon);
             };
+            imageElement.src = x2imagepath;
+          } else if (imagepath) {
+            imageElement.onload = function() {
+              var markerIcon = {
+                url: imagepath,
+                size: new google.maps.Size(imageElement.naturalWidth, imageElement.naturalHeight),
+              };
+              callback(markerIcon);
+            };
+            imageElement.src = imagepath;
+          } else {
             callback(markerIcon);
-          };
-          imageElement.src = imagepath;
+          }
         } else {
-          callback(markerIcon);
+          if (imagepath) {
+            imageElement.onload = function() {
+              var markerIcon = {
+                url: imagepath,
+                size: new google.maps.Size(imageElement.naturalWidth, imageElement.naturalHeight),
+              };
+              callback(markerIcon);
+            };
+            imageElement.src = imagepath;
+          } else {
+            callback(markerIcon);
+          }
         }
       }
-
     }
 
     function guid() {
@@ -623,6 +645,7 @@
   // $('#el').simplegmaps('option', 'key', value);
   $.fn[pluginName].defaults = {
     GeoLocation: false,
+    ZoomToFitBounds: true,
     MapOptions: {
       draggable: true,
       zoom: 8,
