@@ -295,6 +295,9 @@ var link = $('#simplemap').simplegmaps('getNativeMapLink', 'Remi 145 W 53rd St, 
 ```
 
 ##changelog
+####1.1.1
+* FIX: Method `setGeoLocation` wasn't public.
+
 ####1.1.0
 * NEW: Added option `ZoomToFitBounds`: Will auto zoom the map to fit all markers within bounds. Setting this to true will disable the user of "zoom" in MapOptions, disable this to set your own zoom level. Default true (active)
 * NEW: Added `data` attribute to control where the map center will be. Use `data-center="true"` on the marker you wish the map to center on. Can only be used if `ZoomToFitBounds` is set to false.

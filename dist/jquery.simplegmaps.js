@@ -1,4 +1,4 @@
-/*! simplegmaps - v1.1.0 - 2015-10-28
+/*! simplegmaps - v1.1.0 - 2015-11-17
 * https://github.com/SubZane/simplegmaps
 * Copyright (c) 2015 Andreas Norman; Licensed MIT */
 (function ($) {
@@ -593,7 +593,8 @@
       getGoogleMapLink: getGoogleMapLink,
       getAppleMapsLink: getAppleMapsLink,
       getWindowsPhone7MapLink: getWindowsPhone7MapLink,
-      getDesktopMapLink: getDesktopMapLink
+      getDesktopMapLink: getDesktopMapLink,
+      setGeoLocation:setGeoLocation
     };
   }
 

@@ -590,7 +590,8 @@
       getGoogleMapLink: getGoogleMapLink,
       getAppleMapsLink: getAppleMapsLink,
       getWindowsPhone7MapLink: getWindowsPhone7MapLink,
-      getDesktopMapLink: getDesktopMapLink
+      getDesktopMapLink: getDesktopMapLink,
+      setGeoLocation:setGeoLocation
     };
   }
 
