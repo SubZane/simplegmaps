@@ -1,6 +1,3 @@
-/*! simplegmaps - v1.1.1 - 2016-01-07
-* https://github.com/SubZane/simplegmaps
-* Copyright (c) 2016 Andreas Norman; Licensed MIT */
 (function (root, factory) {
 	if (typeof define === 'function' && define.amd) {
 		define([], factory(root));
@@ -36,6 +33,87 @@
 	var attachEvents = function () {
 	};
 
+  // Zooms map enough to fit all markers. But not too much. Just enough to be perfect!
+  //
+  // Array: markers
+  var zoomToFitBounds = function (map, markers) {
+    var bounds = new google.maps.LatLngBounds();
+    for (var i = 0; i < markers.length; ++i) {
+      bounds.extend(markers[i].getPosition());
+    }
+    if (bounds.getNorthEast().equals(bounds.getSouthWest())) {
+      var extendPoint1 = new google.maps.LatLng(bounds.getNorthEast().lat() + 0.002, bounds.getNorthEast().lng() + 0.002);
+      var extendPoint2 = new google.maps.LatLng(bounds.getNorthEast().lat() - 0.002, bounds.getNorthEast().lng() - 0.002);
+      bounds.extend(extendPoint1);
+      bounds.extend(extendPoint2);
+    }
+    try {
+      map.fitBounds(bounds);
+      map.setCenter(bounds.getCenter());
+    } catch (e) {} // Let's catch this possible error and do nothing about it. Noone will ever know.
+  };
+
+  // Takes a string with latlng in this format "55.5897407,13.012268899999981" and makes it into a latlng object
+  var parseLatLng = function(latlngString) {
+    var bits = latlngString.split(/,\s*/);
+    $latlng = new google.maps.LatLng(parseFloat(bits[0]), parseFloat(bits[1]));
+    return $latlng;
+  };
+
+  var guid = function() {
+    var strguid = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
+      var r = Math.random() * 16 | 0,
+        v = c === 'x' ? r : (r & 0x3 | 0x8);
+      return v.toString(16);
+    });
+    return strguid;
+  };
+
+  var drawRoute = function(from) {
+    var markers = Map.markers;
+    directionsDisplay.setMap(Map.map);
+    directionsDisplay.setPanel($(options.routeDirections)[0]);
+    var routeOptions = {
+      origin: from,
+      destination: markers[0].position,
+      travelMode: google.maps.TravelMode[currentTravelmode]
+    };
+    jQuery.extend(routeOptions, options.DirectionsRequestOptions);
+    directionsService.route(routeOptions, function (response, status) {
+      if (status === google.maps.DirectionsStatus.OK) {
+        directionsDisplay.setDirections(response);
+        hook('onRouteDrawn');
+      }
+    });
+  };
+
+  var setTravelMode = function (travelmode) {
+    var length = TravelModes.length;
+    currentTravelmode = options.defaultTravelMode;
+    for (var i = 0; i < length; i++) {
+      if (TravelModes[i] === travelmode) {
+        currentTravelmode = travelmode;
+      }
+    }
+  };
+
+  var setupRouting = function () {
+    directionsService = new google.maps.DirectionsService();
+    directionsDisplay = new google.maps.DirectionsRenderer({
+      draggable: true
+    });
+    $(options.getRouteButton).on('click', function (e) {
+      e.preventDefault();
+
+      // Only accept DRIVING, WALKING or BICYCLING
+      var travelmode = $(options.getTravelMode).val();
+      setTravelMode(travelmode);
+      if ($(options.getFromAddress).val().length > 0) {
+        drawRoute($(options.getFromAddress).val());
+      }
+    });
+  };
+
 	var hasClass = function (element, classname) {
 		if (typeof element.classList !== 'undefined' && element.classList.contains(classname)) {
 			return true;
@@ -59,6 +137,22 @@
 			return false;
 		}
 	};
+
+  var isBlackBerry = function () {
+    if (navigator.userAgent.match(/BlackBerry/i)) {
+      return true;
+    } else {
+      return false;
+    }
+  };
+
+  var isWindowsPhone = function () {
+    if (navigator.userAgent.match(/Windows Phone/i)) {
+      return true;
+    } else {
+      return false;
+    }
+  };
 
 	/**
 	 * Callback hooks.
