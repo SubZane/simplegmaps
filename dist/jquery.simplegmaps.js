@@ -1,6 +1,6 @@
-/*! simplegmaps - v1.1.0 - 2015-11-17
+/*! simplegmaps - v1.1.2 - 2016-01-20
 * https://github.com/SubZane/simplegmaps
-* Copyright (c) 2015 Andreas Norman; Licensed MIT */
+* Copyright (c) 2016 Andreas Norman; Licensed MIT */
 (function ($) {
   // Change this to your plugin name.
   var pluginName = 'simplegmaps';
@@ -216,14 +216,13 @@
         var bounds = new google.maps.LatLngBounds();
         var position = {};
         if (markers.length > 0) {
-          if (options.ZoomToFitBounds) {
+          if (options.ZoomToFitBounds === true) {
             zoomToFitBounds(map, markers);
           } else {
             // Find all markers that has the value center==true
             var centeredmarker = markers.filter(function( obj ) {
               return obj.center === true;
             });
-            map.fitBounds(bounds);
             if (typeof centeredmarker[0].position.lat === 'function') {
               position.lat = markers[0].position.lat();
               position.lng = markers[0].position.lng();
@@ -233,7 +232,6 @@
             map.setCenter(position); // Use the first marker to center the map.
           }
         } else if (!options.MapOptions.center) {
-          map.fitBounds(bounds);
           map.setCenter(bounds.getCenter());
         }
 
