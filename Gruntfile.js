@@ -58,15 +58,36 @@ module.exports = function (grunt) {
 				tasks: ['jshint:src', 'qunit']
 			},
 		},
-		connect: {
-			server: {
-				options: {
-					protocol: 'http',
-					hostname: '*',
-					port: 8000,
-					keepalive: true
+		update_json: {
+			// set some task-level options
+			options: {
+				src: 'package.json',
+				indent: '\t'
+			},
+			// update bower.json with data from package.json
+			bower: {
+				src: 'package.json', // where to read from
+				dest: 'bower.json', // where to write to
+				// the fields to update, as a String Grouping
+				fields: {
+					'name': 'name',
+					'title': 'title',
+					'version': 'version',
+					'description': 'description',
 				}
-			}
+			},
+			simplegmaps: {
+				src: 'package.json', // where to read from
+				dest: 'jquery.simplegmaps.json', // where to write to
+				// the fields to update, as a String Grouping
+				fields: {
+					'name': 'name',
+					'title': 'title',
+					'version': 'version',
+					'description': 'description',
+				}
+			},
+
 		}
 	});
 
@@ -76,13 +97,10 @@ module.exports = function (grunt) {
 	grunt.loadNpmTasks('grunt-contrib-uglify');
 	grunt.loadNpmTasks('grunt-contrib-jshint');
 	grunt.loadNpmTasks('grunt-contrib-watch');
-	grunt.loadNpmTasks('grunt-contrib-connect');
+	grunt.loadNpmTasks('grunt-update-json');
 
 	// Default task.
-	grunt.registerTask('default', ['jshint', 'clean', 'concat', 'uglify']);
-
-	grunt.registerTask('webserver', [
-		'connect'
-	]);
+	grunt.registerTask('default', ['jshint', 'clean', 'concat', 'uglify', 'version']);
+	grunt.registerTask('version', ['update_json:bower', 'update_json:simplegmaps']);
 
 };

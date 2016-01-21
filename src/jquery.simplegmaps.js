@@ -99,7 +99,6 @@
     function drawMap() {
       var infoWindow = new google.maps.InfoWindow();
       var geocoder = new google.maps.Geocoder();
-      var currentMarkerData = '';
       var markers = [];
       var mapInData = $el.clone();
       var runAutoComplete = options.AutoComplete;
@@ -134,10 +133,11 @@
       }
 
       var map = new google.maps.Map($el[0], options.MapOptions); // We need [0] to get the html element instead of jQery object
-
+      console.log('map start');
       mapInData.find('div.map-marker').each(function (i) {
         if ($(this).attr('data-latlng')) {
-          currentMarkerData = $(this);
+          var currentMarkerData = $(this);
+          console.log(currentMarkerData);
           getMarkerIcon(currentMarkerData.data('icon'), currentMarkerData.data('icon2x'), function(iconMarker) {
             var marker = new google.maps.Marker({
               map: map,
@@ -213,14 +213,13 @@
         var bounds = new google.maps.LatLngBounds();
         var position = {};
         if (markers.length > 0) {
-          if (options.ZoomToFitBounds) {
+          if (options.ZoomToFitBounds === true) {
             zoomToFitBounds(map, markers);
           } else {
             // Find all markers that has the value center==true
             var centeredmarker = markers.filter(function( obj ) {
               return obj.center === true;
             });
-            map.fitBounds(bounds);
             if (typeof centeredmarker[0].position.lat === 'function') {
               position.lat = markers[0].position.lat();
               position.lng = markers[0].position.lng();
@@ -230,7 +229,6 @@
             map.setCenter(position); // Use the first marker to center the map.
           }
         } else if (!options.MapOptions.center) {
-          map.fitBounds(bounds);
           map.setCenter(bounds.getCenter());
         }
 
