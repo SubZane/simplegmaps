@@ -1,4 +1,4 @@
-simplegmaps v1.1.2
+simplegmaps v1.1.3
 ===========
 
 simplegmaps - Add google maps to your web without knowing squat about JavaScript
@@ -295,6 +295,9 @@ var link = $('#simplemap').simplegmaps('getNativeMapLink', 'Remi 145 W 53rd St, 
 ```
 
 ##changelog
+####1.1.3
+* FIX: When using custom icons together with longitude/latitude positioning the icons where places wrong. This has now been resolved.
+
 ####1.1.2
 * FIX: Option `ZoomToFitBounds` wasn't used properly, preventing custom zoom.
 

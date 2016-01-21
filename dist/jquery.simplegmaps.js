@@ -1,4 +1,4 @@
-/*! simplegmaps - v1.1.2 - 2016-01-20
+/*! simplegmaps - v1.1.2 - 2016-01-21
 * https://github.com/SubZane/simplegmaps
 * Copyright (c) 2016 Andreas Norman; Licensed MIT */
 (function ($) {
@@ -102,7 +102,6 @@
     function drawMap() {
       var infoWindow = new google.maps.InfoWindow();
       var geocoder = new google.maps.Geocoder();
-      var currentMarkerData = '';
       var markers = [];
       var mapInData = $el.clone();
       var runAutoComplete = options.AutoComplete;
@@ -137,10 +136,11 @@
       }
 
       var map = new google.maps.Map($el[0], options.MapOptions); // We need [0] to get the html element instead of jQery object
-
+      console.log('map start');
       mapInData.find('div.map-marker').each(function (i) {
         if ($(this).attr('data-latlng')) {
-          currentMarkerData = $(this);
+          var currentMarkerData = $(this);
+          console.log(currentMarkerData);
           getMarkerIcon(currentMarkerData.data('icon'), currentMarkerData.data('icon2x'), function(iconMarker) {
             var marker = new google.maps.Marker({
               map: map,
