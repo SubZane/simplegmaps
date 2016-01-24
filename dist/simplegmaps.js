@@ -1,3 +1,6 @@
+/*! simplegmaps - v2.0 - 2016-01-24
+* https://github.com/SubZane/simplegmaps
+* Copyright (c) 2016 Andreas Norman; Licensed MIT */
 (function (root, factory) {
 	if (typeof define === 'function' && define.amd) {
 		define([], factory(root));
@@ -98,6 +101,7 @@
 				markerOptions.position = markerposition;
 
 				//markers.push(marker);
+				console.log(markerOptions);
 				marker.setOptions(markerOptions);
 				marker.setMap(map);
 
@@ -108,6 +112,7 @@
 
 	// Asynchronous method to fetch latitude and longitude from address
 	var getPosition = function (markerData, callback) {
+		console.log(markerData);
 		if (markerData.hasAttribute('data-latlng')) {
 			callback(parseLatLng(markerData.getAttribute('data-latlng')));
 		} else if (markerData.hasAttribute('data-address')) {
