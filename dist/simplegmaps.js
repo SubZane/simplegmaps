@@ -1,4 +1,4 @@
-/*! simplegmaps - v2.0 - 2016-01-24
+/*! simplegmaps - v2.0 - 2016-01-25
 * https://github.com/SubZane/simplegmaps
 * Copyright (c) 2016 Andreas Norman; Licensed MIT */
 (function (root, factory) {
@@ -27,6 +27,7 @@
 
 	// Default settings. zoom and center are required to render the map.
 	var defaults = {
+		debug: true,
 		MapOptions: {
 			draggable: true,
 			zoom: 2,
@@ -40,7 +41,6 @@
 			}
 		},
 		onInit: function () {},
-		OnAttachEvents: function () {},
 		onDestroy: function () {}
 	};
 
@@ -48,9 +48,6 @@
 	//
 	// Private Methods
 	//
-
-	var attachEvents = function () {
-	};
 
 	var drawMap = function () {
 		mapdata = el.cloneNode(true);
@@ -62,49 +59,52 @@
 		var markerList = mapdata.querySelectorAll('.map-marker');
 		forEach(markerList, function (markerData, value) {
 			var markerOptions = {};
+
+			// Create new marker object
 			var marker = new google.maps.Marker({
 			    title: markerData.getAttribute('title')
 			});
 
-			// Attach infowindow
-			if (markerData.matches('.map-infowindow')) {
+			// Create infowindow object
+			if (markerData.querySelector('.map-infowindow')) {
 				var infowindow = new google.maps.InfoWindow({
-					content: markerData.querySelector('div.map-infowindow').parent().innerHTML
+					content: markerData.querySelector('div.map-infowindow').parentElement.innerHTML
 				});
-				google.maps.event.addListener(marker, 'click', function () {
+				marker.addListener('click', function() {
 					infowindow.open(map, marker);
-				});
-			} else if (markerData.matches('.map-custom-infowindow')) {
-				var customInfowindow = markerData.querySelector('.map-custom-infowindow').parent().innerHTML;
+			  });
+			} else if (markerData.querySelector('.map-custom-infowindow')) {
+				var customInfowindow = markerData.querySelector('.map-custom-infowindow').parentElement.innerHTML;
 				google.maps.event.addListener(marker, 'click', function () {
-					document.querySelector('#simplegmaps-c-iw').remove();
+					var ciw = document.querySelector('#simplegmaps-c-iw');
+					if (ciw !== null) {
+						ciw.parentNode.removeChild(ciw);
+					}
 					el.insertAdjacentHTML('afterend', '<div id="simplegmaps-c-iw"></div>');
 					document.querySelector('#simplegmaps-c-iw').innerHTML = customInfowindow;
-					document.querySelector('#simplegmaps-c-iw .close').addListener('click', function (event) {
+					document.querySelector('#simplegmaps-c-iw .close').addEventListener('click', function (event) {
 						event.preventDefault();
-						document.querySelector('#simplegmaps-c-iw').remove();
+						var ciw = document.querySelector('#simplegmaps-c-iw');
+						if (ciw !== null) {
+							ciw.parentNode.removeChild(ciw);
+						}
 					});
 				});
-			}
-
-			// Add custom marker icon
-			if (markerData.hasAttribute('data-icon')) {
-				if (markerData.hasAttribute('data-icon2x')) {
-
-				} else {
-
-				}
 			}
 
 			// Set marker position
 			getPosition(markerData, function(markerposition) {
 				markerOptions.position = markerposition;
 
-				//markers.push(marker);
-				console.log(markerOptions);
-				marker.setOptions(markerOptions);
-				marker.setMap(map);
+				var imageurl = markerData.getAttribute('data-icon');
+				var imageurl2x = markerData.getAttribute('data-icon2x');
+				createMarkerIcon(imageurl, imageurl2x, function(markerIcon) {
+					markerOptions.icon = markerIcon;
+					//markers.push(marker);
+					marker.setOptions(markerOptions);
+					marker.setMap(map);
 
+				});
 			});
 		});
 	};
@@ -112,7 +112,6 @@
 
 	// Asynchronous method to fetch latitude and longitude from address
 	var getPosition = function (markerData, callback) {
-		console.log(markerData);
 		if (markerData.hasAttribute('data-latlng')) {
 			callback(parseLatLng(markerData.getAttribute('data-latlng')));
 		} else if (markerData.hasAttribute('data-address')) {
@@ -125,14 +124,15 @@
 		}
 	};
 
-	var getMarkerIcon = function (imagepath, x2imagepath, callback) {
-		var markerIcon = '';
+	var createMarkerIcon = function (imagepath, x2imagepath, callback) {
 		var imageElement = new Image();
-		if (typeof imagepath === 'undefined' || typeof x2imagepath === 'undefined') {
+
+		// At least imagepath must be assigned. Return null if undefined.
+		if (typeof imagepath === 'undefined' || imagepath === null) {
 			callback(null);
 		} else {
 			if (window.devicePixelRatio > 1.5) {
-				if (x2imagepath) {
+				if (typeof x2imagepath !== 'undefined' || imagepath === null) {
 					imageElement.onload = function() {
 						var markerIcon = {
 							url: x2imagepath,
@@ -140,34 +140,31 @@
 							scaledSize: new google.maps.Size((imageElement.naturalWidth / 2), (imageElement.naturalHeight / 2)),
 							origin: new google.maps.Point(0,0),
 						};
+
 						callback(markerIcon);
 					};
 					imageElement.src = x2imagepath;
-				} else if (imagepath) {
+				} else {
 					imageElement.onload = function() {
 						var markerIcon = {
 							url: imagepath,
 							size: new google.maps.Size(imageElement.naturalWidth, imageElement.naturalHeight),
 						};
+
 						callback(markerIcon);
 					};
 					imageElement.src = imagepath;
-				} else {
-					callback(markerIcon);
 				}
 			} else {
-				if (imagepath) {
-					imageElement.onload = function() {
-						var markerIcon = {
-							url: imagepath,
-							size: new google.maps.Size(imageElement.naturalWidth, imageElement.naturalHeight),
-						};
-						callback(markerIcon);
+				imageElement.onload = function() {
+					var markerIcon = {
+						url: imagepath,
+						size: new google.maps.Size(imageElement.naturalWidth, imageElement.naturalHeight),
 					};
-					imageElement.src = imagepath;
-				} else {
+
 					callback(markerIcon);
-				}
+				};
+				imageElement.src = imagepath;
 			}
 		}
 	};
@@ -343,6 +340,26 @@
 		} else {
 			for (var i = 0, len = collection.length; i < len; i++) {
 				callback.call(scope, collection[i], i, collection);
+			}
+		}
+	};
+
+	var log = function (message, data, type) {
+		// Change log type if provided, else default to log
+		type = typeof type !== 'undefined' ? type : 'log';
+
+		// Check if debug is enabled
+		if (settings.debug) {
+
+			// Check for console
+			if (window.console) {
+
+				// Check for provided data
+				if(typeof data !== 'undefined' && data !== null && data.length > 0) {
+					console[type](message, data);
+				} else {
+					console[type](message);
+				}
 			}
 		}
 	};
