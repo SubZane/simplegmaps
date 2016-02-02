@@ -17,11 +17,11 @@
     <div class="row">
       <div class="col-md-8">
         <div id="simplemap-1" class="google-map">
-          <div class="map-marker" data-title="Remi" data-address="Remi 145 W 53rd St, New York, NY, United States">
+          <div class="map-marker" data-center="true" data-title="Remi" data-address="Remi 145 W 53rd St, New York, NY, United States">
             <div class="map-infowindow">
               <h2>Remi</h2>
               <p>Remi 145 W 53rd St, New York, NY, United States</p>
-            </div>            
+            </div>
           </div>
           <div class="map-marker" data-title="Lorem ipsum" data-latlng="55.5897407,13.012268899999981">
             <div class="map-custom-infowindow">
@@ -35,14 +35,89 @@
         </div>
       </div>
     </div>
+    <div class="row button">
+      <div class="col-xs-12">
+        <a href="#" id="geoLocationButton" class="btn btn-primary btn-large">Geolocate me please</a>
+        <a href="#" id="toggleTraffic" class="btn btn-primary btn-large">Toggle traffic layer</a>
+        <a href="#" id="toggleBicycle" class="btn btn-primary btn-large">Toggle Bicycle layer</a>
+        <a href="#" id="toggleTransit" class="btn btn-primary btn-large">Toggle Transit layer</a>
+      </div>
+    </div>
+
+    <div class="row row-route">
+      <div class="col-md-4 col-xs-12 col-sm-12">
+        <div class="form-group">
+           <label for="GMRoute-Fromaddress">From address</label>
+           <input type="text" class="form-control" id="simplegmaps-fromaddress" placeholder="Enter address" value="New York Inn, 765 8th Ave, New York, NY 10036, USA">
+         </div>
+      </div>
+      <div class="col-md-2 col-xs-12 col-sm-12">
+        <div class="form-group">
+           <label for="simplegmaps-travelmode">Travel Mode</label>
+          <select class="form-control" id="simplegmaps-travelmode">
+            <option value="DRIVING">Driving</option>
+            <option value="WALKING">Walking</option>
+            <option value="BICYCLING">Bicycling</option>
+          </select>
+        </div>
+      </div>
+      <div class="col-md-2 col-xs-12 col-sm-12">
+        <div class="form-group">
+          <button type="submit" id="simplegmaps-getroute" class="btn btn-primary">Get route</button>
+        </div>
+      </div>
+    </div>
+
   </div>
+
+
   <script src="https://maps.googleapis.com/maps/api/js" type="text/javascript"></script>
   <script src="../dist/simplegmaps.js"></script>
   <script>
 	document.addEventListener("DOMContentLoaded", function(event) {
 		simplegmaps.init({
-      container: '#simplemap-1'
-		})
+      container: '#simplemap-1',
+      debug: true,
+  		GeoLocation: false,
+      jsonsource: 'dummy/dummy-markersdata.json',
+      ZoomToFitBounds: true,
+  		MapOptions: {
+  			zoom: 10,
+  			center: '55.604981,13.003822',
+  			zoomControlOptions: {
+  				style: 'DEFAULT'
+  			}
+  		},
+		});
+
+    document.querySelector('#simplegmaps-getroute').addEventListener('click', function(event) {
+      simplegmaps.Directions.route({
+        origin: 'New York Inn, 765 8th Ave, New York, NY 10036, USA',
+        destination: 'Remi 145 W 53rd St, New York, NY, USA'
+      });
+
+      /*
+      simplegmaps.Directions.route({
+        origin: simplegmaps.Markers.get()[0].getPosition(),
+        destination: simplegmaps.Markers.get()[1].getPosition()
+      });
+      */
+    });
+
+
+    document.querySelector('#geoLocationButton').addEventListener('click', function(event) {
+      simplegmaps.GeoLocation.set();
+    });
+    document.querySelector('#toggleTraffic').addEventListener('click', function(event) {
+      simplegmaps.TrafficLayer.toggle();
+    });
+    document.querySelector('#toggleTransit').addEventListener('click', function(event) {
+      simplegmaps.TransitLayer.toggle();
+    });
+    document.querySelector('#toggleBicycle').addEventListener('click', function(event) {
+      simplegmaps.BicycleLayer.toggle();
+    });
+    console.log(simplegmaps.Directions.unitSystem.get());
   });
 	</script>
 </body>

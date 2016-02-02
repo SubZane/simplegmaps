@@ -49,13 +49,17 @@ module.exports = function (grunt) {
 			},
 		},
 		watch: {
-			gruntfile: {
-				files: '<%= jshint.gruntfile.src %>',
-				tasks: ['jshint:gruntfile']
-			},
 			src: {
-				files: '<%= jshint.src.src %>',
-				tasks: ['jshint:src', 'qunit']
+				files: ['src/*.js', 'src/*.json'],
+				tasks: ['default']
+			},
+		},
+		copy: {
+			default: {
+				flatten: true,
+				expand: true,
+				src: ['src/dummy-markersdata.json'],
+				dest: 'demo/dummy/',
 			},
 		},
 		update_json: {
@@ -98,9 +102,10 @@ module.exports = function (grunt) {
 	grunt.loadNpmTasks('grunt-contrib-jshint');
 	grunt.loadNpmTasks('grunt-contrib-watch');
 	grunt.loadNpmTasks('grunt-update-json');
+	grunt.loadNpmTasks('grunt-contrib-copy');
 
 	// Default task.
-	grunt.registerTask('default', ['jshint', 'clean', 'concat', 'uglify', 'version']);
+	grunt.registerTask('default', ['jshint', 'clean', 'concat', 'uglify', 'copy', 'version']);
 	grunt.registerTask('version', ['update_json:bower', 'update_json:simplegmaps']);
 
 };
