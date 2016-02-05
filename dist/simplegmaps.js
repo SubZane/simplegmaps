@@ -1,4 +1,4 @@
-/*! simplegmaps - v2.0.0 - 2016-02-02
+/*! simplegmaps - v2.0.0 - 2016-02-05
 * https://github.com/SubZane/simplegmaps
 * Copyright (c) 2016 Andreas Norman; Licensed MIT */
 (function (root, factory) {
@@ -46,6 +46,7 @@
 		markers: []
 	};
 	var markers = [];
+	var AutoComplete;
 
 	// Default settings. zoom and center are required to render the map.
 	var defaults = {
@@ -53,6 +54,18 @@
 		GeoLocation: false,
 		ZoomToFitBounds: false,
 		jsonsource: false, // if set to "false". Load from HTML markup.
+		AutoComplete: false,
+		AutoCompleteOptions: {
+			// Supported types (https://developers.google.com/places/supported_types#table3)
+			types: ['geocode'],
+			// Country Codes (ISO 3166-1 alpha-2): https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2
+			// https://developers.google.com/maps/documentation/javascript/places-autocomplete?hl=en
+			componentRestrictions: {
+				'country': 'se'
+			},
+			moveMap: false,
+			setMarker: false
+		},
 		MapOptions: {
 			draggable: true,
 			zoom: 2,
@@ -617,6 +630,58 @@
 		}
 	};
 
+	var bindAutoComplete = function (field, routeButton) {
+		// Get the DOM-element
+		var input = document.querySelector(field);
+		// Assign autocomplete to variable to add event listener
+		AutoComplete = new google.maps.places.Autocomplete(input, settings.autoCompleteOptions);
+
+		// When event fires run callback function
+		// If routing is desired trigger click event on ordinary Get route button
+		if (hasValue(routeButton)) {
+			AutoComplete.addListener('place_changed', function () {
+				document.querySelector(routeButton).click();
+			});
+		} else {
+			// Make a ordinary search
+			AutoComplete.addListener('place_changed', onPlaceChanged);
+		}
+	};
+
+	var onPlaceChanged = function () {
+		var place = AutoComplete.getPlace();
+		if (place.geometry) {
+			if (settings.AutoCompleteOptions.moveMap) {
+				map.panTo(place.geometry.location);
+				map.setZoom(15);
+			}
+			if (settings.AutoCompleteOptions.setMarker) {
+				var marker = new google.maps.Marker({
+					map: map,
+					position: place.geometry.location
+				});
+			}
+		}
+	};
+
+	function search(location) {
+		var geocoder = new google.maps.Geocoder();
+		geocoder.geocode({
+			'address': location
+		}, function (data, status) {
+			if (status === google.maps.GeocoderStatus.OK) {
+				map.setCenter(data[0].geometry.location);
+				var marker = new google.maps.Marker({
+					map: map,
+					position: data[0].geometry.location
+				});
+			} else {
+				log(status);
+				// not found
+			}
+		});
+	}
+
 	/**
 	 * Destroy the current initialization.
 	 * @public
@@ -694,18 +759,77 @@
 	// Public APIs
 	//
 	simplegmaps.Markers = {
-		get: function() {
+		get: function () {
 			return markers;
 		}
 	};
 
 	simplegmaps.Map = {
-		get: function() {
+		get: function () {
 			return map;
 		}
 	};
 
+	simplegmaps.Search = {
+		default: {
+			input: '',
+			eventButton: '',
+			AutoComplete: false
+		},
+		init: function (options) {
+			simplegmaps.Search.options = extend(simplegmaps.Search.default, options || {});
+
+			if (simplegmaps.Search.options.AutoComplete) {
+				bindAutoComplete(simplegmaps.Search.options.input);
+			}
+
+			document.querySelector(simplegmaps.Search.options.eventButton).addEventListener('click', function (event) {
+				event.preventDefault();
+				search(document.querySelector(simplegmaps.Search.options.input).value);
+			});
+
+			document.querySelector(simplegmaps.Search.options.input).addEventListener('keypress', function (event) {
+				if (event.keyCode === 13) {
+					search(document.querySelector(simplegmaps.Search.options.input).value);
+				}
+			});
+		},
+		initAutoComplete: function (options) {
+			bindAutoComplete(options.input);
+		},
+		search: function (location) {
+			search(location);
+		}
+	};
+
 	simplegmaps.Directions = {
+		default: {
+			AutoComplete: false,
+			TravelMode: DirectionsRequest.TravelMode,
+			UnitSystem: DirectionsRequest.UnitSystem,
+			originInput: '',
+			destination: '',
+			eventButton: ''
+		},
+		init: function (routingOptions) {
+			simplegmaps.Directions.options = extend(simplegmaps.Directions.default, routingOptions || {});
+			DirectionsRequest.TravelMode = simplegmaps.Directions.options.TravelMode;
+			DirectionsRequest.UnitSystem = simplegmaps.Directions.options.UnitSystem;
+
+			document.querySelector(simplegmaps.Directions.options.eventButton).addEventListener('click', function (event) {
+				simplegmaps.Directions.route({
+					origin: document.querySelector(simplegmaps.Directions.options.originInput).value,
+					destination: simplegmaps.Directions.options.destination
+				});
+			});
+			if (simplegmaps.Directions.options.AutoComplete) {
+				bindAutoComplete(simplegmaps.Directions.options.originInput, simplegmaps.Directions.options.eventButton);
+			}
+		},
+		initAutoComplete: function (options) {
+			settings.AutoComplete = true;
+			bindAutoComplete(options.originInput, options.eventButton);
+		},
 		travelMode: {
 			get: function () {
 				return DirectionsRequest.TravelMode;
@@ -725,17 +849,19 @@
 		route: function (directionsRequest) {
 			DirectionsRequest = extend(DirectionsRequest, directionsRequest || {});
 			var directionsService = new google.maps.DirectionsService();
-      var directionsDisplay = new google.maps.DirectionsRenderer({
-        draggable: true
-      });
+			var directionsDisplay = new google.maps.DirectionsRenderer({
+				draggable: true
+			});
 			directionsDisplay.setMap(map);
 			// Writes direction to a panel
-      //directionsDisplay.setPanel($(options.routeDirections)[0]);
+			//directionsDisplay.setPanel($(options.routeDirections)[0]);
 			directionsService.route(DirectionsRequest, function (response, status) {
-        if (status === google.maps.DirectionsStatus.OK) {
-          directionsDisplay.setDirections(response);
-        }
-      });
+				if (status === google.maps.DirectionsStatus.OK) {
+					directionsDisplay.setDirections(response);
+				} else {
+					log(status);
+				}
+			});
 		}
 	};
 
