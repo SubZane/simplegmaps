@@ -55,7 +55,13 @@ module.exports = function (grunt) {
 			},
 		},
 		copy: {
-			default: {
+			js: {
+				flatten: true,
+				expand: true,
+				src: ['dist/<%= pkg.name %>.js', 'dist/<%= pkg.name %>.min.js'],
+				dest: 'demo/js/',
+			},
+			json: {
 				flatten: true,
 				expand: true,
 				src: ['src/dummy-markersdata.json'],
@@ -105,7 +111,7 @@ module.exports = function (grunt) {
 	grunt.loadNpmTasks('grunt-contrib-copy');
 
 	// Default task.
-	grunt.registerTask('default', ['jshint', 'clean', 'concat', 'uglify', 'copy', 'version']);
+	grunt.registerTask('default', ['jshint', 'clean', 'concat', 'uglify', 'copy:json', 'copy:js', 'version']);
 	grunt.registerTask('version', ['update_json:bower', 'update_json:simplegmaps']);
 
 };

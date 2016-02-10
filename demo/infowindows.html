@@ -22,9 +22,11 @@
 
 <pre>
 <code class="javascript">
-jQuery(document).ready(function ($) {
-  $('#simplemap').simplegmaps();
-});
+  document.addEventListener("DOMContentLoaded", function(event) {
+  	simplegmaps.init({
+      container: '#simplemap-1'
+  	});
+  });
 </code>
 </pre>
 
@@ -53,7 +55,9 @@ jQuery(document).ready(function ($) {
   </div>
 </div>
 <script>
-jQuery(document).ready(function ($) {
-  $('#simplemap-1').simplegmaps();
+document.addEventListener("DOMContentLoaded", function(event) {
+  simplegmaps.init({
+    container: '#simplemap-1'
+  });
 });
 </script>

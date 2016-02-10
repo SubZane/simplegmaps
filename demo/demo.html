@@ -16,7 +16,7 @@
   <div class="container">
     <div class="row">
       <div class="col-md-8">
-        <div id="simplemap-1" class="google-map">
+        <div id="simplegmap-1" class="google-map">
           <div class="map-marker" data-center="true" data-title="Remi" data-address="Remi 145 W 53rd St, New York, NY, United States">
             <div class="map-infowindow">
               <h2>Remi</h2>
@@ -83,11 +83,11 @@
 
 
   <script src="https://maps.googleapis.com/maps/api/js?libraries=places" type="text/javascript"></script>
-  <script src="../dist/simplegmaps.js"></script>
+  <script src="js/simplegmaps.js"></script>
   <script>
 	document.addEventListener("DOMContentLoaded", function(event) {
 		simplegmaps.init({
-      container: '#simplemap-1',
+      container: '#simplegmap-1',
       debug: true,
   		GeoLocation: false,
       jsonsource: 'dummy/dummy-markersdata.json',
@@ -136,7 +136,6 @@
     document.querySelector('#toggleBicycle').addEventListener('click', function(event) {
       simplegmaps.BicycleLayer.toggle();
     });
-    console.log(simplegmaps.Directions.unitSystem.get());
   });
 	</script>
 </body>

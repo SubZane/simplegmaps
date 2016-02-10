@@ -5,7 +5,7 @@
 </div>
 <div class="row">
   <div class="col-xs-12">
-    <div id="simplemap-1" class="google-map"></div>
+    <div id="simplegmaps-1" class="google-map"></div>
   </div>
 </div>
 <div class="row button">
@@ -21,13 +21,11 @@
 
 <pre>
 <code class="javascript">
-jQuery(document).ready(function ($) {
-  $('#simplemap').simplegmaps();
-
-  $('#geoLocationButton').on('click', function(event) {
-    event.preventDefault();
-    $('#simplemap-1').simplegmaps('setGeoLocation');
-  });
+simplegmaps.init({
+  container: '#simplegmaps-1'
+});
+document.querySelector('#geoLocationButton').addEventListener('click', function(event) {
+  simplegmaps.GeoLocation.set();
 });
 </code>
 </pre>
@@ -42,7 +40,7 @@ jQuery(document).ready(function ($) {
 
 <pre>
 <code class="html">
-<div id="simplemap" class="google-map"></div>
+<div id="simplegmaps-1" class="google-map"></div>
 </code>
 </pre>
 
@@ -50,12 +48,10 @@ jQuery(document).ready(function ($) {
   </div>
 </div>
 <script>
-jQuery(document).ready(function ($) {
-  $('#simplemap-1').simplegmaps();
-
-  $('#geoLocationButton').on('click', function(event) {
-    event.preventDefault();
-    $('#simplemap-1').simplegmaps('setGeoLocation');
-  });
+simplegmaps.init({
+  container: '#simplegmaps-1'
+});
+document.querySelector('#geoLocationButton').addEventListener('click', function(event) {
+  simplegmaps.GeoLocation.set();
 });
 </script>

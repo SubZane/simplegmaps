@@ -16,7 +16,7 @@
 
 	var simplegmaps = {}; // Object for public APIs
 	var supports = !!document.querySelector && !!root.addEventListener; // Feature test
-	var settings, eventTimeout;
+	var settings;
 	var el;
 
 	var bicycleLayer, trafficLayer, transitLayer = false;
@@ -37,13 +37,13 @@
 		unitSystem: UnitSystems.Metric
 	};
 
-	var map;
-	var mapdata; // Element copy. Used to read map settings
+	var map = null;
+	var mapdata = null; // Element copy. Used to read map settings
 	var markerData = {
 		markers: []
 	};
 	var markers = [];
-	var AutoComplete;
+	var AutoComplete = false;
 
 	// Default settings. zoom and center are required to render the map.
 	var defaults = {
@@ -65,7 +65,7 @@
 		},
 		MapOptions: {
 			draggable: true,
-			zoom: 2,
+			zoom: 7,
 			center: '55.604981,13.003822',
 			scrollwheel: false,
 			streetViewControl: false,
@@ -75,35 +75,29 @@
 				style: 'DEFAULT'
 			}
 		},
+		onInit: function () {},
 		onDestroy: function () {},
+
+		onSearchInit: function () {},
 		onSearchComplete: function () {},
 		onSearchFail: function () {},
+
+		onZoomToFitBounds: function () {},
 		onPlaceChanged: function () {},
-		onInit: function () {},
-		onSearchInit: function () {},
+
 		onDirectionsInit: function () {},
 		onRouteComplete: function () {},
 		onRouteError: function () {},
-		onZoomToFitBounds: function () {},
-		gm_bounds_changed: function () {},
-		gm_click: function () {},
-		gm_dblclick: function () {},
-		gm_drag: function () {},
-		gm_dragend: function () {},
-		gm_dragstart: function () {},
-		gm_heading_changed: function () {},
-		gm_idle: function () {},
-		gm_maptypeid_changed: function () {},
-		gm_mousemove: function () {},
-		gm_mouseout: function () {},
-		gm_mouseover: function () {},
-		gm_projection_changed: function () {},
-		gm_resize: function () {},
-		gm_rightclick: function () {},
-		gm_tilesloaded: function () {},
-		gm_tilt_changed: function () {},
-		gm_zoom_changed: function () {}
+
+		onJSONConnectionFail: function () {},
+		onJSONLoadFail: function () {},
+		onJSONLoadSuccess: function () {},
 	};
+	/*
+	You can also use Google Maps native events found here: https://developers.google.com/maps/documentation/javascript/events
+	Attach them like this: simplegmaps.map.addListener('bounds_changed', function (event) {});
+	*/
+
 
 
 	//
@@ -114,83 +108,11 @@
 		mapdata = el.cloneNode(true);
 		map = new google.maps.Map(el, settings.MapOptions);
 
-		map.addListener('bounds_changed', function () {
-			hook('gm_bounds_changed');
-		});
-
-		map.addListener('click', function () {
-			hook('gm_click');
-		});
-
-		map.addListener('dblclick', function () {
-			hook('gm_dblclick');
-		});
-
-		map.addListener('drag', function () {
-			hook('gm_drag');
-		});
-
-		map.addListener('dragend', function () {
-			hook('gm_dragend');
-		});
-
-		map.addListener('dragstart', function () {
-			hook('gm_dragstart');
-		});
-
-		map.addListener('heading_changed', function () {
-			hook('gm_heading_changed');
-		});
-
-		map.addListener('idle', function () {
-			hook('gm_idle');
-		});
-
-		map.addListener('maptypeid_changed', function () {
-			hook('gm_maptypeid_changed');
-		});
-
-		map.addListener('mousemove', function () {
-			hook('gm_mousemove');
-		});
-
-		map.addListener('mouseout', function () {
-			hook('gm_mouseout');
-		});
-
-		map.addListener('mouseover', function () {
-			hook('gm_mouseover');
-		});
-
-		map.addListener('projection_changed', function () {
-			hook('gm_projection_changed');
-		});
-
-		map.addListener('resize', function () {
-			hook('gm_resize');
-		});
-
-		map.addListener('rightclick', function () {
-			hook('gm_rightclick');
-		});
-
-		map.addListener('tilesloaded', function () {
-			hook('gm_tilesloaded');
-		});
-
-		map.addListener('tilt_changed', function () {
-			hook('gm_tilt_changed');
-		});
-
-		map.addListener('zoom_changed', function () {
-			hook('gm_zoom_changed');
-		});
 		hook('onDrawMap');
 	};
 
 	var getMapMarkersFromJSON = function (done) {
 		if (settings.jsonsource === false) {
-			log('settings.jsonsource === false');
 			return false;
 		}
 		var request = new XMLHttpRequest();
@@ -215,9 +137,11 @@
 						});
 					});
 				});
+				hook('onJSONLoadSuccess');
 			} else {
 				// We reached our target server, but it returned an error
 				if (settings.debug) {
+					hook('onJSONLoadFail');
 					console.log('An error occured when trying to load data from ' + settings.datasource);
 				}
 			}
@@ -225,6 +149,7 @@
 		request.onerror = function () {
 			// There was a connection error of some sort
 			if (settings.debug) {
+				hook('onJSONConnectionFail');
 				console.log('A connection error occured when trying to access ' + settings.datasource);
 			}
 		};
@@ -248,7 +173,10 @@
 
 	var getMapMarkersFromMarkup = function (done) {
 		var markerList = mapdata.querySelectorAll('.map-marker');
-
+		log(markerList);
+		if (markerList.length === 0) {
+			done();
+		}
 		forEach(markerList, function (markerElement, value) {
 			var marker = {};
 			marker.title = markerElement.getAttribute('data-title');
@@ -353,11 +281,20 @@
 			map.setCenter(bounds.getCenter());
 		}
 
+
 		if (settings.GeoLocation) {
+			log('geolocation');
 			geoLocation(map);
+		} else {
+			log('no geolocation');
 		}
 	};
 
+	/**
+	 * Sets InfoWindow for the selected marker. Default or Custom InfoWindow
+	 * @param {google.maps.Marker} marker
+	 * @param {Object} markerData
+	 */
 	var setInfoWindow = function (marker, markerData) {
 		if (markerData.infoWindowContent) {
 			var infowindow = new google.maps.InfoWindow({
@@ -482,8 +419,13 @@
 
 	// Takes a string with latlng in this format "55.5897407,13.012268899999981" and makes it into a latlng object
 	var parseLatLng = function (latlngString) {
-		var bits = latlngString.split(/,\s*/);
-		var latlng = new google.maps.LatLng(parseFloat(bits[0]), parseFloat(bits[1]));
+		var latlng;
+		if (typeof latlngString === 'string') {
+			var bits = latlngString.split(/,\s*/);
+			latlng = new google.maps.LatLng(parseFloat(bits[0]), parseFloat(bits[1]));
+		} else {
+			latlng = latlngString;
+		}
 		return latlng;
 	};
 
@@ -722,18 +664,21 @@
 			return;
 		}
 
-		// Remove init class for conditional CSS
-		document.documentElement.classList.remove(settings.initClass);
-
 		// @todo Undo any other init functions...
 
 		// Remove event listeners
-		document.removeEventListener('click', eventHandler, false);
+		//document.removeEventListener('click', eventHandler, false);
+
+		hook('onDestroy');
 
 		// Reset variables
 		settings = null;
-		eventTimeout = null;
-		hook('onDestroy');
+		map = null;
+		mapdata = null;
+		markerData = {
+			markers: []
+		};
+		markers = [];
 	};
 
 	/**
@@ -752,7 +697,7 @@
 
 		// Merge user options with defaults
 		settings = extend(defaults, options || {});
-
+		log(settings);
 		el = document.querySelector(settings.container);
 
 		if (settings.MapOptions.center) {
@@ -764,13 +709,14 @@
 		}
 
 		drawMap();
-		log(settings);
+
 
 		// Unless there is a datasource specified, read markers from HTML markup
 		log('init');
 		if (settings.jsonsource === false) {
 			log('getMapMarkersFromMarkup');
 			getMapMarkersFromMarkup(function (done) {
+				log('markers done');
 				placeMarkers();
 			});
 		} else {
