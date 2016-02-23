@@ -11,13 +11,10 @@
   </div>
 </div>
 <div class="row row-route">
-  <div class="col-md-4 col-xs-12 col-sm-12 col-md-push-2">
-    <div class="form-group">
-       <label for="simplegmaps-searchbox">Find place</label>
-       <input type="text" class="form-control" id="simplegmaps-searchfield" placeholder="Enter location" value="" />
-     </div>
+  <div class="col-md-6 col-xs-12 col-sm-12">
+    <input type="text" class="form-control" id="simplegmaps-searchfield" placeholder="Enter address" value="">
   </div>
-  <div class="col-md-2 col-xs-12 col-sm-12 col-md-push-2">
+  <div class="col-md-2 col-xs-12 col-sm-12">
     <div class="form-group">
       <button type="submit" id="simplegmaps-searchbutton" class="btn btn-primary">Search</button>
     </div>
@@ -38,7 +35,10 @@
 <pre>
 <code class="javascript">
 simplegmaps.init({
-  container: '#simplegmaps-1'
+  container: '#simplegmaps-1',
+  MapOptions: {
+    zoom: 12
+  }
 });
 simplegmaps.Search.init({
   input: '#simplegmaps-searchfield',
@@ -85,7 +85,10 @@ simplegmaps.Search.init({
 </div>
 <script>
 simplegmaps.init({
-  container: '#simplegmaps-1'
+  container: '#simplegmaps-1',
+  MapOptions: {
+    zoom: 12
+  }
 });
 simplegmaps.Search.init({
   input: '#simplegmaps-searchfield',

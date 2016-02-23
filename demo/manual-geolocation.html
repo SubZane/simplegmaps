@@ -22,10 +22,14 @@
 <pre>
 <code class="javascript">
 simplegmaps.init({
-  container: '#simplegmaps-1'
+  container: '#simplegmaps-1',
+  MapOptions: {
+    zoom: 14
+  }
 });
 document.querySelector('#geoLocationButton').addEventListener('click', function(event) {
   simplegmaps.GeoLocation.set();
+  event.preventDefault();
 });
 </code>
 </pre>
@@ -49,9 +53,13 @@ document.querySelector('#geoLocationButton').addEventListener('click', function(
 </div>
 <script>
 simplegmaps.init({
-  container: '#simplegmaps-1'
+  container: '#simplegmaps-1',
+  MapOptions: {
+    zoom: 14
+  }
 });
 document.querySelector('#geoLocationButton').addEventListener('click', function(event) {
   simplegmaps.GeoLocation.set();
+  event.preventDefault();
 });
 </script>

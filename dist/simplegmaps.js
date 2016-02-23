@@ -1,4 +1,4 @@
-/*! simplegmaps - v2.0.0 - 2016-02-10
+/*! simplegmaps - v2.0.0 - 2016-02-23
 * https://github.com/SubZane/simplegmaps
 * Copyright (c) 2016 Andreas Norman; Licensed MIT */
 (function (root, factory) {
@@ -39,6 +39,10 @@
 		travelMode: TravelModes.Driving,
 		unitSystem: UnitSystems.Metric
 	};
+
+	var directionsDisplay = new google.maps.DirectionsRenderer({
+		draggable: true
+	});
 
 	var map = null;
 	var mapdata = null; // Element copy. Used to read map settings
@@ -782,6 +786,11 @@
 	};
 
 	simplegmaps.Directions = {
+		TravelModes: {
+			get: function () {
+				return TravelModes;
+			}
+		},
 		default: {
 			AutoComplete: false,
 			TravelMode: DirectionsRequest.TravelMode,
@@ -829,9 +838,7 @@
 		route: function (directionsRequest) {
 			DirectionsRequest = extend(DirectionsRequest, directionsRequest || {});
 			var directionsService = new google.maps.DirectionsService();
-			var directionsDisplay = new google.maps.DirectionsRenderer({
-				draggable: true
-			});
+			log(DirectionsRequest);
 			directionsDisplay.setMap(map);
 			// Writes direction to a panel
 			//directionsDisplay.setPanel($(options.routeDirections)[0]);

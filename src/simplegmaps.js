@@ -37,6 +37,10 @@
 		unitSystem: UnitSystems.Metric
 	};
 
+	var directionsDisplay = new google.maps.DirectionsRenderer({
+		draggable: true
+	});
+
 	var map = null;
 	var mapdata = null; // Element copy. Used to read map settings
 	var markerData = {
@@ -779,6 +783,11 @@
 	};
 
 	simplegmaps.Directions = {
+		TravelModes: {
+			get: function () {
+				return TravelModes;
+			}
+		},
 		default: {
 			AutoComplete: false,
 			TravelMode: DirectionsRequest.TravelMode,
@@ -826,9 +835,7 @@
 		route: function (directionsRequest) {
 			DirectionsRequest = extend(DirectionsRequest, directionsRequest || {});
 			var directionsService = new google.maps.DirectionsService();
-			var directionsDisplay = new google.maps.DirectionsRenderer({
-				draggable: true
-			});
+			log(DirectionsRequest);
 			directionsDisplay.setMap(map);
 			// Writes direction to a panel
 			//directionsDisplay.setPanel($(options.routeDirections)[0]);
