@@ -411,6 +411,12 @@
       geoLocation(Map.map);
     }
 
+    function reCenter() {
+        var center = Map.map.getCenter();
+        google.maps.event.trigger(Map.map, "resize");
+        Map.map.setCenter(center);
+    }
+
     function getGoogleMapLink(address) {
       var url = options.AndroidMapLink + '?q=' + address;
       return url;
@@ -589,7 +595,8 @@
       getAppleMapsLink: getAppleMapsLink,
       getWindowsPhone7MapLink: getWindowsPhone7MapLink,
       getDesktopMapLink: getDesktopMapLink,
-      setGeoLocation:setGeoLocation
+      setGeoLocation: setGeoLocation,
+      reCenter: reCenter
     };
   }
 

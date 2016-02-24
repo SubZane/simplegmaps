@@ -294,6 +294,23 @@ Create a link that will open an address in the native maps app on the current de
 var link = $('#simplemap').simplegmaps('getNativeMapLink', 'Remi 145 W 53rd St, New York, NY, United States')
 ```
 
+###Keep map centered on resize
+Use the method `reCenter` to trigger Google Maps setCenter()
+
+```javascript
+$(function(){
+	var $mySimplegmap = $(#simplegmap);
+	
+	if($mySimplegmap.length) {
+		$mySimplegmap.simplegmaps();
+		
+		$(window).resize(function(){
+    		myMap.simplegmaps('reCenter');
+		});
+	}
+});
+```
+
 ##changelog
 ####1.1.3
 * FIX: When using custom icons together with longitude/latitude positioning the icons where places wrong. This has now been resolved.
