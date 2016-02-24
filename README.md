@@ -299,7 +299,7 @@ Use the method `reCenter` to trigger Google Maps setCenter()
 
 ```javascript
 $(function(){
-	var $mySimplegmap = $(#simplegmap);
+	var $mySimplegmap = $('#simplegmap');
 	
 	if($mySimplegmap.length) {
 		$mySimplegmap.simplegmaps();
