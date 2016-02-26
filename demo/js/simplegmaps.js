@@ -1,4 +1,4 @@
-/*! simplegmaps - v2.0.0 - 2016-02-23
+/*! simplegmaps - v2.0.0 - 2016-02-26
 * https://github.com/SubZane/simplegmaps
 * Copyright (c) 2016 Andreas Norman; Licensed MIT */
 (function (root, factory) {
@@ -44,6 +44,7 @@
 		draggable: true
 	});
 
+	var geocoder = null;
 	var map = null;
 	var mapdata = null; // Element copy. Used to read map settings
 	var markerData = {
@@ -82,8 +83,16 @@
 				style: 'DEFAULT'
 			}
 		},
+		iOSAppleMapLink: 'http://maps.apple.com/',
+		iOSGoogleMapLink: 'comgooglemaps://',
+		AndroidMapLink: 'https://maps.google.se/maps',
+		WP7MapLink: 'maps:',
+		DesktopMapLink: 'http://www.google.com/maps',
+
 		onInit: function () {},
 		onDestroy: function () {},
+
+		onDrawMap: function () {},
 
 		onSearchInit: function () {},
 		onSearchComplete: function () {},
@@ -112,10 +121,12 @@
 	//
 
 	var drawMap = function () {
+		geocoder = new google.maps.Geocoder();
 		mapdata = el.cloneNode(true);
 		map = new google.maps.Map(el, settings.MapOptions);
-
-		hook('onDrawMap');
+		map.addListener('idle', function() {
+			hook('onDrawMap');
+		});
 	};
 
 	var getMapMarkersFromJSON = function (done) {
@@ -263,7 +274,6 @@
 			log('lng: ' + marker.getPosition().lng());
 		});
 
-		log('-- map idle --');
 		var bounds = new google.maps.LatLngBounds();
 		var position = {};
 		if (markers.length > 0) {
@@ -337,7 +347,6 @@
 		if (hasValue(markerObj.latlng)) {
 			callback(parseLatLng(markerObj.latlng));
 		} else if (hasValue(markerObj.address)) {
-			var geocoder = new google.maps.Geocoder();
 			geocoder.geocode({
 				'address': markerObj.address
 			}, function (results, status) {
@@ -640,8 +649,7 @@
 		}
 	};
 
-	function search(location) {
-		var geocoder = new google.maps.Geocoder();
+	var search = function (location) {
 		geocoder.geocode({
 			'address': location
 		}, function (data, status) {
@@ -658,7 +666,20 @@
 				// not found
 			}
 		});
-	}
+	};
+
+	var getMarkerAddress = function (marker, callback) {
+		log(marker);
+		geocoder.geocode({
+			latLng: marker.getPosition()
+		}, function (responses) {
+			if (responses && responses.length > 0) {
+				callback(responses[0].formatted_address);
+			} else {
+				callback(null);
+			}
+		});
+	};
 
 	/**
 	 * Destroy the current initialization.
@@ -750,6 +771,18 @@
 		get: function () {
 			return map;
 		}
+	};
+
+	simplegmaps.getMarkerAddress = function (marker, callback) {
+		getMarkerAddress(marker, function(address) {
+			callback(address);
+		});
+	};
+
+	simplegmaps.Center = function () {
+		var center = map.getCenter();
+		google.maps.event.trigger(map, 'resize');
+		map.setCenter(center);
 	};
 
 	simplegmaps.Search = {
@@ -875,6 +908,38 @@
 	simplegmaps.GeoLocation = {
 		set: function () {
 			geoLocation();
+		}
+	};
+
+	simplegmaps.getURL = {
+		Android: function (address) {
+			var url = settings.AndroidMapLink + '?q=' + address;
+			return url;
+		},
+		ios: function (address) {
+			var url = settings.iOSAppleMapLink + '?q=' + address;
+			return url;
+		},
+		WindowsPhone: function (address) {
+			var url = settings.WP7MapLink + address;
+			return url;
+		},
+		Desktop: function (address) {
+			var url = settings.DesktopMapLink + '?q=' + address;
+			return url;
+		},
+		Native: function (address) {
+			var url = '';
+			if (isAndroid()) {
+				url = simplegmaps.getURL.Android(address);
+			} else if (isIOS()) {
+				url = simplegmaps.getURL.ios(address);
+			} else if (isWindowsPhone()) {
+				url = simplegmaps.getURL.WindowsPhone(address);
+			} else {
+				url = simplegmaps.getURL.Desktop(address);
+			}
+			return url;
 		}
 	};
 

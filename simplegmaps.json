@@ -2,7 +2,7 @@
 	"name": "simplegmaps",
 	"title": "simplegmaps",
 	"description": "Google Maps made easy",
-	"version": "2.0.0",
+	"version": "2.0.0-beta",
 	"homepage": "https://github.com/SubZane/simplegmaps",
 	"author": {
 		"name": "Andreas Norman",
