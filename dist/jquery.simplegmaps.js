@@ -1,4 +1,4 @@
-/*! simplegmaps - v1.1.3 - 2016-01-24
+/*! simplegmaps - v1.1.3 - 2016-02-26
 * https://github.com/SubZane/simplegmaps
 * Copyright (c) 2016 Andreas Norman; Licensed MIT */
 (function ($) {
@@ -416,7 +416,7 @@
 
     function reCenter() {
         var center = Map.map.getCenter();
-        google.maps.event.trigger(Map.map, "resize");
+        google.maps.event.trigger(Map.map, 'resize');
         Map.map.setCenter(center);
     }
 

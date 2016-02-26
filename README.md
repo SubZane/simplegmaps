@@ -300,10 +300,10 @@ Use the method `reCenter` to trigger Google Maps setCenter()
 ```javascript
 $(function(){
 	var $mySimplegmap = $('#simplegmap');
-	
+
 	if($mySimplegmap.length) {
 		$mySimplegmap.simplegmaps();
-		
+
 		$(window).resize(function(){
     		myMap.simplegmaps('reCenter');
 		});
@@ -312,6 +312,9 @@ $(function(){
 ```
 
 ##changelog
+####1.2.0
+* Added a method to re-center the map. By @slackero [#16](https://github.com/SubZane/simplegmaps/issues/16) 
+
 ####1.1.3
 * FIX: When using custom icons together with longitude/latitude positioning the icons where places wrong. This has now been resolved.
 

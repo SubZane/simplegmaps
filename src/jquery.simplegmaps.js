@@ -413,7 +413,7 @@
 
     function reCenter() {
         var center = Map.map.getCenter();
-        google.maps.event.trigger(Map.map, "resize");
+        google.maps.event.trigger(Map.map, 'resize');
         Map.map.setCenter(center);
     }
 
