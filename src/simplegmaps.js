@@ -52,9 +52,9 @@
 
 	// Default settings. zoom and center are required to render the map.
 	var defaults = {
-		debug: true,
+		debug: false,
 		GeoLocation: false,
-		ZoomToFitBounds: false,
+		ZoomToFitBounds: true,
 		jsonsource: false, // if set to "false". Load from HTML markup.
 		AutoComplete: false,
 		AutoCompleteOptions: {
@@ -731,6 +731,10 @@
 
 		if (!settings.MapOptions.zoom) {
 			settings.MapOptions.zoom = 4;
+		}
+
+		if (el.hasAttribute('data-json')) {
+			settings.jsonsource = el.getAttribute('data-json');
 		}
 
 		drawMap();

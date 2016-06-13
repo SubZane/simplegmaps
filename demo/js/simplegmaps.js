@@ -1,4 +1,4 @@
-/*! simplegmaps - v2.0.0 - 2016-02-26
+/*! simplegmaps - v2.0.0-beta - 2016-06-13
 * https://github.com/SubZane/simplegmaps
 * Copyright (c) 2016 Andreas Norman; Licensed MIT */
 (function (root, factory) {
@@ -55,9 +55,9 @@
 
 	// Default settings. zoom and center are required to render the map.
 	var defaults = {
-		debug: true,
+		debug: false,
 		GeoLocation: false,
-		ZoomToFitBounds: false,
+		ZoomToFitBounds: true,
 		jsonsource: false, // if set to "false". Load from HTML markup.
 		AutoComplete: false,
 		AutoCompleteOptions: {
@@ -734,6 +734,10 @@
 
 		if (!settings.MapOptions.zoom) {
 			settings.MapOptions.zoom = 4;
+		}
+
+		if (el.hasAttribute('data-json')) {
+			settings.jsonsource = el.getAttribute('data-json');
 		}
 
 		drawMap();
