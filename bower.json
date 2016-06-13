@@ -1,12 +1,12 @@
 {
 	"name": "simplegmaps",
-	"version": "1.2.0",
+	"version": "2.0.0-beta",
 	"homepage": "https://github.com/SubZane/simplegmaps",
 	"authors": [
 		"Andreas Norman <an@andreasnorman.se>"
 	],
 	"description": "Google Maps made easy",
-	"main": "src/jquery.simplegmaps.js",
+	"main": "src/simplegmaps.js",
 	"keywords": [
 		"map",
 		"jquery",

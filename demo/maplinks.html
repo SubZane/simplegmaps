@@ -5,7 +5,7 @@
 </div>
 <div class="row">
   <div class="col-xs-12">
-    <div id="simplemap-1" class="google-map">
+    <div id="simplegmaps-1" class="google-map">
       <div class="map-marker" data-title="Remi" data-address="Remi 145 W 53rd St, New York, NY, United States"></div>
     </div>
   </div>
@@ -28,14 +28,17 @@
 
 <pre>
 <code class="javascript">
-jQuery(document).ready(function ($) {
-  $('#simplemap').simplegmaps();
-
-  $('.getGoogleMapLink').attr('href', $('#simplemap-1').simplegmaps('getGoogleMapLink', 'Remi 145 W 53rd St, New York, NY, United States'));
-  $('.getAppleMapsLink').attr('href', $('#simplemap-1').simplegmaps('getAppleMapsLink', 'Remi 145 W 53rd St, New York, NY, United States'));
-  $('.getWindowsPhone7MapLink').attr('href', $('#simplemap-1').simplegmaps('getWindowsPhone7MapLink', 'Remi 145 W 53rd St, New York, NY, United States'));
-  $('.getDesktopMapLink').attr('href', $('#simplemap-1').simplegmaps('getDesktopMapLink', 'Remi 145 W 53rd St, New York, NY, United States'));
-  $('.getNativeMapLink').attr('href', $('#simplemap-1').simplegmaps('getNativeMapLink', 'Remi 145 W 53rd St, New York, NY, United States'));
+simplegmaps.init({
+  container: '#simplegmaps-1',
+  onDrawMap: function () {
+    simplegmaps.getMarkerAddress(simplegmaps.Markers.get()[0], function(address) {
+      document.querySelector('.getGoogleMapLink').href = simplegmaps.getURL.Android(address);
+      document.querySelector('.getAppleMapsLink').href = simplegmaps.getURL.ios(address);
+      document.querySelector('.getWindowsPhone7MapLink').href = simplegmaps.getURL.WindowsPhone(address);
+      document.querySelector('.getDesktopMapLink').href = simplegmaps.getURL.Desktop(address);
+      document.querySelector('.getNativeMapLink').href = simplegmaps.getURL.Native(address);
+    })
+  }
 });
 </code>
 </pre>
@@ -50,7 +53,7 @@ jQuery(document).ready(function ($) {
 
 <pre>
 <code class="html">
-<div id="simplemap" class="google-map">
+<div id="simplegmaps-1" class="google-map">
   <div class="map-marker" data-title="Remi" data-address="Remi 145 W 53rd St, New York, NY, United States"></div>
 </div>
 </code>
@@ -60,12 +63,16 @@ jQuery(document).ready(function ($) {
   </div>
 </div>
 <script>
-jQuery(document).ready(function ($) {
-  $('#simplemap-1').simplegmaps();
-  $('.getGoogleMapLink').attr('href', $('#simplemap-1').simplegmaps('getGoogleMapLink', 'Remi 145 W 53rd St, New York, NY, United States'));
-  $('.getAppleMapsLink').attr('href', $('#simplemap-1').simplegmaps('getAppleMapsLink', 'Remi 145 W 53rd St, New York, NY, United States'));
-  $('.getWindowsPhone7MapLink').attr('href', $('#simplemap-1').simplegmaps('getWindowsPhone7MapLink', 'Remi 145 W 53rd St, New York, NY, United States'));
-  $('.getDesktopMapLink').attr('href', $('#simplemap-1').simplegmaps('getDesktopMapLink', 'Remi 145 W 53rd St, New York, NY, United States'));
-  $('.getNativeMapLink').attr('href', $('#simplemap-1').simplegmaps('getNativeMapLink', 'Remi 145 W 53rd St, New York, NY, United States'));
+simplegmaps.init({
+  container: '#simplegmaps-1',
+  onDrawMap: function () {
+    simplegmaps.getMarkerAddress(simplegmaps.Markers.get()[0], function(address) {
+      document.querySelector('.getGoogleMapLink').href = simplegmaps.getURL.Android(address);
+      document.querySelector('.getAppleMapsLink').href = simplegmaps.getURL.ios(address);
+      document.querySelector('.getWindowsPhone7MapLink').href = simplegmaps.getURL.WindowsPhone(address);
+      document.querySelector('.getDesktopMapLink').href = simplegmaps.getURL.Desktop(address);
+      document.querySelector('.getNativeMapLink').href = simplegmaps.getURL.Native(address);
+    })
+  }
 });
 </script>

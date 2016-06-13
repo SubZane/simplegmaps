@@ -5,7 +5,7 @@
 </div>
 <div class="row">
   <div class="col-xs-12">
-    <div id="simplemap-1" class="google-map"></div>
+    <div id="simplegmaps-1" class="google-map"></div>
   </div>
 </div>
 <div class="row">
@@ -15,10 +15,9 @@
 
 <pre>
 <code class="javascript">
-jQuery(document).ready(function ($) {
-  $('#simplemap').simplegmaps({
-    GeoLocation: true
-  });
+simplegmaps.init({
+  container: '#simplegmaps-1',
+  GeoLocation: true
 });
 </code>
 </pre>
@@ -33,7 +32,7 @@ jQuery(document).ready(function ($) {
 
 <pre>
 <code class="html">
-<div id="simplemap" class="google-map"></div>
+<div id="simplegmaps-1" class="google-map"></div>
 </code>
 </pre>
 
@@ -41,9 +40,13 @@ jQuery(document).ready(function ($) {
   </div>
 </div>
 <script>
-jQuery(document).ready(function ($) {
-  $('#simplemap-1').simplegmaps({
-    GeoLocation: true
+console.log('---------------simplegmaps.Markers.get()');
+console.log(simplegmaps.Markers.get());
+  simplegmaps.init({
+    container: '#simplegmaps-1',
+  	GeoLocation: true,
+    MapOptions: {
+      zoom: 14
+    }
   });
-});
 </script>

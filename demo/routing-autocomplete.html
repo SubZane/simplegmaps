@@ -1,33 +1,31 @@
 <div class="row">
   <div class="col-xs-12">
-    <h2>Routing (autocomplete)</h2>
+    <h2>Routing with AutoComplete</h2>
   </div>
 </div>
 <div class="row">
   <div class="col-xs-12">
-    <div id="simplemap" class="google-map">
+    <div id="simplegmaps-1" class="google-map">
       <div class="map-marker" data-title="Remi" data-address="Remi 145 W 53rd St, New York, NY, United States"></div>
     </div>
   </div>
 </div>
+
 <div class="row row-route">
-  <div class="col-md-4 col-xs-12 col-sm-12 col-md-push-2">
+  <div class="col-md-4 col-xs-12 col-sm-12">
     <div class="form-group">
        <label for="GMRoute-Fromaddress">From address</label>
-       <input type="text" class="form-control" id="simplegmaps-fromaddress" placeholder="Enter address" value="New York Inn, 765 8th Ave, New York, NY 10036, USA">
+       <!-- New York Inn, 765 8th Ave, New York, NY 10036, USA -->
+       <input type="text" class="form-control" id="simplegmaps-fromaddress" placeholder="Enter address" value="">
      </div>
   </div>
-  <div class="col-md-2 col-xs-12 col-sm-12 col-md-push-2">
+  <div class="col-md-2 col-xs-12 col-sm-12">
     <div class="form-group">
        <label for="simplegmaps-travelmode">Travel Mode</label>
-      <select class="form-control" id="simplegmaps-travelmode">
-        <option value="DRIVING">Driving</option>
-        <option value="WALKING">Walking</option>
-        <option value="BICYCLING">Bicycling</option>
-      </select>
+      <select class="form-control" id="simplegmaps-travelmode"></select>
     </div>
   </div>
-  <div class="col-md-2 col-xs-12 col-sm-12 col-md-push-2">
+  <div class="col-md-2 col-xs-12 col-sm-12">
     <div class="form-group">
       <button type="submit" id="simplegmaps-getroute" class="btn btn-primary">Get route</button>
     </div>
@@ -47,24 +45,38 @@
 
 <pre>
 <code class="javascript">
-jQuery(document).ready(function ($) {
-  $('#simplemap').simplegmaps({
-    getRouteButton: '#simplegmaps-getroute',
-    getTravelMode: '#simplegmaps-travelmode',
-    routeDirections: '#simplegmaps-directions',
-    externalLink: '#simplegmaps-external',
-    getFromAddress: '#simplegmaps-fromaddress',
-    defaultTravelMode: 'DRIVING',
-    SearchBox: '#simplegmaps-fromaddress',
-    AutoComplete: true,
-    AutoCompleteOptions: {
-      types: ['geocode'],
-      componentRestrictions: {'country': 'us'},
-      moveMap: true,
-      setMarker: true
-    },
-  });
+simplegmaps.init({
+  container: '#simplegmaps-1',
+  MapOptions: {
+    zoom: 14
+  }
 });
+
+simplegmaps.Directions.initAutoComplete({
+  originInput: '#simplegmaps-fromaddress',
+  eventButton: '#simplegmaps-getroute'
+});
+
+document.querySelector('#simplegmaps-getroute').addEventListener('click', function(event) {
+  simplegmaps.Directions.route({
+    origin: document.querySelector('#simplegmaps-fromaddress').value,
+    destination: simplegmaps.Markers.get()[0].getPosition(),
+    travelMode: document.querySelector('#simplegmaps-travelmode').value
+  });
+  event.preventDefault();
+});
+
+var travelmodes = simplegmaps.Directions.TravelModes.get();
+var select = document.getElementById("simplegmaps-travelmode");
+
+for (var key in travelmodes) {
+  if (travelmodes.hasOwnProperty(key)) {
+    var el = document.createElement("option");
+    el.textContent = key;
+    el.value = travelmodes[key];
+    select.appendChild(el);
+  }
+}
 </code>
 </pre>
 
@@ -80,29 +92,26 @@ jQuery(document).ready(function ($) {
 <code class="html">
 <div class="row">
   <div class="col-xs-12">
-    <div id="simplemap" class="google-map">
+    <div id="simplegmaps-1" class="google-map">
       <div class="map-marker" data-title="Remi" data-address="Remi 145 W 53rd St, New York, NY, United States"></div>
     </div>
   </div>
 </div>
 <div class="row row-route">
-  <div class="col-md-4 col-xs-12 col-sm-12 col-md-push-2">
+  <div class="col-md-4 col-xs-12 col-sm-12">
     <div class="form-group">
        <label for="GMRoute-Fromaddress">From address</label>
-       <input type="text" class="form-control" id="simplegmaps-fromaddress" placeholder="Enter address" value="New York Inn, 765 8th Ave, New York, NY 10036, USA">
+       <!-- New York Inn, 765 8th Ave, New York, NY 10036, USA -->
+       <input type="text" class="form-control" id="simplegmaps-fromaddress" placeholder="Enter address" value="">
      </div>
   </div>
-  <div class="col-md-2 col-xs-12 col-sm-12 col-md-push-2">
+  <div class="col-md-2 col-xs-12 col-sm-12">
     <div class="form-group">
        <label for="simplegmaps-travelmode">Travel Mode</label>
-      <select class="form-control" id="simplegmaps-travelmode">
-        <option value="DRIVING">Driving</option>
-        <option value="WALKING">Walking</option>
-        <option value="BICYCLING">Bicycling</option>
-      </select>
+      <select class="form-control" id="simplegmaps-travelmode"></select>
     </div>
   </div>
-  <div class="col-md-2 col-xs-12 col-sm-12 col-md-push-2">
+  <div class="col-md-2 col-xs-12 col-sm-12">
     <div class="form-group">
       <button type="submit" id="simplegmaps-getroute" class="btn btn-primary">Get route</button>
     </div>
@@ -115,22 +124,36 @@ jQuery(document).ready(function ($) {
   </div>
 </div>
 <script>
-jQuery(document).ready(function ($) {
-  $('#simplemap').simplegmaps({
-    getRouteButton: '#simplegmaps-getroute',
-    getTravelMode: '#simplegmaps-travelmode',
-    routeDirections: '#simplegmaps-directions',
-    externalLink: '#simplegmaps-external',
-    getFromAddress: '#simplegmaps-fromaddress',
-    defaultTravelMode: 'DRIVING',
-    SearchBox: '#simplegmaps-fromaddress',
-    AutoComplete: true,
-    AutoCompleteOptions: {
-      types: ['geocode'],
-      componentRestrictions: {'country': 'us'},
-      moveMap: true,
-      setMarker: true
-    },
-  });
+simplegmaps.init({
+  container: '#simplegmaps-1',
+  MapOptions: {
+    zoom: 14
+  }
 });
+
+simplegmaps.Directions.initAutoComplete({
+  originInput: '#simplegmaps-fromaddress',
+  eventButton: '#simplegmaps-getroute'
+});
+
+document.querySelector('#simplegmaps-getroute').addEventListener('click', function(event) {
+  simplegmaps.Directions.route({
+    origin: document.querySelector('#simplegmaps-fromaddress').value,
+    destination: simplegmaps.Markers.get()[0].getPosition(),
+    travelMode: document.querySelector('#simplegmaps-travelmode').value
+  });
+  event.preventDefault();
+});
+
+var travelmodes = simplegmaps.Directions.TravelModes.get();
+var select = document.getElementById("simplegmaps-travelmode");
+
+for (var key in travelmodes) {
+  if (travelmodes.hasOwnProperty(key)) {
+    var el = document.createElement("option");
+    el.textContent = key;
+    el.value = travelmodes[key];
+    select.appendChild(el);
+  }
+}
 </script>

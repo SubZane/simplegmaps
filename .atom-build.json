@@ -1,4 +1,3 @@
 {
-  "cmd": "grunt",
-  "sh": true
+  "cmd": "grunt"
 }

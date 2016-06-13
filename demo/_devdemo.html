@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html class="no-js" lang="sv">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2, user-scalable=yes" />
+
+	<link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="styles/demo.css">
+  <link rel="stylesheet" href="styles/navbar.css">
+
+  <title>simplegmaps - google maps jquery plugin</title>
+</head>
+
+<body>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-8">
+        <div id="simplegmap-1" class="google-map">
+          <div class="map-marker" data-center="true" data-title="Remi" data-address="Remi 145 W 53rd St, New York, NY, United States">
+            <div class="map-infowindow">
+              <h2>Remi</h2>
+              <p>Remi 145 W 53rd St, New York, NY, United States</p>
+            </div>
+          </div>
+          <div class="map-marker" data-title="Lorem ipsum" data-latlng="55.5897407,13.012268899999981">
+            <div class="map-custom-infowindow">
+              <button type="button" class="close" aria-hidden="true">&times;</button>
+              <img src="img/photo.png" alt="a house" class="img-responsive">
+              <h2>Bobby Van's Grill</h2>
+              <p>Bobby Van's Grill &amp; Steakhouse - 50th Street, 135 W 50th St, New York, NY 10020, USA</p>
+            </div>
+          </div>
+          <div class="map-marker" data-title="Remi" data-icon="img/custommarker.png" data-icon2x="img/custommarker@2x.png"  data-latlng="65.5897407,12.012268899999981"></div>
+        </div>
+      </div>
+    </div>
+    <div class="row button">
+      <div class="col-xs-12">
+        <a href="#" id="geoLocationButton" class="btn btn-primary btn-large">Geolocate me please</a>
+        <a href="#" id="toggleTraffic" class="btn btn-primary btn-large">Toggle traffic layer</a>
+        <a href="#" id="toggleBicycle" class="btn btn-primary btn-large">Toggle Bicycle layer</a>
+        <a href="#" id="toggleTransit" class="btn btn-primary btn-large">Toggle Transit layer</a>
+      </div>
+    </div>
+
+    <div class="row row-route">
+      <div class="col-md-4 col-xs-12 col-sm-12">
+        <div class="form-group">
+           <label for="GMRoute-Fromaddress">From address</label>
+           <!-- New York Inn, 765 8th Ave, New York, NY 10036, USA -->
+           <input type="text" class="form-control" id="simplegmaps-fromaddress" placeholder="Enter address" value="">
+         </div>
+      </div>
+      <div class="col-md-2 col-xs-12 col-sm-12">
+        <div class="form-group">
+           <label for="simplegmaps-travelmode">Travel Mode</label>
+          <select class="form-control" id="simplegmaps-travelmode">
+            <option value="DRIVING">Driving</option>
+            <option value="WALKING">Walking</option>
+            <option value="BICYCLING">Bicycling</option>
+          </select>
+        </div>
+      </div>
+      <div class="col-md-2 col-xs-12 col-sm-12">
+        <div class="form-group">
+          <button type="submit" id="simplegmaps-getroute" class="btn btn-primary">Get route</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-6 col-xs-12 col-sm-12">
+      <input type="text" class="form-control" id="simplegmaps-searchfield" placeholder="Enter address" value="">
+    </div>
+    <div class="col-md-2 col-xs-12 col-sm-12">
+      <div class="form-group">
+        <button type="submit" id="simplegmaps-searchbutton" class="btn btn-primary">Search</button>
+      </div>
+    </div>
+  </div>
+
+
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBwzYTVOH5tmUA_CGyvIP7Jc_wJuFfoXOM&libraries=places" type="text/javascript"></script>
+  <script src="js/simplegmaps.js"></script>
+  <script>
+	document.addEventListener("DOMContentLoaded", function(event) {
+		simplegmaps.init({
+      container: '#simplegmap-1',
+      debug: true,
+  		GeoLocation: false,
+      jsonsource: 'dummy/dummy-markersdata.json',
+      ZoomToFitBounds: true,
+  		MapOptions: {
+  			zoom: 10,
+  			center: '55.604981,13.003822',
+  			zoomControlOptions: {
+  				style: 'DEFAULT'
+  			}
+  		},
+		});
+  	simplegmaps.Directions.initAutoComplete({
+      originInput: '#simplegmaps-fromaddress',
+      eventButton: '#simplegmaps-getroute'
+    });
+    simplegmaps.Search.init({
+      input: '#simplegmaps-searchfield',
+			eventButton: '#simplegmaps-searchbutton',
+			AutoComplete: true
+    });
+    document.querySelector('#simplegmaps-getroute').addEventListener('click', function(event) {
+      simplegmaps.Directions.route({
+        origin: document.querySelector('#simplegmaps-fromaddress').value,
+        destination: 'Remi 145 W 53rd St, New York, NY, USA'
+      });
+
+      /*
+      simplegmaps.Directions.route({
+        origin: simplegmaps.Markers.get()[0].getPosition(),
+        destination: simplegmaps.Markers.get()[1].getPosition()
+      });
+      */
+    });
+
+
+    document.querySelector('#geoLocationButton').addEventListener('click', function(event) {
+      simplegmaps.GeoLocation.set();
+    });
+    document.querySelector('#toggleTraffic').addEventListener('click', function(event) {
+      simplegmaps.TrafficLayer.toggle();
+    });
+    document.querySelector('#toggleTransit').addEventListener('click', function(event) {
+      simplegmaps.TransitLayer.toggle();
+    });
+    document.querySelector('#toggleBicycle').addEventListener('click', function(event) {
+      simplegmaps.BicycleLayer.toggle();
+    });
+  });
+	</script>
+</body>
+</html>

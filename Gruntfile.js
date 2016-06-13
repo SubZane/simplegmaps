@@ -5,7 +5,7 @@ module.exports = function (grunt) {
 	// Project configuration.
 	grunt.initConfig({
 		// Metadata.
-		pkg: grunt.file.readJSON('jquery.simplegmaps.json'),
+		pkg: grunt.file.readJSON('simplegmaps.json'),
 		banner: '/*! <%= pkg.title || pkg.name %> - v<%= pkg.version %> - ' +
 			'<%= grunt.template.today("yyyy-mm-dd") %>\n' +
 			'<%= pkg.homepage ? "* " + pkg.homepage + "\\n" : "" %>' +
@@ -21,8 +21,8 @@ module.exports = function (grunt) {
 				stripBanners: true
 			},
 			dist: {
-				src: ['src/jquery.<%= pkg.name %>.js'],
-				dest: 'dist/jquery.<%= pkg.name %>.js'
+				src: ['src/<%= pkg.name %>.js'],
+				dest: 'dist/<%= pkg.name %>.js'
 			},
 		},
 		uglify: {
@@ -31,7 +31,7 @@ module.exports = function (grunt) {
 			},
 			dist: {
 				src: '<%= concat.dist.dest %>',
-				dest: 'dist/jquery.<%= pkg.name %>.min.js'
+				dest: 'dist/<%= pkg.name %>.min.js'
 			},
 		},
 		jshint: {
@@ -49,13 +49,23 @@ module.exports = function (grunt) {
 			},
 		},
 		watch: {
-			gruntfile: {
-				files: '<%= jshint.gruntfile.src %>',
-				tasks: ['jshint:gruntfile']
-			},
 			src: {
-				files: '<%= jshint.src.src %>',
-				tasks: ['jshint:src', 'qunit']
+				files: ['src/*.js', 'src/*.json'],
+				tasks: ['default']
+			},
+		},
+		copy: {
+			js: {
+				flatten: true,
+				expand: true,
+				src: ['dist/<%= pkg.name %>.js', 'dist/<%= pkg.name %>.min.js'],
+				dest: 'demo/js/',
+			},
+			json: {
+				flatten: true,
+				expand: true,
+				src: ['src/dummy-markersdata.json'],
+				dest: 'demo/dummy/',
 			},
 		},
 		update_json: {
@@ -78,7 +88,7 @@ module.exports = function (grunt) {
 			},
 			simplegmaps: {
 				src: 'package.json', // where to read from
-				dest: 'jquery.simplegmaps.json', // where to write to
+				dest: 'simplegmaps.json', // where to write to
 				// the fields to update, as a String Grouping
 				fields: {
 					'name': 'name',
@@ -98,9 +108,10 @@ module.exports = function (grunt) {
 	grunt.loadNpmTasks('grunt-contrib-jshint');
 	grunt.loadNpmTasks('grunt-contrib-watch');
 	grunt.loadNpmTasks('grunt-update-json');
+	grunt.loadNpmTasks('grunt-contrib-copy');
 
 	// Default task.
-	grunt.registerTask('default', ['jshint', 'clean', 'concat', 'uglify', 'version']);
+	grunt.registerTask('default', ['jshint', 'clean', 'concat', 'uglify', 'copy:json', 'copy:js', 'version']);
 	grunt.registerTask('version', ['update_json:bower', 'update_json:simplegmaps']);
 
 };

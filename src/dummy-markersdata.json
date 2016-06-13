@@ -1,0 +1,22 @@
+[
+  {
+    "title": "Remi",
+    "center": "false",
+    "latlng": "",
+    "address": "Remi 145 W 53rd St, New York, NY, United States",
+    "iconpath": "",
+    "iconpath2x": "",
+    "infoWindowContent": "",
+    "CustominfoWindowContent": ""
+  },
+  {
+    "title": "Addres One",
+    "center": "false",
+    "latlng": "",
+    "address": "New York Inn, 765 8th Ave, New York, NY 10036, USA",
+    "iconpath": "img/custommarker.png",
+    "iconpath2x": "img/custommarker@2x.png",
+    "infoWindowContent": "",
+    "CustominfoWindowContent": ""
+  }
+]

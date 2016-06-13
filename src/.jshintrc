@@ -1,7 +1,7 @@
 {
   "curly": true,
   "eqeqeq": true,
-  "latedef": "nofunc",
+  "latedef": false,
   "noarg": true,
   "quotmark": "single",
   "boss": true,

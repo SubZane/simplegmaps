@@ -5,7 +5,7 @@
 </div>
 <div class="row">
   <div class="col-xs-12">
-    <div id="simplemap-1" class="google-map">
+    <div id="simplegmaps-1" class="google-map">
       <div class="map-marker" data-title="Remi" data-address="Remi 145 W 53rd St, New York, NY, United States"></div>
     </div>
   </div>
@@ -24,13 +24,12 @@
 
 <pre>
 <code class="javascript">
-jQuery(document).ready(function ($) {
-  $('#simplemap').simplegmaps();
-
-  $('#toggleBicycle').on('click', function(e) {
-    e.preventDefault();
-    $('#simplemap').simplegmaps('toggleBicycleLayer');
-  });
+simplegmaps.init({
+  container: '#simplegmaps-1'
+});
+document.querySelector('#toggleBicycle').addEventListener('click', function(event) {
+  simplegmaps.BicycleLayer.toggle();
+  event.preventDefault();
 });
 </code>
 </pre>
@@ -45,9 +44,10 @@ jQuery(document).ready(function ($) {
 
 <pre>
 <code class="html">
-<div id="simplemap" class="google-map">
+<div id="simplegmaps-1" class="google-map">
   <div class="map-marker" data-title="Remi" data-address="Remi 145 W 53rd St, New York, NY, United States"></div>
 </div>
+<a href="#" id="toggleBicycle" class="btn btn-primary btn-large">Toggle Bicycle layer</a>
 </code>
 </pre>
 
@@ -55,12 +55,14 @@ jQuery(document).ready(function ($) {
   </div>
 </div>
 <script>
-jQuery(document).ready(function ($) {
-  $('#simplemap-1').simplegmaps();
-
-  $('#toggleBicycle').on('click', function(e) {
-    e.preventDefault();
-    $('#simplemap-1').simplegmaps('toggleBicycleLayer');
-  });
+simplegmaps.init({
+  container: '#simplegmaps-1',
+  MapOptions: {
+    zoom: 16
+  }  
+});
+document.querySelector('#toggleBicycle').addEventListener('click', function(event) {
+  simplegmaps.BicycleLayer.toggle();
+  event.preventDefault();
 });
 </script>

@@ -5,7 +5,7 @@
 </div>
 <div class="row">
   <div class="col-xs-12">
-    <div id="simplemap-1" class="google-map">
+    <div id="simplemaps-1" class="google-map">
       <div class="map-marker" data-title="Remi" data-address="Remi 145 W 53rd St, New York, NY, United States">
         <div class="map-infowindow">
           <h2>Remi</h2>
@@ -22,9 +22,9 @@
 
 <pre>
 <code class="javascript">
-jQuery(document).ready(function ($) {
-  $('#simplemap').simplegmaps();
-});
+	simplegmaps.init({
+    container: '#simplemaps-1'
+	});
 </code>
 </pre>
 
@@ -38,7 +38,7 @@ jQuery(document).ready(function ($) {
 
 <pre>
 <code class="html">
-<div id="simplemap" class="google-map">
+<div id="simplemaps-1" class="google-map">
   <div class="map-marker" data-title="Remi" data-address="Remi 145 W 53rd St, New York, NY, United States">
     <div class="map-infowindow">
       <h2>Remi</h2>
@@ -53,7 +53,7 @@ jQuery(document).ready(function ($) {
   </div>
 </div>
 <script>
-jQuery(document).ready(function ($) {
-  $('#simplemap-1').simplegmaps();
+simplegmaps.init({
+  container: '#simplemaps-1'
 });
 </script>
