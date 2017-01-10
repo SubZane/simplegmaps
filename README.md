@@ -1,4 +1,4 @@
-simplegmaps v2.0.0-beta
+simplegmaps v2.0.1-beta
 ===========
 
 simplegmaps - Add google maps to your web without knowing squat about JavaScript
@@ -158,6 +158,9 @@ http://www.andreasnorman.com/simplegmaps/
 
 
 ##changelog
+####2.0.1-beta
+* FIX: Adress for demo "Single marker by address" had stopped working.
+
 ####2.0.0-beta
 * NEW: Rewritten using only vanilla JavaScript.
 * NEW: Now supports placing markers using a JSON-data feed as source.
