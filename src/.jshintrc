@@ -6,5 +6,6 @@
   "quotmark": "single",
   "boss": true,
   "trailing": true,
+  "loopfunc" : true,
   "browser": true
 }

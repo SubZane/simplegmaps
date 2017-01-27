@@ -1,6 +1,6 @@
-/*! simplegmaps - v2.0.0-beta - 2016-06-13
+/*! simplegmaps - v2.0.1-beta - 2017-01-27
 * https://github.com/SubZane/simplegmaps
-* Copyright (c) 2016 Andreas Norman; Licensed MIT */
+* Copyright (c) 2017 Andreas Norman; Licensed MIT */
 (function (root, factory) {
 	if (typeof define === 'function' && define.amd) {
 		define([], factory(root));
@@ -56,6 +56,10 @@
 	// Default settings. zoom and center are required to render the map.
 	var defaults = {
 		debug: false,
+		cluster: false,
+		ClusterImagePathPrefix: 'img/markercluster/m',
+		geolocateLimit: 10,
+		geolocateDelay: 100,
 		GeoLocation: false,
 		ZoomToFitBounds: true,
 		jsonsource: false, // if set to "false". Load from HTML markup.
@@ -141,18 +145,23 @@
 			if (request.status >= 200 && request.status < 400) {
 				// Success!
 				var JSONmarkers = parseJSON(request.response);
-				forEach(JSONmarkers, function (marker, value) {
-					getPosition(marker, function (markerposition) {
-						marker.position = markerposition;
-						createMarkerIcon(marker.iconpath, marker.iconpath2x, function (markerIcon) {
-							marker.icon = markerIcon;
+				var markerListlength = JSONmarkers.length;
+				JSONmarkers.forEach(function(marker) {
+					fetchPosition(marker, function (response) {
+						if (response === false) {
+							log('fetchPosition response: '+response);
+							markerListlength--;
+							return;
+						} else {
+							log('fetchPosition response: OK: '+response);
+							marker.position = response;
 							markerData.markers.push(marker);
-
-							// Do not leave until all markers has been loaded.
-							if (markerData.markers.length === JSONmarkers.length) {
-								done();
-							}
-						});
+						}
+						// Do not leave until all markers has been loaded.
+						log(markerData.markers.length +':'+markerListlength);
+						if (markerData.markers.length === markerListlength) {
+							done();
+						}
 					});
 				});
 				hook('onJSONLoadSuccess');
@@ -191,11 +200,14 @@
 
 	var getMapMarkersFromMarkup = function (done) {
 		var markerList = mapdata.querySelectorAll('.map-marker');
+		var markerNodes = Array.prototype.slice.call(markerList,0);
+		var markerListlength = markerList.length;
 		log(markerList);
 		if (markerList.length === 0) {
 			done();
 		}
-		forEach(markerList, function (markerElement, value) {
+		//forEach(markerList, function (markerElement, value) {
+		markerNodes.forEach(function(markerElement) {
 			var marker = {};
 			marker.title = markerElement.getAttribute('data-title');
 			if (markerElement.querySelector('.map-infowindow')) {
@@ -212,17 +224,6 @@
 				marker.center = false;
 			}
 
-			if (markerElement.hasAttribute('data-latlng')) {
-				marker.latlng = markerElement.getAttribute('data-latlng');
-			} else {
-				marker.latlng = null;
-			}
-			if (markerElement.hasAttribute('data-address')) {
-				marker.address = markerElement.getAttribute('data-address');
-			} else {
-				marker.address = null;
-			}
-
 			if (markerElement.hasAttribute('data-icon')) {
 				marker.iconpath = markerElement.getAttribute('data-icon');
 			} else {
@@ -234,23 +235,72 @@
 				marker.iconpath2x = null;
 			}
 
-			getPosition(marker, function (markerposition) {
-				marker.position = markerposition;
-				createMarkerIcon(marker.iconpath, marker.iconpath2x, function (markerIcon) {
-					marker.icon = markerIcon;
-					markerData.markers.push(marker);
+			if (markerElement.hasAttribute('data-latlng')) {
+				marker.latlng = markerElement.getAttribute('data-latlng');
+			} else {
+				marker.latlng = null;
+			}
+			if (markerElement.hasAttribute('data-address')) {
+				marker.address = markerElement.getAttribute('data-address');
+			} else {
+				marker.address = null;
+			}
+			if (marker.address === null && marker.latlng === null) {
+				log('No address or longitude/latitude found in markup. Removing marker.');
+				//remove marker
+				markerListlength--;
+				return;
+			}
 
-					// Do not leave until all markers has been loaded.
-					if (markerData.markers.length === markerList.length) {
-						done();
-					}
-				});
+			fetchPosition(marker, function (response) {
+				if (response === false) {
+					log('fetchPosition response: '+response);
+					markerListlength--;
+					return;
+				} else {
+					log('fetchPosition response: OK: '+response);
+					marker.position = response;
+					markerData.markers.push(marker);
+				}
+				// Do not leave until all markers has been loaded.
+				log(markerData.markers.length +':'+markerListlength);
+				if (markerData.markers.length === markerListlength) {
+					done();
+				}
 			});
+
 		});
+	};
+
+	var fetchPosition = function (marker, callback) {
+		if (hasValue(marker.latlng)) {
+			callback(parseLatLng(marker.latlng));
+		} else if (hasValue(marker.address)) {
+			setTimeout(getLatLngPosition(marker, function (status, response) {
+				log('status: ' + status);
+				log('response: ' + response);
+				if (status === google.maps.GeocoderStatus.OVER_QUERY_LIMIT) {
+					console.warn('google.maps.GeocoderStatus.OVER_QUERY_LIMIT');
+					log('-- google.maps.GeocoderStatus.OVER_QUERY_LIMIT');
+					log('-- Unable to geolocate address. Removing marker.');
+					callback(false);
+				} else if (status === google.maps.GeocoderStatus.OK) {
+					callback(response);
+				} else {
+					marker.latlng = null;
+					log(status);
+					log('No address or longitude/latitude located from address. Removing marker.');
+					//remove marker
+					callback(false);
+				}
+			}), settings.geolocateDelay);
+		}
 	};
 
 	var placeMarkers = function () {
 		log('-- placeMarkers --');
+
+		// Prepare marker data
 		forEach(markerData.markers, function (markerObj, value) {
 			log(markerObj);
 			var markerOptions = {};
@@ -268,11 +318,22 @@
 			markerOptions.position = markerObj.position;
 			markerOptions.icon = markerObj.icon;
 			marker.setOptions(markerOptions);
-			marker.setMap(map);
+
+			if (settings.cluster === false) {
+				marker.setMap(map);
+			}
 			log(marker.title);
-			log('lat: ' + marker.getPosition().lat());
-			log('lng: ' + marker.getPosition().lng());
+			//log('lat: ' + marker.getPosition().lat());
+			//log('lng: ' + marker.getPosition().lng());
 		});
+
+		log('--- Cluster: ' + settings.cluster);
+		if (settings.cluster === true) {
+			// Add a marker clusterer to manage the markers.
+			var markerCluster = new MarkerClusterer(map, markers, {
+				imagePath: settings.ClusterImagePathPrefix
+			});
+		}
 
 		var bounds = new google.maps.LatLngBounds();
 		var position = {};
@@ -341,9 +402,8 @@
 		return marker;
 	};
 
-
-	// Asynchronous method to fetch latitude and longitude from address
-	var getPosition = function (markerObj, callback) {
+	// Asynchronous method to fetch latitude and longitude from marker
+	var getLatLngPosition = function (markerObj, callback) {
 		if (hasValue(markerObj.latlng)) {
 			callback(parseLatLng(markerObj.latlng));
 		} else if (hasValue(markerObj.address)) {
@@ -351,7 +411,13 @@
 				'address': markerObj.address
 			}, function (results, status) {
 				if (status === google.maps.GeocoderStatus.OK) {
-					callback(results[0].geometry.location);
+					callback(status, results[0].geometry.location);
+				} else {
+					if (status === google.maps.GeocoderStatus.OVER_QUERY_LIMIT) {
+						callback(status, false);
+          } else {
+						callback(status, false);
+          }
 				}
 			});
 		}

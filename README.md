@@ -1,4 +1,4 @@
-simplegmaps v2.0.1-beta
+simplegmaps v2.1.0
 ===========
 
 simplegmaps - Add google maps to your web without knowing squat about JavaScript
@@ -106,7 +106,9 @@ var defaults = {
 };
 
 ```
-* `debug`: Active or deactive debug messages in console.
+* `debug`: Activate or deactive debug messages in console.
+* `cluster`: Activate or deactive Marker Clustering.
+* `ClusterImagePathPrefix`: Path prefix to images needed for Marker Clustering. Default 'img/markercluster/m',
 * `jsonsource`: Path to externa JSON-file with map marker data. Provide path here or as a data-attribute. data-attribute will override this property.
 * `GeoLocation`: Active or deactive automatic geolocation. Default false (inactive)
 * `AutoComplete`: Active or deactive autocomplete search.
@@ -158,6 +160,10 @@ http://www.andreasnorman.com/simplegmaps/
 
 
 ##changelog
+####2.1.0
+* NEW: Added support for [Marker Clustering](https://developers.google.com/maps/documentation/javascript/marker-clustering). To use this feature set "cluster" to true when initializing.
+* UPDATE: There's a geolocation limit on how many addresses you can requests during a short period of time. Try not to over use it if possible. If the requests are too many, you'll se a warning in the console "google.maps.GeocoderStatus.OVER_QUERY_LIMIT" and the affected markers will be ignored.
+
 ####2.0.1-beta
 * FIX: Adress for demo "Single marker by address" had stopped working.
 

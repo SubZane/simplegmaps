@@ -15,6 +15,15 @@ module.exports = function (grunt) {
 		clean: {
 			files: ['dist']
 		},
+		web_server: {
+	    options: {
+	      cors: true,
+	      port: 8000,
+	      nevercache: true,
+	      logRequests: true
+    },
+    	foo: 'bar' // For some reason an extra key with a non-object value is necessary
+  	},
 		concat: {
 			options: {
 				banner: '<%= banner %>',
@@ -109,9 +118,11 @@ module.exports = function (grunt) {
 	grunt.loadNpmTasks('grunt-contrib-watch');
 	grunt.loadNpmTasks('grunt-update-json');
 	grunt.loadNpmTasks('grunt-contrib-copy');
+	grunt.loadNpmTasks('grunt-web-server');
 
 	// Default task.
 	grunt.registerTask('default', ['jshint', 'clean', 'concat', 'uglify', 'copy:json', 'copy:js', 'version']);
 	grunt.registerTask('version', ['update_json:bower', 'update_json:simplegmaps']);
+	//grunt.registerTask('server', ['clean']);
 
 };
