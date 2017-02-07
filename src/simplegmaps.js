@@ -17,6 +17,7 @@
 	var simplegmaps = {}; // Object for public APIs
 	var supports = !!document.querySelector && !!root.addEventListener; // Feature test
 	var settings;
+	var infoWindows = [];
 	var el;
 
 	var bicycleLayer, trafficLayer, transitLayer = false;
@@ -53,6 +54,7 @@
 	// Default settings. zoom and center are required to render the map.
 	var defaults = {
 		debug: false,
+		multipleInfoWindows: false,
 		cluster: false,
 		ClusterImagePathPrefix: 'img/markercluster/m',
 		geolocateLimit: 10,
@@ -365,6 +367,12 @@
 		}
 	};
 
+	var closeInfoWindows = function () {
+		for (var i=0;i<infoWindows.length;i++) {
+	     infoWindows[i].close();
+	  }
+	};
+
 	/**
 	 * Sets InfoWindow for the selected marker. Default or Custom InfoWindow
 	 * @param {google.maps.Marker} marker
@@ -372,11 +380,17 @@
 	 */
 	var setInfoWindow = function (marker, markerData) {
 		if (markerData.infoWindowContent) {
-			var infowindow = new google.maps.InfoWindow({
-				content: markerData.infoWindowContent
-			});
 			marker.addListener('click', function () {
+				if (settings.multipleInfoWindows === false) {
+					if (infoWindows.length > 0) {
+						closeInfoWindows();
+					}
+				}
+				var infowindow = new google.maps.InfoWindow({
+					content: markerData.infoWindowContent
+				});
 				infowindow.open(map, marker);
+				infoWindows.push(infowindow);
 			});
 		} else if (markerData.CustominfoWindowContent) {
 			var customInfowindow = markerData.CustominfoWindowContent;

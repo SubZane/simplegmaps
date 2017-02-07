@@ -1,4 +1,4 @@
-/*! simplegmaps - v2.0.1-beta - 2017-01-27
+/*! simplegmaps - v2.1.0 - 2017-02-07
 * https://github.com/SubZane/simplegmaps
 * Copyright (c) 2017 Andreas Norman; Licensed MIT */
 (function (root, factory) {
@@ -20,6 +20,7 @@
 	var simplegmaps = {}; // Object for public APIs
 	var supports = !!document.querySelector && !!root.addEventListener; // Feature test
 	var settings;
+	var infoWindows = [];
 	var el;
 
 	var bicycleLayer, trafficLayer, transitLayer = false;
@@ -56,6 +57,7 @@
 	// Default settings. zoom and center are required to render the map.
 	var defaults = {
 		debug: false,
+		multipleInfoWindows: false,
 		cluster: false,
 		ClusterImagePathPrefix: 'img/markercluster/m',
 		geolocateLimit: 10,
@@ -368,6 +370,12 @@
 		}
 	};
 
+	var closeInfoWindows = function () {
+		for (var i=0;i<infoWindows.length;i++) {
+	     infoWindows[i].close();
+	  }
+	};
+
 	/**
 	 * Sets InfoWindow for the selected marker. Default or Custom InfoWindow
 	 * @param {google.maps.Marker} marker
@@ -375,11 +383,17 @@
 	 */
 	var setInfoWindow = function (marker, markerData) {
 		if (markerData.infoWindowContent) {
-			var infowindow = new google.maps.InfoWindow({
-				content: markerData.infoWindowContent
-			});
 			marker.addListener('click', function () {
+				if (settings.multipleInfoWindows === false) {
+					if (infoWindows.length > 0) {
+						closeInfoWindows();
+					}
+				}
+				var infowindow = new google.maps.InfoWindow({
+					content: markerData.infoWindowContent
+				});
 				infowindow.open(map, marker);
+				infoWindows.push(infowindow);
 			});
 		} else if (markerData.CustominfoWindowContent) {
 			var customInfowindow = markerData.CustominfoWindowContent;

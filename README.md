@@ -1,4 +1,4 @@
-simplegmaps v2.1.0
+simplegmaps v2.2.0
 ===========
 
 simplegmaps - Add google maps to your web without knowing squat about JavaScript
@@ -120,6 +120,7 @@ var defaults = {
 * `getFromAddress`: ID of the input element to hold the address to set the route start point
 * `externalLink`: ID of the link element to be used when targeting a button to open up the map in a new tab. On mobile devices either Apple Maps or Google Maps app is opened instead.
 * `defaultTravelMode`: The default travel mode is nothing else specified. Choose between DRIVING, WALKING or BICYCLING
+* `multipleInfoWindows`: Set to true to allow opening multiple infoWindows at the same time.
 
 ####Events
 * `onInit`: Triggers when plugin has initialized.
@@ -160,6 +161,9 @@ http://www.andreasnorman.com/simplegmaps/
 
 
 ##changelog
+####2.1.0
+* NEW: New option `multipleInfoWindows`: Set to true to allow opening multiple infoWindows at the same time.
+
 ####2.1.0
 * NEW: Added support for [Marker Clustering](https://developers.google.com/maps/documentation/javascript/marker-clustering). To use this feature set "cluster" to true when initializing.
 * UPDATE: There's a geolocation limit on how many addresses you can requests during a short period of time. Try not to over use it if possible. If the requests are too many, you'll se a warning in the console "google.maps.GeocoderStatus.OVER_QUERY_LIMIT" and the affected markers will be ignored.
