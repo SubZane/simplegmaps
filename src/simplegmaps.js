@@ -955,7 +955,10 @@
 			log(DirectionsRequest);
 			directionsDisplay.setMap(map);
 			// Writes direction to a panel
-			//directionsDisplay.setPanel($(options.routeDirections)[0]);
+			if(settings.routeDescriptionContainer) {
+				directionsDisplay.setPanel(document.querySelector(settings.routeDescriptionContainer));
+			}
+
 			directionsService.route(DirectionsRequest, function (response, status) {
 				if (status === google.maps.DirectionsStatus.OK) {
 					directionsDisplay.setDirections(response);
