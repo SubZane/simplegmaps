@@ -1,0 +1,12 @@
+{
+  "curly": true,
+  "eqeqeq": true,
+  "latedef": false,
+  "noarg": true,
+  "quotmark": "single",
+	"validateQuoteMarks": "'",
+  "boss": true,
+  "trailing": true,
+  "loopfunc" : true,
+  "browser": true
+}
