@@ -1,4 +1,4 @@
-simplegmaps v2.2.0
+simplegmaps v2.3.0
 ===========
 
 simplegmaps - Add google maps to your web without knowing squat about JavaScript
@@ -161,6 +161,9 @@ http://www.andreasnorman.com/simplegmaps/
 
 
 ##changelog
+####2.3.0
+* NEW: Route turn by turn description can now be displayed.
+
 ####2.1.0
 * NEW: New option `multipleInfoWindows`: Set to true to allow opening multiple infoWindows at the same time.
 
