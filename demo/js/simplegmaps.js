@@ -1,4 +1,4 @@
-/*! simplegmaps - v2.1.0 - 2017-02-07
+/*! simplegmaps - v2.2.0 - 2017-03-13
 * https://github.com/SubZane/simplegmaps
 * Copyright (c) 2017 Andreas Norman; Licensed MIT */
 (function (root, factory) {
@@ -958,7 +958,10 @@
 			log(DirectionsRequest);
 			directionsDisplay.setMap(map);
 			// Writes direction to a panel
-			//directionsDisplay.setPanel($(options.routeDirections)[0]);
+			if(settings.routeDescriptionContainer) {
+				directionsDisplay.setPanel(document.querySelector(settings.routeDescriptionContainer));
+			}
+
 			directionsService.route(DirectionsRequest, function (response, status) {
 				if (status === google.maps.DirectionsStatus.OK) {
 					directionsDisplay.setDirections(response);
