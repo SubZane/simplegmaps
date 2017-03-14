@@ -110,7 +110,7 @@
 
 		onJSONConnectionFail: function () {},
 		onJSONLoadFail: function () {},
-		onJSONLoadSuccess: function () {},
+		onJSONLoadSuccess: function () {}
 	};
 	/*
 	You can also use Google Maps native events found here: https://developers.google.com/maps/documentation/javascript/events
@@ -154,12 +154,15 @@
 						} else {
 							log('fetchPosition response: OK: '+response);
 							marker.position = response;
-							markerData.markers.push(marker);
-						}
-						// Do not leave until all markers has been loaded.
-						log(markerData.markers.length +':'+markerListlength);
-						if (markerData.markers.length === markerListlength) {
-							done();
+							createMarkerIcon(marker.iconpath, marker.iconpath2x, function (markerIcon) {
+								marker.icon = markerIcon;
+								markerData.markers.push(marker);
+								// Do not leave until all markers has been loaded.
+								log(markerData.markers.length +':'+markerListlength);
+								if (markerData.markers.length === markerListlength) {
+									done();
+								}
+							});
 						}
 					});
 				});
@@ -259,12 +262,15 @@
 				} else {
 					log('fetchPosition response: OK: '+response);
 					marker.position = response;
-					markerData.markers.push(marker);
-				}
-				// Do not leave until all markers has been loaded.
-				log(markerData.markers.length +':'+markerListlength);
-				if (markerData.markers.length === markerListlength) {
-					done();
+					createMarkerIcon(marker.iconpath, marker.iconpath2x, function (markerIcon) {
+						marker.icon = markerIcon;
+						markerData.markers.push(marker);
+						// Do not leave until all markers has been loaded.
+						log(markerData.markers.length +':'+markerListlength);
+						if (markerData.markers.length === markerListlength) {
+							done();
+						}
+					});
 				}
 			});
 
@@ -329,13 +335,12 @@
 		log('--- Cluster: ' + settings.cluster);
 		if (settings.cluster === true) {
 			// Add a marker clusterer to manage the markers.
-			var markerCluster = new MarkerClusterer(map, markers, {
+			new MarkerClusterer(map, markers, {
 				imagePath: settings.ClusterImagePathPrefix
 			});
 		}
 
 		var bounds = new google.maps.LatLngBounds();
-		var position = {};
 		if (markers.length > 0) {
 			if (settings.ZoomToFitBounds === true) {
 				log('ZoomToFitBounds');
@@ -448,7 +453,7 @@
 							url: icon2x,
 							size: new google.maps.Size(imageElement.naturalWidth / 2, imageElement.naturalHeight / 2),
 							scaledSize: new google.maps.Size((imageElement.naturalWidth / 2), (imageElement.naturalHeight / 2)),
-							origin: new google.maps.Point(0, 0),
+							origin: new google.maps.Point(0, 0)
 						};
 
 						callback(markerIcon);
@@ -459,7 +464,7 @@
 						imageElement.onload = function () {
 							var markerIcon = {
 								url: icon,
-								size: new google.maps.Size(imageElement.naturalWidth, imageElement.naturalHeight),
+								size: new google.maps.Size(imageElement.naturalWidth, imageElement.naturalHeight)
 							};
 
 							callback(markerIcon);
@@ -474,7 +479,7 @@
 					imageElement.onload = function () {
 						var markerIcon = {
 							url: icon,
-							size: new google.maps.Size(imageElement.naturalWidth, imageElement.naturalHeight),
+							size: new google.maps.Size(imageElement.naturalWidth, imageElement.naturalHeight)
 						};
 
 						callback(markerIcon);
@@ -522,14 +527,6 @@
 		return latlng;
 	};
 
-	var hasClass = function (element, classname) {
-		if (typeof element.classList !== 'undefined' && element.classList.contains(classname)) {
-			return true;
-		} else {
-			return false;
-		}
-	};
-
 	var hasValue = function (input) {
 		if (typeof input !== 'undefined' && input !== null && input !== '' && input.length > 0) {
 			return true;
@@ -548,14 +545,6 @@
 
 	var isIOS = function () {
 		if ((navigator.userAgent.match(/iPhone/i)) || (navigator.userAgent.match(/iPad/i)) || (navigator.userAgent.match(/iPod/i))) {
-			return true;
-		} else {
-			return false;
-		}
-	};
-
-	var isBlackBerry = function () {
-		if (navigator.userAgent.match(/BlackBerry/i)) {
 			return true;
 		} else {
 			return false;
@@ -717,7 +706,7 @@
 				map.panTo(place.geometry.location);
 			}
 			if (settings.AutoCompleteOptions.setMarker) {
-				var marker = new google.maps.Marker({
+				new google.maps.Marker({
 					map: map,
 					position: place.geometry.location
 				});
@@ -732,7 +721,7 @@
 		}, function (data, status) {
 			if (status === google.maps.GeocoderStatus.OK) {
 				map.setCenter(data[0].geometry.location);
-				var marker = new google.maps.Marker({
+				new google.maps.Marker({
 					map: map,
 					position: data[0].geometry.location
 				});

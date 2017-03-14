@@ -1,12 +1,7 @@
 {
-  "curly": true,
-  "eqeqeq": true,
-  "latedef": false,
-  "noarg": true,
-  "quotmark": "single",
+  "requireCurlyBraces": true,
 	"validateQuoteMarks": "'",
-  "boss": true,
-  "trailing": true,
-  "loopfunc" : true,
-  "browser": true
+  "disallowTrailingComma": true,
+  "disallowTrailingWhitespace": true,
+	"disallowUnusedVariables": true
 }

@@ -1,4 +1,4 @@
-simplegmaps v2.3.0
+simplegmaps v2.3.1
 ===========
 
 simplegmaps - Add google maps to your web without knowing squat about JavaScript
@@ -161,6 +161,11 @@ http://www.andreasnorman.com/simplegmaps/
 
 
 ##changelog
+####2.3.1
+* FIX: Fixes bug with custom marker icon.
+* FIX: CSS styling to directions for demo
+* OTHER: Adjustments to environment
+
 ####2.3.0
 * NEW: Route turn by turn description can now be displayed.
 

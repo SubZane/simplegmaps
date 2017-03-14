@@ -129,7 +129,6 @@ a.btn-primary:visited {
 a.btn-primary:active {
   background-color: #E67D20;
   color: #fff;
-  .box-shadow(none);
 }
 a.btn-primary:hover {
   background-color: #E67D20;
@@ -230,4 +229,11 @@ footer p {
 }
 footer .project {
   margin-bottom: 40px;
+}
+
+#simplegmaps-directions table.adp-directions {
+	width: 100%;
+}
+#simplegmaps-directions img.adp-marker {
+	margin: 5px;
 }
