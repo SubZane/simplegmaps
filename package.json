@@ -1,19 +1,37 @@
 {
-  "name": "simplegmaps",
-  "version": "2.3.1",
-  "engines": {
-    "node": "~5.2.0"
-  },
-  "devDependencies": {
-    "grunt": "~1.0.1",
-    "grunt-contrib-clean": "~1.1.0",
-    "grunt-contrib-concat": "~1.0.1",
-    "grunt-contrib-connect": "^1.0.2",
-    "grunt-contrib-copy": "^1.0.0",
-    "grunt-contrib-jshint": "~1.1.0",
-    "grunt-contrib-uglify": "3.0.x",
-    "grunt-contrib-watch": "~1.0.0",
-    "grunt-update-json": "^0.2.1",
-    "grunt-web-server": "^1.2.3"
-  }
+ "name": "simplegmaps-js",
+ "version": "2.3.2",
+ "devDependencies": {
+  "grunt": "~1.0.3",
+  "grunt-contrib-clean": "~1.1.0",
+  "grunt-contrib-concat": "~1.0.1",
+  "grunt-contrib-copy": "^1.0.0",
+  "grunt-contrib-jshint": "~1.1.0",
+  "grunt-contrib-uglify": "3.3.x",
+  "grunt-contrib-watch": "~1.1.0"
+ },
+ "description": "Google Maps made easy",
+ "main": "dist/simplegmaps.min.js",
+ "repository": "https://subzane@github.com/SubZane/simplegmaps.git",
+ "homepage": "https://www.andreasnorman.com/simplegmaps/",
+ "bugs": "https://github.com/SubZane/simplegmaps/issues",
+ "author": "Andreas Norman <an@andreasnorman.se>",
+ "keywords": [
+  "map",
+  "google",
+  "maps"
+ ],
+ "files": [
+	"dist/*.js",
+	"/*.js",
+	"demo/*.*",
+	"*.json",
+	"*.md",
+	"LICENSE-MIT"
+ ],
+ "license": "MIT",
+ "private": false,
+ "dependencies": {
+  "marker-clusterer-plus": "^2.1.4"
+ }
 }

@@ -10,20 +10,11 @@ module.exports = function (grunt) {
 			'<%= grunt.template.today("yyyy-mm-dd") %>\n' +
 			'<%= pkg.homepage ? "* " + pkg.homepage + "\\n" : "" %>' +
 			'* Copyright (c) <%= grunt.template.today("yyyy") %> <%= pkg.author.name %>;' +
-			' Licensed <%= _.pluck(pkg.licenses, "type").join(", ") %> */\n',
+			' Licensed <%= _.map(pkg.licenses, "type").join(", ") %> */\n',
 		// Task configuration.
 		clean: {
 			files: ['dist']
 		},
-		web_server: {
-	    options: {
-	      cors: true,
-	      port: 8000,
-	      nevercache: true,
-	      logRequests: true
-    },
-    	foo: 'bar' // For some reason an extra key with a non-object value is necessary
-  	},
 		concat: {
 			options: {
 				banner: '<%= banner %>',
@@ -68,46 +59,21 @@ module.exports = function (grunt) {
 				flatten: true,
 				expand: true,
 				src: ['dist/<%= pkg.name %>.js', 'dist/<%= pkg.name %>.min.js'],
-				dest: 'demo/js/',
+				dest: 'demo/js/'
 			},
 			json: {
 				flatten: true,
 				expand: true,
 				src: ['src/dummy-markersdata.json'],
-				dest: 'demo/dummy/',
+				dest: 'demo/dummy/'
+			},
+			markerclustererplus: {
+				flatten: true,
+				expand: true,
+				src: ['node_modules/@google/markerclustererplus/src/markerclusterer_packed.js', 'node_modules/@google/markerclustererplus/src/markerclusterer.js'],
+				dest: 'demo/js/',
 			},
 		},
-		update_json: {
-			// set some task-level options
-			options: {
-				src: 'package.json',
-				indent: '\t'
-			},
-			// update bower.json with data from package.json
-			bower: {
-				src: 'package.json', // where to read from
-				dest: 'bower.json', // where to write to
-				// the fields to update, as a String Grouping
-				fields: {
-					'name': 'name',
-					'title': 'title',
-					'version': 'version',
-					'description': 'description',
-				}
-			},
-			simplegmaps: {
-				src: 'package.json', // where to read from
-				dest: 'simplegmaps.json', // where to write to
-				// the fields to update, as a String Grouping
-				fields: {
-					'name': 'name',
-					'title': 'title',
-					'version': 'version',
-					'description': 'description',
-				}
-			},
-
-		}
 	});
 
 	// These plugins provide necessary tasks.
@@ -116,13 +82,9 @@ module.exports = function (grunt) {
 	grunt.loadNpmTasks('grunt-contrib-uglify');
 	grunt.loadNpmTasks('grunt-contrib-jshint');
 	grunt.loadNpmTasks('grunt-contrib-watch');
-	grunt.loadNpmTasks('grunt-update-json');
 	grunt.loadNpmTasks('grunt-contrib-copy');
-	grunt.loadNpmTasks('grunt-web-server');
 
 	// Default task.
-	grunt.registerTask('default', ['jshint', 'clean', 'concat', 'uglify', 'copy:json', 'copy:js', 'version']);
-	grunt.registerTask('version', ['update_json:bower', 'update_json:simplegmaps']);
-	//grunt.registerTask('server', ['clean']);
+	grunt.registerTask('default', ['jshint', 'clean', 'concat', 'uglify', 'copy:json', 'copy:markerclustererplus', 'copy:js']);
 
 };
