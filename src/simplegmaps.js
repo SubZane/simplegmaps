@@ -54,6 +54,7 @@
 	// Default settings. zoom and center are required to render the map.
 	var defaults = {
 		debug: false,
+		static: false,
 		multipleInfoWindows: false,
 		cluster: false,
 		ClusterImagePathPrefix: 'img/markercluster/m',
@@ -91,6 +92,14 @@
 		AndroidMapLink: 'https://maps.google.se/maps',
 		WP7MapLink: 'maps:',
 		DesktopMapLink: 'http://www.google.com/maps',
+
+		staticMap: {
+			url: 'https://maps.googleapis.com/maps/api/staticmap?',
+			enable: true,
+			apikey: 'AIzaSyBwzYTVOH5tmUA_CGyvIP7Jc_wJuFfoXOM',
+			maptype: 'roadmap',
+			size: '500x500'
+		},
 
 		onInit: function () {},
 		onDestroy: function () {},
@@ -301,6 +310,17 @@
 			}), settings.geolocateDelay);
 		}
 	};
+
+	var buildMarkersUrl = function () {
+		log('-- buildMarkersUrl --');
+		var markersurl = '';
+		forEach(markerData.markers, function (markerObj, value) {
+			markersurl += 'markers=' + markerObj.position + '|';
+		});
+		return markersurl;
+	};
+
+
 
 	var placeMarkers = function () {
 		log('-- placeMarkers --');
@@ -806,24 +826,46 @@
 			settings.jsonsource = el.getAttribute('data-json');
 		}
 
-		drawMap();
+		if (settings.staticMap.enable === false) {
+			drawMap();
+		}
+
 
 
 		// Unless there is a datasource specified, read markers from HTML markup
 		log('init');
-		if (settings.jsonsource === false) {
-			log('getMapMarkersFromMarkup');
-			getMapMarkersFromMarkup(function (done) {
-				log('markers done');
-				placeMarkers();
-			});
+		if (settings.staticMap.enable === true) {
+			if (settings.jsonsource === false) {
+				getMapMarkersFromMarkup(function (done) {
+					var parameters = buildMarkersUrl();
+					var mapimageurl = settings.staticMap.url + 'key=' + settings.staticMap.apikey + 'maptype=' + settings.staticMap.maptype + 'size=' + settings.staticMap.size;
+					mapimageurl + '&' + parameters;
+				});
+			} else {
+				getMapMarkersFromJSON(function (done) {
+					var parameters = buildMarkersUrl();
+					var mapimageurl = settings.staticMap.url + 'key=' + settings.staticMap.apikey + 'maptype=' + settings.staticMap.maptype + 'size=' + settings.staticMap.size;
+					mapimageurl + '&' + parameters;
+				});
+			}
 		} else {
-			log('getMapMarkersFromJSON');
-			getMapMarkersFromJSON(function (done) {
-				placeMarkers();
-			});
+			if (settings.jsonsource === false) {
+				log('getMapMarkersFromMarkup');
+				getMapMarkersFromMarkup(function (done) {
+					log('markers done');
+					placeMarkers();
+				});
+			} else {
+				log('getMapMarkersFromJSON');
+				getMapMarkersFromJSON(function (done) {
+					placeMarkers();
+				});
+			}
 		}
 
+		if (settings.staticMap.enable === true) {
+			console.log(mapimageurl);
+		}
 
 		hook('onInit');
 	};

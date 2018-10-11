@@ -1,6 +1,6 @@
 {
  "name": "simplegmaps-js",
- "version": "2.3.2",
+ "version": "2.4.0",
  "devDependencies": {
   "grunt": "~1.0.3",
   "grunt-contrib-clean": "~1.1.0",

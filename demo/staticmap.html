@@ -1,0 +1,57 @@
+<div class="row">
+	<div class="col-xs-12">
+		<h2>Single marker by address</h2>
+	</div>
+</div>
+<div class="row">
+	<div class="col-xs-12">
+		<div id="simplegmaps-1" class="google-map">
+			<div class="map-marker" data-title="Remi" data-address="145 W 53rd St, New York, NY 10019, USA"></div>
+		</div>
+	</div>
+</div>
+<div class="row">
+	<div class="col-xs-12">
+		<h3 class="code">javascript</h3>
+		<!-- JS code -->
+
+		<pre>
+<code class="javascript">
+simplegmaps.init({
+	container: '#simplegmaps-1',
+	static: true,
+	key: 'AIzaSyBwzYTVOH5tmUA_CGyvIP7Jc_wJuFfoXOM'
+});
+</code>
+</pre>
+
+		<!-- JS markup END -->
+	</div>
+</div>
+<div class="row">
+	<div class="col-xs-12">
+		<h3 class="code">html</h3>
+		<!-- HTML markup -->
+
+		<pre>
+<code class="html">
+<div id="simplegmaps-1" class="google-map">
+	<div class="map-marker" data-title="Remi" data-address="145 W 53rd St, New York, NY 10019, USA"></div>
+</div>
+</code>
+</pre>
+
+		<!-- HTML markup END -->
+	</div>
+</div>
+<script>
+	simplegmaps.init({
+		container: '#simplegmaps-1',
+		staticMap: {
+			enable: true,
+			apikey: 'AIzaSyBwzYTVOH5tmUA_CGyvIP7Jc_wJuFfoXOM',
+			maptype: 'roadmap',
+			size: '500x500'
+		}
+	});
+</script>
