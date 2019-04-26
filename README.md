@@ -1,4 +1,4 @@
-simplegmaps v2.3.1
+simplegmaps v2.4.0
 ===========
 
 simplegmaps - Add google maps to your web without knowing squat about JavaScript
@@ -34,7 +34,7 @@ Meet simplegmaps!
 
 ##Installation
 ```
-bower install simplegmaps --save
+yarn add simplegmaps-js
 ```
 
 ## Setup
@@ -161,8 +161,13 @@ http://www.andreasnorman.com/simplegmaps/
 
 
 ## changelog
+#### 2.3.3
+* FIX: Fixed url to ClusterMarker
+* FIX: Fixed api key
+
 #### 2.3.2
 * OTHER: Replaced Bower with Yarn
+* Moved script to Yarn
 
 #### 2.3.1
 * FIX: Fixes bug with custom marker icon.
