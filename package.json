@@ -1,6 +1,6 @@
 {
  "name": "simplegmaps-js",
- "version": "2.3.3",
+ "version": "2.4.0",
  "devDependencies": {
   "grunt": "~1.0.3",
   "grunt-contrib-clean": "~1.1.0",
@@ -15,7 +15,7 @@
  "repository": "https://subzane@github.com/SubZane/simplegmaps.git",
  "homepage": "https://www.andreasnorman.com/simplegmaps/",
  "bugs": "https://github.com/SubZane/simplegmaps/issues",
- "author": "Andreas Norman <an@andreasnorman.se>",
+ "author": "Andreas Lee-Norman <andreas@lee-norman.com>",
  "keywords": [
   "map",
   "google",

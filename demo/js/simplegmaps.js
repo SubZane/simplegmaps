@@ -1,6 +1,6 @@
-/*! simplegmaps - v2.4.0 - 2018-10-10
+/*! simplegmaps - v2.3.2 - 2019-04-30
 * https://github.com/SubZane/simplegmaps
-* Copyright (c) 2018 Andreas Norman; Licensed MIT */
+* Copyright (c) 2019 Andreas Norman; Licensed MIT */
 (function (root, factory) {
 	if (typeof define === 'function' && define.amd) {
 		define([], factory(root));
@@ -31,6 +31,7 @@
 		Transit: google.maps.TravelMode.TRANSIT,
 		Walking: google.maps.TravelMode.WALKING
 	};
+
 	var UnitSystems = {
 		Metric: google.maps.UnitSystem.METRIC,
 		Imperial: google.maps.UnitSystem.IMPERIAL
@@ -389,6 +390,9 @@
 	var setInfoWindow = function (marker, markerData) {
 		if (markerData.infoWindowContent) {
 			marker.addListener('click', function () {
+				if (settings.markerBounce === true) {
+					toggleBounce(marker);
+				}
 				if (settings.multipleInfoWindows === false) {
 					if (infoWindows.length > 0) {
 						closeInfoWindows();
@@ -403,6 +407,9 @@
 		} else if (markerData.CustominfoWindowContent) {
 			var customInfowindow = markerData.CustominfoWindowContent;
 			google.maps.event.addListener(marker, 'click', function () {
+				if (settings.markerBounce === true) {
+					toggleBounce(marker);
+				}
 				var ciw = document.querySelector('#simplegmaps-c-iw');
 				if (ciw !== null) {
 					ciw.parentNode.removeChild(ciw);
@@ -417,8 +424,35 @@
 					}
 				});
 			});
+		} else {
+			marker.addListener('click', function () {
+				if (settings.markerBounce === true) {
+					toggleBounce(marker);
+				}
+				if (settings.iconSwap.enabled === true) {
+					toggleIcon(marker);
+				}
+			});
 		}
 		return marker;
+	};
+
+	var toggleBounce = function (markerObj) {
+		if (typeof markerObj.getAnimation() === 'undefined' || markerObj.getAnimation() === null) {
+			forEach(markers, function (m, value) {
+				m.setAnimation(null);
+			});
+      markerObj.setAnimation(google.maps.Animation.BOUNCE);
+    } else {
+      markerObj.setAnimation(null);
+    }
+	};
+
+	var toggleIcon = function (markerObj) {
+		forEach(markers, function (m, value) {
+			m.setIcon(null);
+		});
+		markerObj.setIcon(settings.iconSwap.activeIcon);
 	};
 
 	// Asynchronous method to fetch latitude and longitude from marker

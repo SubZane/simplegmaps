@@ -161,6 +161,10 @@ http://www.andreasnorman.com/simplegmaps/
 
 
 ## changelog
+#### 2.4.0
+* NEW: Added option to enable bounce Animation on marker click-event. View demo for demonstration and source code.
+* NEW: Added option to swap marker icon when selected. View demo for demonstration and source code.
+
 #### 2.3.3
 * FIX: Fixed url to ClusterMarker
 * FIX: Fixed api key
