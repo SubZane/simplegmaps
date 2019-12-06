@@ -1,23 +1,5 @@
-body {
-	margin-top: 40px;
-	font-family: sans-serif;
-}
-
 .map-infowindow {
 	color: #000;
-}
-
-h1 {
-	font-size: 40px;
-	margin-bottom: 40px;
-}
-
-h1 span {
-	color:#D15419;
-}
-
-h1,h2,h3 {
-	font-weight: 700;
 }
 
 .google-map {
@@ -113,4 +95,11 @@ h1,h2,h3 {
 
 .adp-directions {
 	width: 100%;
+}
+
+#simplegmaps-directions table.adp-directions {
+	width: 100%;
+}
+#simplegmaps-directions img.adp-marker {
+	margin: 5px;
 }

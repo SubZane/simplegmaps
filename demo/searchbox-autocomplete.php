@@ -1,20 +1,11 @@
-<div class="row">
-  <div class="col-xs-12">
-    <h2>Search box</h2>
-  </div>
-</div>
-<div class="row">
-  <div class="col-xs-12">
+<?php require('includes/header.php') ?>
     <div id="simplegmaps-1" class="google-map">
       <div class="map-marker" data-title="Remi" data-address="Remi 145 W 53rd St, New York, NY, United States"></div>
     </div>
-  </div>
-</div>
-
 <div class="row row-route">
   <div class="col-md-4 col-xs-12 col-sm-12 col-md-push-2">
     <div class="form-group">
-       <label for="simplegmaps-searchbox">Find place</label>
+       <label for="simplegmaps-searchbox">Find place using AutoComplete</label>
        <input type="text" class="form-control" id="simplegmaps-searchfield" placeholder="Enter location" value="" />
      </div>
   </div>
@@ -25,43 +16,46 @@
   </div>
 </div>
 
-<div class="row">
-  <div class="col-md-2 col-xs-12 col-sm-12 col-md-push-2">
-    <div class="directions" id="simplegmaps-directions"></div>
-  </div>
-</div>
-
-<div class="row">
-  <div class="col-xs-12">
-    <h3 class="code">javascript</h3>
-<!-- JS code -->
-
-<pre>
-<code class="javascript">
-simplegmaps.init({
+<div class="highlight">
+	<h3 class="code">javascript</h3>
+	<pre><code class="javascript">
+	var sgmaps = new simplegmaps();
+sgmaps.init({
   container: '#simplegmaps-1',
+	routeDescriptionContainer: '#simplegmaps-directions',
   MapOptions: {
-    zoom: 12
+    zoom: 14
   }
 });
-simplegmaps.Search.init({
-  input: '#simplegmaps-searchfield',
-  eventButton: '#simplegmaps-searchbutton'
+
+document.querySelector('#simplegmaps-getroute').addEventListener('click', function(event) {
+  sgmaps.Directions.route({
+    origin: document.querySelector('#simplegmaps-fromaddress').value,
+    destination: sgmaps.Markers.get()[0].getPosition(),
+    travelMode: document.querySelector('#simplegmaps-travelmode').value
+  });
+  event.preventDefault();
 });
-</code>
-</pre>
 
-<!-- JS markup END -->
-  </div>
+var travelmodes = sgmaps.Directions.TravelModes.get();
+var select = document.getElementById("simplegmaps-travelmode");
+
+for (var key in travelmodes) {
+  if (travelmodes.hasOwnProperty(key)) {
+    var el = document.createElement("option");
+    el.textContent = key;
+    el.value = travelmodes[key];
+    select.appendChild(el);
+  }
+}
+</code></pre>
 </div>
-<div class="row">
-  <div class="col-xs-12">
-    <h3 class="code">html</h3>
-<!-- HTML markup -->
 
-<pre>
-<code class="html">
-<div class="row">
+<div class="highlight">
+	<h3 class="code">HTML</h3>
+	<pre><code class="html">
+
+	<div class="row">
   <div class="col-xs-12">
     <div id="simplegmaps-1" class="google-map">
       <div class="map-marker" data-title="Remi" data-address="Remi 145 W 53rd St, New York, NY, United States"></div>
@@ -71,7 +65,7 @@ simplegmaps.Search.init({
 <div class="row row-route">
   <div class="col-md-4 col-xs-12 col-sm-12 col-md-push-2">
     <div class="form-group">
-       <label for="simplegmaps-searchbox">Find place</label>
+       <label for="simplegmaps-searchbox">Find place using AutoComplete</label>
        <input type="text" class="form-control" id="simplegmaps-searchfield" placeholder="Enter location" value="" />
      </div>
   </div>
@@ -81,21 +75,26 @@ simplegmaps.Search.init({
     </div>
   </div>
 </div>
-</code>
-</pre>
 
-<!-- HTML markup END -->
-  </div>
+		</code></pre>
 </div>
+
+<?php require('includes/scripts.php') ?>
+
 <script>
-simplegmaps.init({
+var sgmaps = new simplegmaps();
+sgmaps.init({
   container: '#simplegmaps-1',
   MapOptions: {
     zoom: 12
   }
 });
-simplegmaps.Search.init({
+sgmaps.Search.init({
   input: '#simplegmaps-searchfield',
-  eventButton: '#simplegmaps-searchbutton'
+  eventButton: '#simplegmaps-searchbutton',
+  AutoComplete: true
 });
+
 </script>
+
+<?php require('includes/footer.php') ?>

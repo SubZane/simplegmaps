@@ -161,6 +161,9 @@ http://www.andreasnorman.com/simplegmaps/
 
 
 ## changelog
+#### 3.0.0
+* NEW: New pattern to support multiple map instances
+
 #### 2.4.0
 * NEW: Added option to enable bounce Animation on marker click-event. View demo for demonstration and source code.
 * NEW: Added option to swap marker icon when selected. View demo for demonstration and source code.

@@ -1,15 +1,7 @@
-<div class="row">
-  <div class="col-xs-12">
-    <h2>Routing</h2>
-  </div>
-</div>
-<div class="row">
-  <div class="col-xs-12">
-    <div id="simplegmaps-1" class="google-map">
+<?php require('includes/header.php') ?>
+<div id="simplegmaps-1" class="google-map">
       <div class="map-marker" data-title="Remi" data-address="Remi 145 W 53rd St, New York, NY, United States"></div>
     </div>
-  </div>
-</div>
 
 <div class="row row-route">
   <div class="col-md-4 col-xs-12 col-sm-12">
@@ -32,20 +24,12 @@
   </div>
 </div>
 
-<div class="row">
-  <div class="col-md-12 col-xs-12 col-sm-12">
-    <div class="directions" id="simplegmaps-directions"></div>
-  </div>
-</div>
 
-<div class="row">
-  <div class="col-xs-12">
-    <h3 class="code">javascript</h3>
-<!-- JS code -->
-
-<pre>
-<code class="javascript">
-simplegmaps.init({
+<div class="highlight">
+	<h3 class="code">javascript</h3>
+	<pre><code class="javascript">
+	var sgmaps = new simplegmaps();
+sgmaps.init({
   container: '#simplegmaps-1',
   routeDescriptionContainer: '#simplegmaps-directions',
   MapOptions: {
@@ -53,16 +37,21 @@ simplegmaps.init({
   }
 });
 
+sgmaps.Directions.initAutoComplete({
+  originInput: '#simplegmaps-fromaddress',
+  eventButton: '#simplegmaps-getroute'
+});
+
 document.querySelector('#simplegmaps-getroute').addEventListener('click', function(event) {
   simplegmaps.Directions.route({
     origin: document.querySelector('#simplegmaps-fromaddress').value,
-    destination: simplegmaps.Markers.get()[0].getPosition(),
+    destination: sgmaps.Markers.get()[0].getPosition(),
     travelMode: document.querySelector('#simplegmaps-travelmode').value
   });
   event.preventDefault();
 });
 
-var travelmodes = simplegmaps.Directions.TravelModes.get();
+var travelmodes = sgmaps.Directions.TravelModes.get();
 var select = document.getElementById("simplegmaps-travelmode");
 
 for (var key in travelmodes) {
@@ -73,20 +62,14 @@ for (var key in travelmodes) {
     select.appendChild(el);
   }
 }
-</code>
-</pre>
-
-<!-- JS markup END -->
-  </div>
+</code></pre>
 </div>
-<div class="row">
-  <div class="col-xs-12">
-    <h3 class="code">html</h3>
-<!-- HTML markup -->
 
-<pre>
-<code class="html">
-<div class="row">
+<div class="highlight">
+	<h3 class="code">HTML</h3>
+	<pre><code class="html">
+
+	<div class="row">
   <div class="col-xs-12">
     <div id="simplegmaps-1" class="google-map">
       <div class="map-marker" data-title="Remi" data-address="Remi 145 W 53rd St, New York, NY, United States"></div>
@@ -113,31 +96,37 @@ for (var key in travelmodes) {
     </div>
   </div>
 </div>
-</code>
-</pre>
 
-<!-- HTML markup END -->
-  </div>
+		</code></pre>
 </div>
+
+<?php require('includes/scripts.php') ?>
+
 <script>
-simplegmaps.init({
+var sgmaps = new simplegmaps();
+sgmaps.init({
   container: '#simplegmaps-1',
-	routeDescriptionContainer: '#simplegmaps-directions',
+  routeDescriptionContainer: '#simplegmaps-directions',
   MapOptions: {
     zoom: 14
   }
 });
 
+sgmaps.Directions.initAutoComplete({
+  originInput: '#simplegmaps-fromaddress',
+  eventButton: '#simplegmaps-getroute'
+});
+
 document.querySelector('#simplegmaps-getroute').addEventListener('click', function(event) {
-  simplegmaps.Directions.route({
+  sgmaps.Directions.route({
     origin: document.querySelector('#simplegmaps-fromaddress').value,
-    destination: simplegmaps.Markers.get()[0].getPosition(),
+    destination: sgmaps.Markers.get()[0].getPosition(),
     travelMode: document.querySelector('#simplegmaps-travelmode').value
   });
   event.preventDefault();
 });
 
-var travelmodes = simplegmaps.Directions.TravelModes.get();
+var travelmodes = sgmaps.Directions.TravelModes.get();
 var select = document.getElementById("simplegmaps-travelmode");
 
 for (var key in travelmodes) {
@@ -148,4 +137,7 @@ for (var key in travelmodes) {
     select.appendChild(el);
   }
 }
+
 </script>
+
+<?php require('includes/footer.php') ?>
