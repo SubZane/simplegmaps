@@ -1,6 +1,3 @@
-/*! simplegmaps - v2.3.2 - 2019-04-30
-* https://github.com/SubZane/simplegmaps
-* Copyright (c) 2019 Andreas Norman; Licensed MIT */
 (function (root, factory) {
 	if (typeof define === 'function' && define.amd) {
 		define([], factory(root));

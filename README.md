@@ -32,7 +32,7 @@ Meet simplegmaps!
 - Firefox
 - Safari 15+
 
-### [View demo](http://www.andreasnorman.com/simplegmaps)
+### [View demo](http://subzane.github.io/simplegmaps/)
 
 ##Installation
 
@@ -179,13 +179,14 @@ simplegmaps.init({
 
 You can find more examples on how to implement this plugin on the demo website
 
-http://www.andreasnorman.com/simplegmaps/
+http://subzane.github.io/simplegmaps/
 
 ## changelog
 
 #### 2.5.0
 
 - CHANGE: Uses Gulp instead of Grunt
+- CHANGE: Links to ClusterMarker script instead of including it in the project
 
 #### 2.4.0
 
