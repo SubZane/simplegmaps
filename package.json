@@ -1,37 +1,39 @@
 {
- "name": "simplegmaps-js",
- "version": "2.4.0",
- "devDependencies": {
-  "grunt": "~1.0.3",
-  "grunt-contrib-clean": "~1.1.0",
-  "grunt-contrib-concat": "~1.0.1",
-  "grunt-contrib-copy": "^1.0.0",
-  "grunt-contrib-jshint": "~1.1.0",
-  "grunt-contrib-uglify": "3.3.x",
-  "grunt-contrib-watch": "~1.1.0"
- },
- "description": "Google Maps made easy",
- "main": "dist/simplegmaps.min.js",
- "repository": "https://subzane@github.com/SubZane/simplegmaps.git",
- "homepage": "https://www.andreasnorman.com/simplegmaps/",
- "bugs": "https://github.com/SubZane/simplegmaps/issues",
- "author": "Andreas Lee-Norman <andreas@lee-norman.com>",
- "keywords": [
-  "map",
-  "google",
-  "maps"
- ],
- "files": [
-	"dist/*.js",
-	"/*.js",
-	"demo/*.*",
-	"*.json",
-	"*.md",
-	"LICENSE-MIT"
- ],
- "license": "MIT",
- "private": false,
- "dependencies": {
-  "marker-clusterer-plus": "^2.1.4"
- }
+	"name": "simplegmaps-js",
+	"version": "2.5.0",
+	"devDependencies": {
+		"@types/google.maps": "^3.50.5",
+		"gulp": "^4.0.2",
+		"gulp-autoprefixer": "^8.0.0",
+		"gulp-concat": "^2.6.1",
+		"gulp-postcss": "^9.0.1",
+		"gulp-rename": "^2.0.0",
+		"gulp-sass": "^5.1.0",
+		"gulp-sourcemaps": "^3.0.0",
+		"gulp-uglify": "^3.0.2",
+		"gh-pages": "^4.0.0",
+		"sass": "^1.49.7"
+	},
+	"description": "Google Maps made easy",
+	"main": "dist/simplegmaps.min.js",
+	"repository": "https://subzane@github.com/SubZane/simplegmaps.git",
+	"homepage": "http://subzane.github.io/simplegmaps/",
+	"bugs": "https://github.com/SubZane/simplegmaps/issues",
+	"author": "Andreas Lee-Norman <andreas@lee-norman.com>",
+	"keywords": [
+		"map",
+		"google",
+		"maps"
+	],
+	"files": [
+		"dist/*.js",
+		"/*.js",
+		"demo/*.*",
+		"*.json",
+		"*.md",
+		"LICENSE-MIT"
+	],
+	"license": "MIT",
+	"private": false,
+	"dependencies": {}
 }

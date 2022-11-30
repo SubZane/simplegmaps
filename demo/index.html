@@ -1,238 +1,302 @@
 <!DOCTYPE html>
 <html class="no-js" lang="sv">
-<head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2, user-scalable=yes" />
+	<head>
+		<meta charset="utf-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta
+			name="viewport"
+			content="width=device-width, initial-scale=1, maximum-scale=2, user-scalable=yes"
+		/>
 
-  <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
-	<link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css" rel="stylesheet">
-	<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
-  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.4/styles/github.min.css">
-  <link rel="stylesheet" href="styles/demo.css">
-  <link rel="stylesheet" href="styles/navbar.css">
+		<link
+			href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800"
+			rel="stylesheet"
+			type="text/css"
+		/>
+		<link
+			href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css"
+			rel="stylesheet"
+		/>
+		<link
+			rel="stylesheet"
+			href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css"
+		/>
+		<link
+			rel="stylesheet"
+			href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.4/styles/github.min.css"
+		/>
+		<link rel="stylesheet" href="styles/demo.css" />
+		<link rel="stylesheet" href="styles/navbar.css" />
 
-  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-  <title>simplegmaps - google maps javascript library</title>
-</head>
+		<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+		<title>simplegmaps - google maps javascript library</title>
+	</head>
 
-<body>
-  <div class="container">
-  <div class="row">
-    <div class="col-xs-12 col-md-6 col-md-offset-3">
-      <img src="img/logo.png" class="img-responsive logo" alt="simplegmaps Logo">
-    </div>
-  </div>
-  <div class="row">
-    <div class="col-xs-12 col-md-10 col-md-offset-1">
-      <div class="version">v 2.3.2</div>
-      <div class="github">
-        <a class="github-button" href="https://github.com/SubZane/simplegmaps" data-style="mega" data-count-href="/SubZane/simplegmaps/stargazers" data-count-api="/repos/SubZane/simplegmaps#stargazers_count">Star</a>
-        <a class="github-button" href="https://github.com/SubZane/simplegmaps" data-style="mega" data-count-href="/SubZane/simplegmaps/network" data-count-api="/repos/SubZane/simplegmaps#forks_count">Fork</a>
-      </div>
-      <h1>SimpleGMaps is a javascript library for presenting Google Maps without the need for writing any js!</h1>
-      <p>SimpleGMaps is an easy way to present Google Maps on your website. You don't need to know complex javascript, or javascript at all to know how to work this. Just follow the examples and add simple HTML markup. SimpleGMaps takes care of the rest!</p>
-      <p>With version 2 of SimpleGMaps now runs on vanilla javascript. No frameworks required!</p>
-      <p>Be sure to check out the examples below to learn more.</p>
+	<body>
+		<div class="container">
+			<div class="row">
+				<div class="col-xs-12 col-md-6 col-md-offset-3">
+					<img
+						src="img/logo.png"
+						class="img-responsive logo"
+						alt="simplegmaps Logo"
+					/>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-xs-12 col-md-10 col-md-offset-1">
+					<div class="version">v 2.5</div>
+					<div class="github">
+						<a
+							class="github-button"
+							href="https://github.com/SubZane/simplegmaps"
+							data-style="mega"
+							data-count-href="/SubZane/simplegmaps/stargazers"
+							data-count-api="/repos/SubZane/simplegmaps#stargazers_count"
+							>Star</a
+						>
+						<a
+							class="github-button"
+							href="https://github.com/SubZane/simplegmaps"
+							data-style="mega"
+							data-count-href="/SubZane/simplegmaps/network"
+							data-count-api="/repos/SubZane/simplegmaps#forks_count"
+							>Fork</a
+						>
+					</div>
+					<h1>
+						SimpleGMaps is a javascript library for presenting Google Maps
+						without the need for writing any js!
+					</h1>
+					<p>
+						SimpleGMaps is an easy way to present Google Maps on your website.
+						You don't need to know complex javascript, or javascript at all to
+						know how to work this. Just follow the examples and add simple HTML
+						markup. SimpleGMaps takes care of the rest!
+					</p>
+					<p>
+						With version 2 of SimpleGMaps now runs on vanilla javascript. No
+						frameworks required!
+					</p>
+					<p>Be sure to check out the examples below to learn more.</p>
 
-      <div class="download">
-        <a class="btn btn-primary" href="https://github.com/SubZane/simplegmaps">View on Github</a>
-        <p class="small">(Download the source and read the documentation)</p>
-      </div>
-    </div>
-  </div>
-  <div class="row">
-    <div class="col-xs-12 col-md-10 col-md-offset-1">
-      <div class="codepanel">
-          <div class="bower">
-            bower install simplegmaps --save
-          </div>
-      </div>
-    </div>
-  </div>
+					<div class="download">
+						<a
+							class="btn btn-primary"
+							href="https://github.com/SubZane/simplegmaps"
+							>View on Github</a
+						>
+						<p class="small">
+							(Download the source and read the documentation)
+						</p>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-xs-12 col-md-10 col-md-offset-1">
+					<div class="codepanel">
+						<div class="bower">yarn add simplegmaps-js</div>
+					</div>
+				</div>
+			</div>
 
-  <div class="row examples">
-    <div class="col-xs-12 col-md-10 col-md-offset-1">
-      <h2>Demonstration</h2>
-      <p>Please take some time to view the many examples in order to fully understand how easy you can add Google Maps to your website.</p>
+			<div class="row examples">
+				<div class="col-xs-12 col-md-10 col-md-offset-1">
+					<h2>Demonstration</h2>
+					<p>
+						Please take some time to view the many examples in order to fully
+						understand how easy you can add Google Maps to your website.
+					</p>
 
-      <ul class="nav navbar-nav" data-target="#navbar-target">
-        <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown">Markers <span class="caret"></span></a>
-          <ul class="dropdown-menu" role="menu">
-            <li><a class="active" href="marker-address.html">Single marker by address</a></li>
-            <li><a href="marker-address-nozoomtofit.html">Markers with custom zoom level</a></li>
-            <li><a href="marker-ll.html">Single marker by long/lat</a></li>
-            <li><a href="marker-multipleaddress.html">Multiple markers</a></li>
-            <li><a href="marker-custom.html">Markers with a custom icon</a></li>
-            <li><a href="marker-json.html">Markers from a JSON-string</a></li>
-            <li><a href="marker-cluster.html">Clustered markers</a></li>
-            <li><a href="marker-multipleaddress-markerbounce.html">Marker Bounce</a></li>
-            <li><a href="marker-multipleaddress-markericonswap.html">Active marker (swap icon)</a></li>
-          </ul>
-        </li>
-        <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown">Geolocation <span class="caret"></span></a>
-          <ul class="dropdown-menu" role="menu">
-            <li><a href="auto-geolocation.html">Automatic Geolocation</a></li>
-            <li><a href="manual-geolocation.html">Manual Geolocation</a></li>
-          </ul>
-        </li>
-        <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown">Routing <span class="caret"></span></a>
-          <ul class="dropdown-menu" role="menu">
-            <li><a href="routing.html">Routing</a></li>
-            <li><a href="routing-autocomplete.html">Routing (autocomplete)</a></li>
-          </ul>
-        </li>
-        <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown">Info windows <span class="caret"></span></a>
-          <ul class="dropdown-menu" role="menu">
-            <li><a href="infowindows.html">Standard Info window</a></li>
-            <li><a href="custom-infowindows.html">Custom Info window</a></li>
-          </ul>
-        </li>
-        <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown">layers <span class="caret"></span></a>
-          <ul class="dropdown-menu" role="menu">
-            <li><a href="layer-traffic.html">Traffic Layer</a></li>
-            <li><a href="layer-bicycle.html">Bicycle layer</a></li>
-            <li><a href="layer-transit.html">Transit layer</a></li>
-          </ul>
-        </li>
-        <li><a href="snazzy.html">Snazzy colors</a></li>
-        <li><a href="maplinks.html">Native Links</a></li>
-        <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown">Search box <span class="caret"></span></a>
-          <ul class="dropdown-menu" role="menu">
-            <li><a href="searchbox.html">Search box</a></li>
-            <li><a href="searchbox-autocomplete.html">Search box autocomplete</a></li>
-          </ul>
-        </li>
-      </ul>
-    </div>
-  </div>
+					<ul class="nav navbar-nav" data-target="#navbar-target">
+						<li class="dropdown">
+							<a href="#" class="dropdown-toggle" data-toggle="dropdown"
+								>Markers <span class="caret"></span
+							></a>
+							<ul class="dropdown-menu" role="menu">
+								<li>
+									<a class="active" href="marker-address.html"
+										>Single marker by address</a
+									>
+								</li>
+								<li>
+									<a href="marker-address-nozoomtofit.html"
+										>Markers with custom zoom level</a
+									>
+								</li>
+								<li><a href="marker-ll.html">Single marker by long/lat</a></li>
+								<li>
+									<a href="marker-multipleaddress.html">Multiple markers</a>
+								</li>
+								<li>
+									<a href="marker-custom.html">Markers with a custom icon</a>
+								</li>
+								<li>
+									<a href="marker-json.html">Markers from a JSON-string</a>
+								</li>
+								<li><a href="marker-cluster.html">Clustered markers</a></li>
+								<li>
+									<a href="marker-multipleaddress-markerbounce.html"
+										>Marker Bounce</a
+									>
+								</li>
+								<li>
+									<a href="marker-multipleaddress-markericonswap.html"
+										>Active marker (swap icon)</a
+									>
+								</li>
+							</ul>
+						</li>
+						<li class="dropdown">
+							<a href="#" class="dropdown-toggle" data-toggle="dropdown"
+								>Geolocation <span class="caret"></span
+							></a>
+							<ul class="dropdown-menu" role="menu">
+								<li>
+									<a href="auto-geolocation.html">Automatic Geolocation</a>
+								</li>
+								<li>
+									<a href="manual-geolocation.html">Manual Geolocation</a>
+								</li>
+							</ul>
+						</li>
+						<li class="dropdown">
+							<a href="#" class="dropdown-toggle" data-toggle="dropdown"
+								>Routing <span class="caret"></span
+							></a>
+							<ul class="dropdown-menu" role="menu">
+								<li><a href="routing.html">Routing</a></li>
+								<li>
+									<a href="routing-autocomplete.html">Routing (autocomplete)</a>
+								</li>
+							</ul>
+						</li>
+						<li class="dropdown">
+							<a href="#" class="dropdown-toggle" data-toggle="dropdown"
+								>Info windows <span class="caret"></span
+							></a>
+							<ul class="dropdown-menu" role="menu">
+								<li><a href="infowindows.html">Standard Info window</a></li>
+								<li>
+									<a href="custom-infowindows.html">Custom Info window</a>
+								</li>
+							</ul>
+						</li>
+						<li class="dropdown">
+							<a href="#" class="dropdown-toggle" data-toggle="dropdown"
+								>layers <span class="caret"></span
+							></a>
+							<ul class="dropdown-menu" role="menu">
+								<li><a href="layer-traffic.html">Traffic Layer</a></li>
+								<li><a href="layer-bicycle.html">Bicycle layer</a></li>
+								<li><a href="layer-transit.html">Transit layer</a></li>
+							</ul>
+						</li>
+						<li><a href="snazzy.html">Snazzy colors</a></li>
+						<li><a href="maplinks.html">Native Links</a></li>
+						<li class="dropdown">
+							<a href="#" class="dropdown-toggle" data-toggle="dropdown"
+								>Search box <span class="caret"></span
+							></a>
+							<ul class="dropdown-menu" role="menu">
+								<li><a href="searchbox.html">Search box</a></li>
+								<li>
+									<a href="searchbox-autocomplete.html"
+										>Search box autocomplete</a
+									>
+								</li>
+							</ul>
+						</li>
+					</ul>
+				</div>
+			</div>
 
-  <div class="row">
-    <div class="col-xs-12 col-md-10 col-md-offset-1">
-      <div id="navbar-target"></div>
-    </div>
-  </div>
+			<div class="row">
+				<div class="col-xs-12 col-md-10 col-md-offset-1">
+					<div id="navbar-target"></div>
+				</div>
+			</div>
 
-  <footer>
-  <div class="container">
-    <div class="row">
-      <div class="col-xs-12 col-md-10 col-md-offset-1">
-        <h3>View my other projects</h3>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-xs-12 col-md-10 col-md-offset-1">
+			<footer></footer>
+		</div>
 
-        <div class="row project">
-          <div class="col-xs-12 col-md-5">
-            <a href="http://www.andreasnorman.com/simplegmaps"><img src="img/simplegmaps.png" class="img-responsive"></a>
-          </div>
-          <div class="col-xs-12 col-md-7">
-            <h4><a href="http://www.andreasnorman.com/simplegmaps">SimpleGMaps</a></h4>
-            <p>SimpleGMaps is a jQuery plugin for easier handling google maps on your webiste. Simply add the needed HTML-markup and SimpleGMaps will take care of the rest, no scripting necessary!</p>
-            <div class="github">
-              <a class="github-button" href="https://github.com/SubZane/simplegmaps" data-style="mega" data-count-href="/SubZane/simplegmaps/stargazers" data-count-api="/repos/SubZane/simplegmaps#stargazers_count">Star</a>
-              <a class="github-button" href="https://github.com/SubZane/simplegmaps" data-style="mega" data-count-href="/SubZane/simplegmaps/network" data-count-api="/repos/SubZane/simplegmaps#forks_count">Fork</a>
-            </div>
+		<script
+			async
+			defer
+			id="github-bjs"
+			src="https://buttons.github.io/buttons.js"
+		></script>
 
-          </div>
-        </div>
+		<script
+			src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"
+			type="text/javascript"
+		></script>
+		<script
+			src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBTSt9QLWeHKFpWWPtgXrkApb6oWdWec90&libraries=places"
+			type="text/javascript"
+		></script>
+		<script src="https://unpkg.com/@googlemaps/markerclustererplus/dist/index.min.js"></script>
+		<script src="js/simplegmaps.js"></script>
+		<script src="jquery.ajaxnav.js"></script>
+		<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.4/highlight.min.js"></script>
+		<script>
+			jQuery(document).ready(function ($) {
+				// List of HTML entities for escaping.
+				$(".navbar-nav").ajaxnav({
+					onContentLoaded: function () {
+						var htmlEscapes = {
+							"&": "&amp;",
+							"<": "&lt;",
+							">": "&gt;",
+							'"': "&quot;",
+							"'": "&#x27;",
+							"/": "&#x2F;",
+						};
 
-        <div class="row project">
-          <div class="col-xs-12 col-md-5">
-            <a href="http://www.andreasnorman.com/socialjs"><img src="img/socialjs.png" class="img-responsive"></a>
-          </div>
-          <div class="col-xs-12 col-md-7">
-            <h4><a href="http://www.andreasnorman.com/socialjs">SocialJS</a></h4>
-            <p>SocialJS is a jQuery plugin for creating your own custom social media share buttons. You can design them anyway you want, just add the needed markup and SocialJS will handle the rest, no need to write any javascript.</p>
-            <div class="github">
-              <a class="github-button" href="https://github.com/SubZane/socialjs" data-style="mega" data-count-href="/SubZane/socialjs/stargazers" data-count-api="/repos/SubZane/socialjs#stargazers_count">Star</a>
-              <a class="github-button" href="https://github.com/SubZane/socialjs" data-style="mega" data-count-href="/SubZane/socialjs/network" data-count-api="/repos/SubZane/socialjs#forks_count">Fork</a>
-            </div>
-          </div>
-        </div>
+						var htmlEscaper = /[&<>"'\/]/g;
+						escapeHTML = function (string) {
+							return ("" + string).replace(htmlEscaper, function (match) {
+								return htmlEscapes[match];
+							});
+						};
 
-        <div class="row project">
-          <div class="col-xs-12 col-md-5">
-            <a href="http://www.andreasnorman.com/flypanels"><img src="img/flypanels.png" class="img-responsive"></a>
-          </div>
-          <div class="col-xs-12 col-md-7">
-            <h4><a href="http://www.andreasnorman.com/flypanels">flyPanels</a></h4>
-            <p>FlyPanels is a off canvas mobile panel system for responsive websites. It comes complete with a menu component supporting 5  sub menu levels and a search component listing the search result from a JSON response.</p>
-            <div class="github">
-              <a class="github-button" href="https://github.com/SubZane/flypanels" data-style="mega" data-count-href="/SubZane/flypanels/stargazers" data-count-api="/repos/SubZane/flypanels#stargazers_count">Star</a>
-              <a class="github-button" href="https://github.com/SubZane/flypanels" data-style="mega" data-count-href="/SubZane/flypanels/network" data-count-api="/repos/SubZane/flypanels#forks_count">Fork</a>
-            </div>
-          </div>
-        </div>
+						// Find Prism code snippet and escape markup
+						$("#navbar-target .html").each(function () {
+							var codeHtml = $(this).html();
+							codeHtml = escapeHTML(codeHtml);
+							$(this).html(codeHtml);
+						});
 
-      </div>
-    </div>
-  </div>
-</footer>
+						$("#navbar-target pre code").each(function (i, block) {
+							hljs.highlightBlock(block);
+						});
+					},
+				});
+			});
+		</script>
+		<script>
+			(function (i, s, o, g, r, a, m) {
+				i["GoogleAnalyticsObject"] = r;
+				(i[r] =
+					i[r] ||
+					function () {
+						(i[r].q = i[r].q || []).push(arguments);
+					}),
+					(i[r].l = 1 * new Date());
+				(a = s.createElement(o)), (m = s.getElementsByTagName(o)[0]);
+				a.async = 1;
+				a.src = g;
+				m.parentNode.insertBefore(a, m);
+			})(
+				window,
+				document,
+				"script",
+				"//www.google-analytics.com/analytics.js",
+				"ga"
+			);
 
-
-</div>
-
-<script async defer id="github-bjs" src="https://buttons.github.io/buttons.js"></script>
-
-<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js" type="text/javascript"></script>
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBTSt9QLWeHKFpWWPtgXrkApb6oWdWec90&libraries=places" type="text/javascript"></script>
-<script src="js/markerclusterer.js"></script>
-<script src="js/simplegmaps.js"></script>
-<script src="jquery.ajaxnav.js"></script>
-<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.4/highlight.min.js"></script>
-<script>
-jQuery(document).ready(function($) {
-  // List of HTML entities for escaping.
-  $('.navbar-nav').ajaxnav({
-    onContentLoaded: function () {
-      var htmlEscapes = {
-        '&': '&amp;',
-        '<': '&lt;',
-        '>': '&gt;',
-        '"': '&quot;',
-        "'": '&#x27;',
-        '/': '&#x2F;'
-      };
-
-      var htmlEscaper = /[&<>"'\/]/g;
-      escapeHTML = function(string) {
-        return ('' + string).replace(htmlEscaper, function(match) {
-          return htmlEscapes[match];
-        });
-      };
-
-      // Find Prism code snippet and escape markup
-      $('#navbar-target .html').each(function() {
-        var codeHtml = $(this).html();
-        codeHtml = escapeHTML(codeHtml);
-        $(this).html(codeHtml);
-      });
-
-      $('#navbar-target pre code').each(function(i, block) {
-        hljs.highlightBlock(block);
-      });
-    }
-  });
-});
-</script>
-<script>
-(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-
-ga('create', 'UA-110129-23', 'auto');
-ga('send', 'pageview');
-
-</script>
-
-</body>
+			ga("create", "UA-110129-23", "auto");
+			ga("send", "pageview");
+		</script>
+	</body>
 </html>
