@@ -1,0 +1,78 @@
+<div class="row">
+  <div class="col-xs-12">
+    <h2>Open address links in native map apps</h2>
+  </div>
+</div>
+<div class="row">
+  <div class="col-xs-12">
+    <div id="simplegmaps-1" class="google-map">
+      <div class="map-marker" data-title="Remi" data-address="Remi 145 W 53rd St, New York, NY, United States"></div>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-xs-12">
+    <ul class="listbuttons">
+      <li><a href="#" target="_blank" class="getGoogleMapLink">Google Maps</a>  (for smartphone)</li>
+      <li><a href="#" target="_blank" class="getAppleMapsLink">Apple Maps</a> (OSX, iOS)</li>
+      <li><a href="#" target="_blank" class="getWindowsPhone7MapLink">Maps on WindowsPhone7</a></li>
+      <li><a href="#" target="_blank" class="getDesktopMapLink">Google Maps</a> (Normal browser link)</li>
+      <li><a href="#" target="_blank" class="getNativeMapLink">Native Map App Link</a> (Intelligent link)</li>
+    </ul>
+  </div>
+</div>
+<div class="row">
+  <div class="col-xs-12">
+    <h3 class="code">javascript</h3>
+<!-- JS code -->
+
+<pre>
+<code class="javascript">
+simplegmaps.init({
+  container: '#simplegmaps-1',
+  onDrawMap: function () {
+    simplegmaps.getMarkerAddress(simplegmaps.Markers.get()[0], function(address) {
+      document.querySelector('.getGoogleMapLink').href = simplegmaps.getURL.Android(address);
+      document.querySelector('.getAppleMapsLink').href = simplegmaps.getURL.ios(address);
+      document.querySelector('.getWindowsPhone7MapLink').href = simplegmaps.getURL.WindowsPhone(address);
+      document.querySelector('.getDesktopMapLink').href = simplegmaps.getURL.Desktop(address);
+      document.querySelector('.getNativeMapLink').href = simplegmaps.getURL.Native(address);
+    })
+  }
+});
+</code>
+</pre>
+
+<!-- JS markup END -->
+  </div>
+</div>
+<div class="row">
+  <div class="col-xs-12">
+    <h3 class="code">html</h3>
+<!-- HTML markup -->
+
+<pre>
+<code class="html">
+<div id="simplegmaps-1" class="google-map">
+  <div class="map-marker" data-title="Remi" data-address="Remi 145 W 53rd St, New York, NY, United States"></div>
+</div>
+</code>
+</pre>
+
+<!-- HTML markup END -->
+  </div>
+</div>
+<script>
+simplegmaps.init({
+  container: '#simplegmaps-1',
+  onDrawMap: function () {
+    simplegmaps.getMarkerAddress(simplegmaps.Markers.get()[0], function(address) {
+      document.querySelector('.getGoogleMapLink').href = simplegmaps.getURL.Android(address);
+      document.querySelector('.getAppleMapsLink').href = simplegmaps.getURL.ios(address);
+      document.querySelector('.getWindowsPhone7MapLink').href = simplegmaps.getURL.WindowsPhone(address);
+      document.querySelector('.getDesktopMapLink').href = simplegmaps.getURL.Desktop(address);
+      document.querySelector('.getNativeMapLink').href = simplegmaps.getURL.Native(address);
+    })
+  }
+});
+</script>

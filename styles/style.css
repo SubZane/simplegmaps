@@ -1,0 +1,116 @@
+body {
+	margin-top: 40px;
+	font-family: sans-serif;
+}
+
+.map-infowindow {
+	color: #000;
+}
+
+h1 {
+	font-size: 40px;
+	margin-bottom: 40px;
+}
+
+h1 span {
+	color:#D15419;
+}
+
+h1,h2,h3 {
+	font-weight: 700;
+}
+
+.google-map {
+	height: 500px;
+	border: 15px solid #efefef;
+	outline: 1px solid #000;
+}
+
+.google-map.fs {
+	height: 800px;
+	width: 1800px;
+}
+
+.google-map .infowindow {
+	min-width: 100px;
+	min-height: 70px;
+	padding-right: 10px;
+}
+
+.row-route {
+	margin-top: 20px;
+}
+
+.map-infowindow {
+	width: 200px;
+}
+
+.map-infowindow h2 {
+	font-size: 16px;
+}
+
+.map-infowindow p {
+	font-size: 12px;
+}
+
+.btn {
+	margin-top: 25px;
+}
+
+#simplegmaps-directions {
+	margin-bottom: 50px;
+}
+
+.simplegmap-content {
+	overflow: hidden;
+	position: relative;
+}
+
+.map-custom-infowindow {
+	position: absolute;
+	display: block;
+	bottom: 30px;
+	left: 0;
+	margin-left: 15%;
+	margin-right: 15%;
+	width: 70%;
+	min-height: 120px;
+	border: 1px solid #bcb8ac;
+	background-color: #fff;
+	color: #333;
+	z-index: 10;
+	padding: 10px;
+	border-radius: 10px;
+}
+
+.map-custom-infowindow h2 {
+	margin: 0;
+	padding: 0;
+}
+
+.map-custom-infowindow .close {
+	margin-top: -5px;
+}
+
+.map-custom-infowindow img {
+	width: 200px;
+	float: left;
+	margin-right: 20px;
+}
+
+.adp-placemark {
+ 	background: #fff;
+ 	border: none;
+	color: #000;
+	cursor: pointer;
+	margin: 10px 0;
+	vertical-align: middle;
+}
+
+.adp-marker {
+	margin-right: 15px;
+}
+
+.adp-directions {
+	width: 100%;
+}
